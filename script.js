@@ -1,7 +1,48 @@
 (() => {
   "use strict";
 
-  const API_BASE = "https://mansik-santulan-score.onrender.com";
+  // ---------------------------------------------------------
+  // API Base Resolution (Local vs Remote)
+  // ---------------------------------------------------------
+  let API_BASE = "http://127.0.0.1:8000";
+
+  fetch("http://127.0.0.1:8000/", { method: "GET" })
+    .then((res) => {
+      if (res.ok) API_BASE = "http://127.0.0.1:8000";
+    })
+    .catch(() => {
+      API_BASE = "https://mansik-santulan-score.onrender.com";
+    });
+
+  // ---------------------------------------------------------
+  // DOM Elements
+  // ---------------------------------------------------------
+  const loginScreen = document.getElementById("login-screen");
+  const appDashboard = document.getElementById("app-dashboard");
+
+  const tabBtnSignin = document.getElementById("tab-btn-signin");
+  const tabBtnRegister = document.getElementById("tab-btn-register");
+  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
+  const authTitle = document.getElementById("auth-title");
+  const authSubtitle = document.getElementById("auth-subtitle");
+
+  const loginEmailInput = document.getElementById("login-email");
+  const loginPwInput = document.getElementById("login-password");
+  const togglePwBtn = document.getElementById("toggle-pw-btn");
+  const demoLoginBtn = document.getElementById("demo-login-btn");
+
+  const regNameInput = document.getElementById("reg-name");
+  const regEmailInput = document.getElementById("reg-email");
+  const regLevelSelect = document.getElementById("reg-level");
+  const regPwInput = document.getElementById("reg-password");
+  const regPwConfirmInput = document.getElementById("reg-password-confirm");
+  const regErrorMsg = document.getElementById("reg-error-msg");
+
+  const userProfileBadge = document.getElementById("user-profile-badge");
+  const userNameDisplay = document.getElementById("user-name-display");
+  const userAvatar = document.getElementById("user-avatar");
+  const logoutBtn = document.getElementById("logout-btn");
 
   const form = document.getElementById("predict-form");
   const submitBtn = document.getElementById("submit-btn");
@@ -17,20 +58,210 @@
   const scoreBandEl = document.getElementById("score-band");
   const scoreContextEl = document.getElementById("score-context");
   const gaugeFill = document.getElementById("gauge-fill");
-  const errorLabelEl = document.getElementById("error-label");
   const errorCopyEl = document.getElementById("error-copy");
 
-  const GAUGE_ARC_LENGTH = 314; // approx pi * r(100)
+  const GAUGE_ARC_LENGTH = 314;
 
   // ---------------------------------------------------------
-  // Draw tick marks on both gauges (0..10, every 2 units)
+  // User Accounts Memory Store
+  // ---------------------------------------------------------
+  function getRegisteredUsers() {
+    try {
+      return JSON.parse(localStorage.getItem("mhs_registered_users")) || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveUserAccount(userObj) {
+    const users = getRegisteredUsers();
+    users.push(userObj);
+    localStorage.setItem("mhs_registered_users", JSON.stringify(users));
+  }
+
+  // ---------------------------------------------------------
+  // STRICT INITIAL STATE: LOGIN PAGE FIRST
+  // ---------------------------------------------------------
+  function showLoginPageFirst() {
+    if (loginScreen) {
+      loginScreen.removeAttribute("hidden");
+      loginScreen.style.display = "flex";
+    }
+    if (appDashboard) {
+      appDashboard.setAttribute("hidden", "true");
+      appDashboard.style.display = "none";
+    }
+  }
+
+  showLoginPageFirst();
+
+  // ---------------------------------------------------------
+  // Auth Tab Navigation (Sign In vs Create Account)
+  // ---------------------------------------------------------
+  function switchTab(mode) {
+    if (mode === "signin") {
+      tabBtnSignin.classList.add("active");
+      tabBtnRegister.classList.remove("active");
+      loginForm.style.display = "flex";
+      registerForm.style.display = "none";
+      authTitle.textContent = "Sign In to Dashboard";
+      authSubtitle.textContent = "Sign in with your student account or create a new profile";
+    } else {
+      tabBtnRegister.classList.add("active");
+      tabBtnSignin.classList.remove("active");
+      loginForm.style.display = "none";
+      registerForm.style.display = "flex";
+      authTitle.textContent = "Create Student Profile";
+      authSubtitle.textContent = "Register your account to access the mental health calculator";
+    }
+  }
+
+  if (tabBtnSignin) tabBtnSignin.addEventListener("click", () => switchTab("signin"));
+  if (tabBtnRegister) tabBtnRegister.addEventListener("click", () => switchTab("register"));
+
+  // ---------------------------------------------------------
+  // Authentication & Session Manager
+  // ---------------------------------------------------------
+  function getInitials(name) {
+    if (!name) return "ST";
+    const parts = name.trim().split(" ");
+    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    return name.slice(0, 2).toUpperCase();
+  }
+
+  function setAuthenticatedUser(name, email, academicLevel) {
+    const displayName = name || email.split("@")[0] || "Student";
+    
+    if (userNameDisplay) userNameDisplay.textContent = displayName;
+    if (userAvatar) userAvatar.textContent = getInitials(displayName);
+
+    // If student academic level is known, pre-select it in the main calculator form!
+    const academicSelect = document.getElementById("academic_level");
+    if (academicSelect && academicLevel) {
+      academicSelect.value = academicLevel;
+    }
+
+    // Hide Auth Screen, Reveal Main Dashboard
+    if (loginScreen) {
+      loginScreen.setAttribute("hidden", "true");
+      loginScreen.style.display = "none";
+    }
+    if (appDashboard) {
+      appDashboard.removeAttribute("hidden");
+      appDashboard.style.display = "block";
+    }
+    if (userProfileBadge) {
+      userProfileBadge.style.display = "flex";
+    }
+  }
+
+  // Password Visibility Toggle
+  if (togglePwBtn && loginPwInput) {
+    togglePwBtn.addEventListener("click", () => {
+      const isPw = loginPwInput.type === "password";
+      loginPwInput.type = isPw ? "text" : "password";
+      togglePwBtn.textContent = isPw ? "Hide" : "Show";
+    });
+  }
+
+  // ---------------------------------------------------------
+  // Sign In Handler
+  // ---------------------------------------------------------
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = loginEmailInput.value.trim().toLowerCase();
+      const password = loginPwInput.value;
+
+      const registeredUsers = getRegisteredUsers();
+      const matched = registeredUsers.find((u) => u.email === email);
+
+      if (matched) {
+        if (matched.password === password) {
+          setAuthenticatedUser(matched.name, matched.email, matched.academicLevel);
+        } else {
+          alert("Incorrect password. Please try again.");
+        }
+      } else {
+        // Log in with entered username/email
+        const formattedName = email.split("@")[0].charAt(0).toUpperCase() + email.split("@")[0].slice(1);
+        setAuthenticatedUser(formattedName, email, null);
+      }
+    });
+  }
+
+  // ---------------------------------------------------------
+  // Registration / Create Account Handler
+  // ---------------------------------------------------------
+  if (registerForm) {
+    registerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      regErrorMsg.style.display = "none";
+      regErrorMsg.textContent = "";
+
+      const name = regNameInput.value.trim();
+      const email = regEmailInput.value.trim().toLowerCase();
+      const level = regLevelSelect.value;
+      const pw = regPwInput.value;
+      const pwConfirm = regPwConfirmInput.value;
+
+      if (!name || !email || !level || !pw || !pwConfirm) {
+        regErrorMsg.textContent = "Please fill out all fields.";
+        regErrorMsg.style.display = "block";
+        return;
+      }
+
+      if (pw.length < 6) {
+        regErrorMsg.textContent = "Password must be at least 6 characters.";
+        regErrorMsg.style.display = "block";
+        return;
+      }
+
+      if (pw !== pwConfirm) {
+        regErrorMsg.textContent = "Passwords do not match.";
+        regErrorMsg.style.display = "block";
+        return;
+      }
+
+      const existingUsers = getRegisteredUsers();
+      if (existingUsers.some((u) => u.email === email)) {
+        regErrorMsg.textContent = "An account with this email already exists. Please sign in.";
+        regErrorMsg.style.display = "block";
+        return;
+      }
+
+      // Save user account
+      const newUser = { name, email, academicLevel: level, password: pw };
+      saveUserAccount(newUser);
+
+      // Authenticate and open dashboard immediately
+      setAuthenticatedUser(name, email, level);
+    });
+  }
+
+  // Quick Demo Access
+  if (demoLoginBtn) {
+    demoLoginBtn.addEventListener("click", () => {
+      setAuthenticatedUser("Alex Student", "alex.student@university.edu", "Undergraduate");
+    });
+  }
+
+  // Logout Handler
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      showLoginPageFirst();
+    });
+  }
+
+  // ---------------------------------------------------------
+  // SVG Gauge Ticks
   // ---------------------------------------------------------
   function drawTicks() {
     document.querySelectorAll(".gauge-ticks").forEach((g) => {
       g.innerHTML = "";
       const cx = 120, cy = 140, rOuter = 100, rInner = 90;
       for (let i = 0; i <= 10; i += 2) {
-        const angle = Math.PI - (i / 10) * Math.PI; // 180deg -> 0deg
+        const angle = Math.PI - (i / 10) * Math.PI;
         const x1 = cx + rOuter * Math.cos(angle);
         const y1 = cy - rOuter * Math.sin(angle);
         const x2 = cx + rInner * Math.cos(angle);
@@ -47,24 +278,26 @@
   drawTicks();
 
   // ---------------------------------------------------------
-  // Segmented control (stress_level) wiring
+  // Segmented Buttons (Stress Level)
   // ---------------------------------------------------------
   const segGroup = document.getElementById("stress_level_group");
   const stressHiddenInput = document.getElementById("stress_level");
-  segGroup.querySelectorAll(".seg-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      segGroup.querySelectorAll(".seg-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      stressHiddenInput.value = btn.dataset.value;
-      clearFieldError(stressHiddenInput);
+  if (segGroup && stressHiddenInput) {
+    segGroup.querySelectorAll(".seg-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        segGroup.querySelectorAll(".seg-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        stressHiddenInput.value = btn.dataset.value;
+        clearFieldError(stressHiddenInput);
+      });
     });
-  });
+  }
 
   // ---------------------------------------------------------
-  // Field-level error helpers
+  // Form Field Validation
   // ---------------------------------------------------------
   function fieldWrapper(input) {
-    return input.closest(".field");
+    return input ? input.closest(".field") : null;
   }
 
   function setFieldError(input, message) {
@@ -84,16 +317,13 @@
   }
 
   function clearAllErrors() {
+    if (!form) return;
     form.querySelectorAll(".field").forEach((f) => f.classList.remove("field-error"));
     form.querySelectorAll(".error-msg").forEach((m) => (m.textContent = ""));
   }
 
-  // ---------------------------------------------------------
-  // Client-side validation mirroring the StudentData model
-  // ---------------------------------------------------------
   function validate(payload) {
     const errors = [];
-
     const numericChecks = [
       ["age", 10, 100],
       ["avg_daily_usage_hours", 0, 24],
@@ -107,29 +337,26 @@
       const input = document.getElementById(key);
       const val = payload[key];
       if (val === "" || val === null || Number.isNaN(val)) {
-        errors.push([input, "This field is required."]);
+        errors.push([input, "Required field"]);
       } else if (val < min || val > max) {
-        errors.push([input, `Must be between ${min} and ${max === Infinity ? "0+" : max}.`]);
+        errors.push([input, `Value must be between ${min} and ${max === Infinity ? "0+" : max}`]);
       }
     });
 
     ["gender", "country", "academic_level", "most_used_platform", "purpose_of_use"].forEach((key) => {
       const input = document.getElementById(key);
       if (!payload[key] || String(payload[key]).trim() === "") {
-        errors.push([input, "This field is required."]);
+        errors.push([input, "Selection required"]);
       }
     });
 
     if (!payload.stress_level) {
-      errors.push([stressHiddenInput, "Pick a stress level."]);
+      errors.push([stressHiddenInput, "Select a stress level"]);
     }
 
     return errors;
   }
 
-  // ---------------------------------------------------------
-  // Gather form data into the exact StudentData shape
-  // ---------------------------------------------------------
   function collectPayload() {
     const fd = new FormData(form);
     return {
@@ -148,35 +375,36 @@
     };
   }
 
-  // ---------------------------------------------------------
-  // UI state switching
-  // ---------------------------------------------------------
   function showState(name) {
-    [stateIdle, stateLoading, stateResult, stateError].forEach((el) => (el.hidden = true));
-    ({ idle: stateIdle, loading: stateLoading, result: stateResult, error: stateError }[name]).hidden = false;
+    [stateIdle, stateLoading, stateResult, stateError].forEach((el) => {
+      if (el) el.hidden = true;
+    });
+    const target = { idle: stateIdle, loading: stateLoading, result: stateResult, error: stateError }[name];
+    if (target) target.hidden = false;
   }
 
   function setSubmitting(isSubmitting) {
-    submitBtn.disabled = isSubmitting;
-    submitBtn.classList.toggle("loading", isSubmitting);
+    if (submitBtn) {
+      submitBtn.disabled = isSubmitting;
+    }
   }
 
   function bandFor(score) {
     if (score < 4) {
       return {
-        label: "Signal: strained",
-        context: "Your responses suggest elevated strain right now. Small shifts in sleep or screen time can go a long way.",
+        label: "Elevated Strain Signal",
+        context: "Model indicates lifestyle parameters associated with higher stress and screen fatigue.",
       };
     }
     if (score < 7) {
       return {
-        label: "Signal: balanced",
-        context: "Your rhythm looks fairly steady, with some room to recover and reset.",
+        label: "Moderate Wellness Balance",
+        context: "Habits align with a moderate baseline, with opportunities to optimize sleep and digital balance.",
       };
     }
     return {
-      label: "Signal: strong",
-      context: "Your habits point to a well-supported, resilient baseline. Keep it up.",
+      label: "Strong Wellness Baseline",
+      context: "Parameters reflect balanced sleep, active routine, and healthy digital boundaries.",
     };
   }
 
@@ -188,117 +416,81 @@
     scoreBandEl.textContent = label;
     scoreContextEl.textContent = context;
 
-    // reset then animate the arc fill on next frame
-    gaugeFill.style.transition = "none";
-    gaugeFill.style.strokeDashoffset = String(GAUGE_ARC_LENGTH);
-    requestAnimationFrame(() => {
-      gaugeFill.style.transition = "";
-      const offset = GAUGE_ARC_LENGTH * (1 - clamped / 10);
-      gaugeFill.style.strokeDashoffset = String(offset);
-    });
+    if (gaugeFill) {
+      gaugeFill.style.transition = "none";
+      gaugeFill.style.strokeDashoffset = String(GAUGE_ARC_LENGTH);
+      requestAnimationFrame(() => {
+        gaugeFill.style.transition = "";
+        const offset = GAUGE_ARC_LENGTH * (1 - clamped / 10);
+        gaugeFill.style.strokeDashoffset = String(offset);
+      });
+    }
 
     showState("result");
   }
 
-  function renderError(label, copy) {
-    errorLabelEl.textContent = label;
-    errorCopyEl.textContent = copy;
+  function renderError(copy) {
+    if (errorCopyEl) errorCopyEl.textContent = copy;
     showState("error");
   }
 
   // ---------------------------------------------------------
-  // Parse FastAPI / Pydantic 422 error responses into
-  // field-level messages where possible
+  // Main Calculator Submit
   // ---------------------------------------------------------
-  function applyServerValidationErrors(detail) {
-    if (!Array.isArray(detail)) return false;
-    let matched = false;
-    detail.forEach((err) => {
-      const field = Array.isArray(err.loc) ? err.loc[err.loc.length - 1] : null;
-      const input = field ? document.getElementById(field) : null;
-      const target = field === "stress_level" ? stressHiddenInput : input;
-      if (target) {
-        setFieldError(target, err.msg || "Invalid value.");
-        matched = true;
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearAllErrors();
+
+      const payload = collectPayload();
+      const clientErrors = validate(payload);
+
+      if (clientErrors.length > 0) {
+        clientErrors.forEach(([input, msg]) => input && setFieldError(input, msg));
+        clientErrors[0][0]?.focus?.();
+        return;
+      }
+
+      setSubmitting(true);
+      showState("loading");
+
+      try {
+        const res = await fetch(`${API_BASE}/predict`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          let detailMsg = `API status code ${res.status}.`;
+          const body = await res.json().catch(() => null);
+          if (body && typeof body.detail === "string") detailMsg = body.detail;
+          renderError(detailMsg);
+          return;
+        }
+
+        const data = await res.json();
+        if (typeof data.predicted_mental_health_score !== "number") {
+          renderError("Score value missing or invalid in API response.");
+          return;
+        }
+
+        renderResult(data.predicted_mental_health_score);
+      } catch (err) {
+        renderError(
+          `Unable to reach API server at ${API_BASE}. Verify FastAPI backend is active.`
+        );
+      } finally {
+        setSubmitting(false);
       }
     });
-    return matched;
+
+    form.querySelectorAll("input, select").forEach((el) => {
+      el.addEventListener("input", () => clearFieldError(el));
+      el.addEventListener("change", () => clearFieldError(el));
+    });
   }
 
-  // ---------------------------------------------------------
-  // Submit handler
-  // ---------------------------------------------------------
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    clearAllErrors();
-
-    const payload = collectPayload();
-    const clientErrors = validate(payload);
-
-    if (clientErrors.length > 0) {
-      clientErrors.forEach(([input, msg]) => input && setFieldError(input, msg));
-      clientErrors[0][0]?.focus?.();
-      return;
-    }
-
-    setSubmitting(true);
-    showState("loading");
-
-    try {
-      const res = await fetch(`${API_BASE}/predict`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.status === 422) {
-        const body = await res.json().catch(() => null);
-        const matched = body && applyServerValidationErrors(body.detail);
-        renderError(
-          "Check your inputs",
-          matched
-            ? "The API rejected a few fields — details are marked on the form."
-            : "The API rejected this submission. Please review your inputs and try again."
-        );
-        return;
-      }
-
-      if (!res.ok) {
-        let detailMsg = `The API responded with status ${res.status}.`;
-        const body = await res.json().catch(() => null);
-        if (body && typeof body.detail === "string") detailMsg = body.detail;
-        renderError("Prediction failed", detailMsg);
-        return;
-      }
-
-      const data = await res.json();
-      if (typeof data.predicted_mental_health_score !== "number") {
-        renderError("Unexpected response", "The API responded, but the score was missing or malformed.");
-        return;
-      }
-
-      renderResult(data.predicted_mental_health_score);
-    } catch (err) {
-      renderError(
-        "Can't reach the server",
-        `Couldn't connect to ${API_BASE}. Make sure the backend is running (uvicorn main:app --port 2200 --reload) and reachable from this page.`
-      );
-    } finally {
-      setSubmitting(false);
-    }
-  });
-
-  // live-clear errors as the user edits
-  form.querySelectorAll("input, select").forEach((el) => {
-    el.addEventListener("input", () => clearFieldError(el));
-    el.addEventListener("change", () => clearFieldError(el));
-  });
-
-  resetBtn.addEventListener("click", () => {
-    showState("idle");
-  });
-
-  errorRetryBtn.addEventListener("click", () => {
-    showState("idle");
-  });
+  if (resetBtn) resetBtn.addEventListener("click", () => showState("idle"));
+  if (errorRetryBtn) errorRetryBtn.addEventListener("click", () => showState("idle"));
 })();
