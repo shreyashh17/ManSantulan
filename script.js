@@ -2,9 +2,9 @@
   "use strict";
 
   // ---------------------------------------------------------
-  // API Base Resolution (Local vs Remote)
+  // API Base Resolution (Deployed Render + Local Fallback)
   // ---------------------------------------------------------
-  let API_BASE = "http://127.0.0.1:8000";
+  let API_BASE = "https://mansik-santulan-score.onrender.com";
 
   fetch("http://127.0.0.1:8000/", { method: "GET" })
     .then((res) => {
