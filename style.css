@@ -304,17 +304,25 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 72px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  gap: var(--space-4);
 }
 
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 12px;
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
+  flex-shrink: 0;
+  margin-right: 32px;
+  text-decoration: none;
 }
 
 .nav-brand-icon {
@@ -327,13 +335,16 @@ button {
   color: var(--sage-dark);
   border-radius: var(--radius-md);
   font-size: 1.2rem;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: none;
   align-items: center;
-  gap: var(--space-6);
+  gap: 22px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: 900px) {
@@ -344,12 +355,29 @@ button {
 
 .nav-link {
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.94rem;
   color: var(--text-secondary);
   transition: color var(--transition-fast);
-  padding: 8px 6px;
+  padding: 6px 4px;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.nav-badge-live {
+  display: inline-flex;
+  align-items: center;
+  background: var(--sage-light);
+  color: var(--sage-dark);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .nav-link::after {
@@ -389,13 +417,33 @@ button {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 12px;
+  flex-shrink: 0;
+  margin-left: 24px;
+}
+
+.auth-btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-auth-btn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  min-height: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 /* Control Pills / Round Action Buttons */
 .action-icon-btn {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
@@ -406,6 +454,7 @@ button {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .action-icon-btn:hover {
@@ -468,17 +517,21 @@ button {
 .profile-btn {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: 4px 12px 4px 6px;
+  gap: 8px;
+  padding: 3px 12px 3px 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-default);
   background: var(--bg-card);
-  min-height: 44px;
+  min-height: 38px;
+  height: 38px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .profile-avatar {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--radius-full);
   background: var(--lavender-light);
   color: var(--lavender-dark);
@@ -486,7 +539,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
 }
 
 .profile-name {

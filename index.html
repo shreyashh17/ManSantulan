@@ -44,8 +44,8 @@
       <nav class="nav-links" aria-label="Primary Navigation">
         <a href="/app" class="nav-link active" data-i18n="nav.home">Home</a>
         <a href="/dashboard" class="nav-link">
-          <span style="background: var(--sage-light); color: var(--sage-dark); font-size: 0.72rem; font-weight: 700; padding: 2px 6px; border-radius: var(--radius-full); margin-right: 4px;">Live</span>
-          Dashboard
+          <span>Dashboard</span>
+          <span class="nav-badge-live">Live</span>
         </a>
         <a href="/assessment" class="nav-link">Assessment</a>
         <a href="/insights" class="nav-link">Insights</a>
@@ -73,16 +73,14 @@
           <i data-lucide="moon" id="theme-icon"></i>
         </button>
 
-        <!-- Direct Sign In / Register Buttons -->
-        <a href="/login" class="btn btn-secondary btn-sm" style="font-size: 0.85rem; padding: 6px 14px; min-height: 38px;">
-          Sign In
-        </a>
-        <a href="/register" class="btn btn-primary btn-sm" style="font-size: 0.85rem; padding: 6px 14px; min-height: 38px;">
-          Register
-        </a>
+        <!-- Direct Sign In / Register Buttons (Guest State) -->
+        <div class="auth-btn-group" id="nav-auth-buttons">
+          <a href="/login" class="btn btn-secondary btn-sm nav-auth-btn">Sign In</a>
+          <a href="/register" class="btn btn-primary btn-sm nav-auth-btn">Register</a>
+        </div>
 
-        <!-- User Profile Dropdown -->
-        <div class="profile-wrapper">
+        <!-- User Profile Dropdown (Authenticated State) -->
+        <div class="profile-wrapper" id="nav-profile-wrapper">
           <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-label="User Profile Menu">
             <span class="profile-avatar" id="nav-user-avatar">AS</span>
             <span class="profile-name" id="nav-user-name">Alex</span>

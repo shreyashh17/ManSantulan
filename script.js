@@ -73,6 +73,17 @@
     if (heroGreetingEl) {
       heroGreetingEl.textContent = `${timeGreeting}`;
     }
+
+    // Toggle between auth buttons (Sign In / Register) and user profile pill (Alex)
+    const navAuthButtons = document.getElementById("nav-auth-buttons");
+    const navProfileWrapper = document.getElementById("nav-profile-wrapper");
+    if (currentSession && currentSession.name) {
+      if (navAuthButtons) navAuthButtons.style.display = "none";
+      if (navProfileWrapper) navProfileWrapper.style.display = "flex";
+    } else {
+      if (navAuthButtons) navAuthButtons.style.display = "inline-flex";
+      if (navProfileWrapper) navProfileWrapper.style.display = "none";
+    }
   }
 
   // --------------------------------------------------------------------------
