@@ -2333,7 +2333,8 @@ button {
 .help-fab {
   position: fixed;
   bottom: 24px;
-  right: 24px;
+  left: 24px;
+  right: auto;
   z-index: 990;
   display: flex;
   align-items: center;
@@ -2357,6 +2358,9 @@ button {
 @media (max-width: 767px) {
   .help-fab {
     bottom: 84px; /* avoid mobile bottom nav overlap */
+    left: 16px;
+    padding: 10px 16px;
+    font-size: 0.88rem;
   }
 }
 
