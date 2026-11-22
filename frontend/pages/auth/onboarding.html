@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personalize Your Journey — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body style="min-height: 100vh; background: var(--bg-primary); padding: var(--space-8) var(--space-4);">
+
+  <div class="container" style="max-width: 680px;">
+    
+    <div class="card card-lg" style="box-shadow: var(--shadow-xl); border-radius: var(--radius-2xl);">
+      
+      <div style="text-align: center; margin-bottom: var(--space-8);">
+        <span class="badge badge-sage" style="margin-bottom: var(--space-2);">✨ Step 2 of 2: Personalization</span>
+        <h1 style="font-size: 1.8rem; margin-bottom: 6px;">Shape Your Wellness Sanctuary</h1>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">Customize your language and goals so ManSantulan can offer relevant, non-judgmental guidance.</p>
+      </div>
+
+      <form id="onboarding-form">
+        
+        <!-- Language Selection -->
+        <div style="margin-bottom: var(--space-6);">
+          <label class="form-label" style="display: block; margin-bottom: var(--space-2);">1. Choose Your Preferred Language</label>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3);">
+            <label class="card card-sm" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center; border: 2px solid var(--sage);">
+              <input type="radio" name="lang" value="en" checked style="accent-color: var(--sage); margin-bottom: 4px;" />
+              <strong style="font-size: 0.95rem;">English</strong>
+              <small style="color: var(--text-muted);">Standard</small>
+            </label>
+            <label class="card card-sm" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center;">
+              <input type="radio" name="lang" value="hi" style="accent-color: var(--sage); margin-bottom: 4px;" />
+              <strong style="font-size: 0.95rem; font-family: var(--font-devanagari);">हिंदी</strong>
+              <small style="color: var(--text-muted);">Hindi</small>
+            </label>
+            <label class="card card-sm" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; text-align: center;">
+              <input type="radio" name="lang" value="mr" style="accent-color: var(--sage); margin-bottom: 4px;" />
+              <strong style="font-size: 0.95rem; font-family: var(--font-devanagari);">मराठी</strong>
+              <small style="color: var(--text-muted);">Marathi</small>
+            </label>
+          </div>
+        </div>
+
+        <!-- Goals Selection -->
+        <div style="margin-bottom: var(--space-6);">
+          <label class="form-label" style="display: block; margin-bottom: var(--space-2);">2. What Are Your Primary Wellness Intentions? (Select all that apply)</label>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3);">
+            <label class="card card-sm" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" name="goals" value="Better Sleep" checked style="accent-color: var(--sage); width: 18px; height: 18px;" />
+              <span style="font-size: 0.9rem;">🌙 Better Night Sleep</span>
+            </label>
+            <label class="card card-sm" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" name="goals" value="Reduce Screen Time" checked style="accent-color: var(--sage); width: 18px; height: 18px;" />
+              <span style="font-size: 0.9rem;">📵 Reduce Screen Time</span>
+            </label>
+            <label class="card card-sm" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" name="goals" value="Exam Calm" style="accent-color: var(--sage); width: 18px; height: 18px;" />
+              <span style="font-size: 0.9rem;">⚡ Ease Exam Anxiety</span>
+            </label>
+            <label class="card card-sm" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" name="goals" value="Fewer Unlocks" style="accent-color: var(--sage); width: 18px; height: 18px;" />
+              <span style="font-size: 0.9rem;">🔕 Curb Compulsive Unlocks</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Reminder Cadence -->
+        <div style="margin-bottom: var(--space-8);">
+          <label class="form-label" style="display: block; margin-bottom: var(--space-2);">3. Mindful Check-in Frequency</label>
+          <select id="onboarding-reminders" class="form-select">
+            <option value="daily" selected>Daily Gentle Evening Reminder (9:00 PM IST)</option>
+            <option value="weekly">Weekly Sunday Equilibrium Summary</option>
+            <option value="none">No Automated Reminders (Self-Paced)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="onboard-submit" style="width: 100%; min-height: 52px; font-size: 1.05rem;">
+          <span>Enter My Dashboard</span>
+          <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script>
+    const form = document.getElementById("onboarding-form");
+    const btn = document.getElementById("onboard-submit");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.innerHTML = "<span>Setting up your dashboard...</span>";
+
+      const lang = document.querySelector('input[name="lang"]:checked').value;
+      const goals = Array.from(document.querySelectorAll('input[name="goals"]:checked')).map(el => el.value);
+      const reminders = document.getElementById("onboarding-reminders").value;
+
+      try {
+        await window.api.updateOnboarding(lang, goals, reminders);
+        window.location.href = "/dashboard";
+      } catch (err) {
+        // Fallback for guest testing
+        window.location.href = "/dashboard";
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) window.lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

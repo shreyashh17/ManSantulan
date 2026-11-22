@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Security — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <a href="/" class="sidebar-brand-title">
+          <span style="font-size: 1.4rem;">🌿</span>
+          <span class="sidebar-brand-text">ManSantulan</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav-section">
+        <div class="sidebar-heading">Sanctuary</div>
+        <a href="/dashboard" class="sidebar-link">
+          <i data-lucide="layout-dashboard"></i>
+          <span class="sidebar-link-text">Dashboard</span>
+        </a>
+        <a href="/assessment" class="sidebar-link">
+          <i data-lucide="sparkles"></i>
+          <span class="sidebar-link-text">AI Assessment</span>
+        </a>
+        <a href="/wellness" class="sidebar-link">
+          <i data-lucide="heart"></i>
+          <span class="sidebar-link-text">Wellness Toolkit</span>
+        </a>
+
+        <div class="sidebar-heading" style="margin-top: var(--space-4);">Account</div>
+        <a href="/profile" class="sidebar-link">
+          <i data-lucide="user"></i>
+          <span class="sidebar-link-text">My Profile</span>
+        </a>
+        <a href="/security" class="sidebar-link active">
+          <i data-lucide="shield"></i>
+          <span class="sidebar-link-text">Security</span>
+        </a>
+        <a href="/privacy-center" class="sidebar-link">
+          <i data-lucide="lock"></i>
+          <span class="sidebar-link-text">Privacy Center</span>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle Sidebar">
+            <i data-lucide="menu"></i>
+          </button>
+          <nav class="breadcrumbs" aria-label="Breadcrumb" style="margin-bottom: 0;">
+            <a href="/dashboard">Dashboard</a>
+            <span class="breadcrumb-separator">/</span>
+            <span aria-current="page">Security</span>
+          </nav>
+        </div>
+        <div class="topbar-actions">
+          <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+            <i data-lucide="moon" id="theme-icon"></i>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="shell-logout-btn">Log Out</button>
+        </div>
+      </header>
+
+      <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16); max-width: 720px;">
+        <h1 style="font-size: 1.8rem; margin-bottom: var(--space-6);">Security &amp; Password</h1>
+
+        <div id="sec-alert" class="alert alert-warning" style="display: none;"></div>
+
+        <!-- Password Change Card -->
+        <div class="card card-lg" style="margin-bottom: var(--space-8);">
+          <h2 style="font-size: 1.25rem; margin-bottom: var(--space-4);">Change Account Password</h2>
+          
+          <form id="pwd-change-form">
+            <div class="form-group">
+              <label class="form-label" for="old-pwd">Current Password</label>
+              <input type="password" id="old-pwd" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="new-pwd">New Password (min. 8 characters)</label>
+              <input type="password" id="new-pwd" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="confirm-new-pwd">Confirm New Password</label>
+              <input type="password" id="confirm-new-pwd" class="form-input" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="pwd-btn">
+              <span>Update Password</span>
+              <i data-lucide="lock" style="width: 16px; height: 16px;"></i>
+            </button>
+          </form>
+          <div id="pwd-success" class="alert alert-success" style="display: none; margin-top: var(--space-4);">
+            Password changed successfully.
+          </div>
+        </div>
+
+        <!-- Security Features Overview -->
+        <div class="card card-sm">
+          <h3 style="font-size: 1.1rem; margin-bottom: var(--space-2);">🛡️ Active Account Protections</h3>
+          <ul style="padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px;">
+            <li><strong>Bcrypt Hashing:</strong> Salting with 12 computational rounds.</li>
+            <li><strong>Auto-Lockout:</strong> Account locks for 15 minutes after 5 consecutive failed attempts to thwart brute-force.</li>
+            <li><strong>JWT Refresh Rotation:</strong> 30-minute access tokens with rotating 7-day refresh tokens.</li>
+          </ul>
+        </div>
+      </main>
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+  <script>
+    document.getElementById("pwd-change-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById("sec-alert");
+      alertBox.style.display = "none";
+      const oldP = document.getElementById("old-pwd").value;
+      const newP = document.getElementById("new-pwd").value;
+      const confP = document.getElementById("confirm-new-pwd").value;
+
+      if (newP !== confP) {
+        alertBox.textContent = "New passwords do not match.";
+        alertBox.style.display = "block";
+        return;
+      }
+
+      try {
+        await window.api.changePassword(oldP, newP);
+        document.getElementById("pwd-success").style.display = "block";
+        document.getElementById("pwd-change-form").reset();
+      } catch (err) {
+        alertBox.textContent = err.message || "Failed to change password.";
+        alertBox.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

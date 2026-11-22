@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — ManSantulan (मन संतुलन)</title>
+  <meta name="description" content="Create a student account on ManSantulan to calculate and track your mental wellness and digital balance." />
+  
+  <!-- Google Fonts CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="auth-page">
+    
+    <!-- LEFT SIDE: CALM GRADIENT & AFFIRMATIONS -->
+    <section class="auth-left" aria-hidden="true">
+      <div class="auth-blob auth-blob-1"></div>
+      <div class="auth-blob auth-blob-2"></div>
+
+      <div class="auth-left-content">
+        <div class="auth-brand-badge">
+          <span>🌿</span>
+          <span>ManSantulan • मन संतुलन</span>
+        </div>
+        <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: var(--space-4); color: #fff;">
+          Start your journey<br>towards mindful balance.
+        </h2>
+        <p style="font-size: 1.05rem; opacity: 0.9; margin-bottom: var(--space-8);">
+          Gain confidential, data-informed insights into how your study, screen habits, and sleep intertwine.
+        </p>
+
+        <div class="auth-quote-box">
+          <p class="auth-affirmation-text" id="affirmation-text">
+            "Prioritizing your peace of mind is the greatest investment in your education."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDE: REGISTRATION FORM CARD -->
+    <section class="auth-right">
+      <div class="auth-card">
+        
+        <header class="auth-header">
+          <div class="auth-logo-row">
+            <span class="nav-brand-icon">🌿</span>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem;">ManSantulan</span>
+          </div>
+          <h1 class="auth-title">Create Profile</h1>
+          <p class="auth-subtitle">Join thousands of students building healthier digital boundaries.</p>
+        </header>
+
+        <div class="auth-alert auth-alert-error" id="reg-alert" role="alert"></div>
+
+        <form class="auth-form" id="register-form" novalidate>
+          
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Full Name</label>
+            <input 
+              type="text" 
+              class="form-input" 
+              id="reg-name" 
+              placeholder="e.g. Rahul Sharma" 
+              required 
+              autocomplete="name" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-email">Student Email / ID</label>
+            <input 
+              type="email" 
+              class="form-input" 
+              id="reg-email" 
+              placeholder="rahul@university.edu" 
+              required 
+              autocomplete="email" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-age-group">Age Group</label>
+            <select class="form-select" id="reg-age-group" required>
+              <option value="" disabled selected hidden>Select your age bracket</option>
+              <option value="Under 18">Under 18</option>
+              <option value="18-24" selected>18 – 24 (College / University)</option>
+              <option value="25-34">25 – 34 (Graduate / Research)</option>
+              <option value="35+">35+ (Continuing Education)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-password">Password</label>
+            <div class="pw-wrapper">
+              <input 
+                type="password" 
+                class="form-input" 
+                id="reg-password" 
+                placeholder="Create a secure password" 
+                required 
+                autocomplete="new-password" 
+              />
+              <button type="button" class="pw-toggle-btn" id="reg-pw-toggle" aria-label="Toggle password visibility">
+                <i data-lucide="eye" id="reg-pw-icon"></i>
+              </button>
+            </div>
+            
+            <!-- Live Password Strength Meter -->
+            <div class="pw-strength-container" aria-live="polite">
+              <div class="pw-strength-bars">
+                <div class="pw-strength-bar" id="bar-1"></div>
+                <div class="pw-strength-bar" id="bar-2"></div>
+                <div class="pw-strength-bar" id="bar-3"></div>
+                <div class="pw-strength-bar" id="bar-4"></div>
+              </div>
+              <span class="pw-strength-label" id="strength-label">Enter a password (min. 6 characters)</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-confirm-password">Confirm Password</label>
+            <input 
+              type="password" 
+              class="form-input" 
+              id="reg-confirm-password" 
+              placeholder="Repeat your password" 
+              required 
+              autocomplete="new-password" 
+            />
+          </div>
+
+          <div class="auth-options-row">
+            <label class="checkbox-wrap">
+              <input type="checkbox" id="terms-agree" required />
+              <span style="font-size: 0.85rem;">I understand this tool is for awareness, not medical diagnosis</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="reg-submit-btn">
+            <span>Create Account &amp; Access Dashboard</span>
+          </button>
+
+          <div class="auth-divider">
+            <span>OR</span>
+          </div>
+
+          <button type="button" class="btn btn-secondary btn-full" id="google-reg-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.15z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.27 21.39 7.35 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.94 0 12s.45 3.84 1.25 5.42l4.03-3.15z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.61 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+            </svg>
+            <span>Sign up with Google</span>
+          </button>
+
+        </form>
+
+        <footer class="auth-footer">
+          <span>Already have a profile? </span>
+          <a href="login.html" class="auth-link">Sign In</a>
+        </footer>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="auth.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Rotating affirmations
+    const affirmations = [
+      "Prioritizing your peace of mind is the greatest investment in your education.",
+      "You have the power to create healthy boundaries with your screen.",
+      "Consistency in rest brings excellence in learning.",
+      "Be gentle with yourself while balancing modern student pressures."
+    ];
+    let affIndex = 0;
+    const affEl = document.getElementById("affirmation-text");
+    setInterval(() => {
+      if (!affEl) return;
+      affEl.style.opacity = "0";
+      setTimeout(() => {
+        affIndex = (affIndex + 1) % affirmations.length;
+        affEl.textContent = `"${affirmations[affIndex]}"`;
+        affEl.style.opacity = "1";
+      }, 400);
+    }, 6000);
+
+    // Password visibility toggle
+    const pwToggle = document.getElementById("reg-pw-toggle");
+    const pwField = document.getElementById("reg-password");
+    if (pwToggle && pwField) {
+      pwToggle.addEventListener("click", () => {
+        const isPw = pwField.type === "password";
+        pwField.type = isPw ? "text" : "password";
+        pwToggle.innerHTML = isPw ? '<i data-lucide="eye-off"></i>' : '<i data-lucide="eye"></i>';
+        lucide.createIcons();
+      });
+    }
+
+    // Password strength meter updates
+    const strengthLabel = document.getElementById("strength-label");
+    const bars = [
+      document.getElementById("bar-1"),
+      document.getElementById("bar-2"),
+      document.getElementById("bar-3"),
+      document.getElementById("bar-4")
+    ];
+
+    pwField.addEventListener("input", () => {
+      const val = pwField.value;
+      const strength = window.ManSantulanAuth.calculatePasswordStrength(val);
+      strengthLabel.textContent = `Strength: ${strength.label}`;
+      strengthLabel.style.color = strength.color;
+
+      bars.forEach((bar, idx) => {
+        if (idx < strength.score) {
+          bar.style.backgroundColor = strength.color;
+        } else {
+          bar.style.backgroundColor = "var(--border-default)";
+        }
+      });
+    });
+
+    // Form submission
+    const form = document.getElementById("register-form");
+    const alertBox = document.getElementById("reg-alert");
+    const submitBtn = document.getElementById("reg-submit-btn");
+
+    function showAlert(msg) {
+      alertBox.textContent = msg;
+      alertBox.classList.add("visible");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      alertBox.classList.remove("visible");
+
+      const name = document.getElementById("reg-name").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const ageGroup = document.getElementById("reg-age-group").value;
+      const password = document.getElementById("reg-password").value;
+      const confirmPassword = document.getElementById("reg-confirm-password").value;
+      const agree = document.getElementById("terms-agree").checked;
+
+      if (!name || !email || !ageGroup || !password) {
+        showAlert("Please fill in all required fields.");
+        return;
+      }
+      if (password.length < 6) {
+        showAlert("Password must be at least 6 characters long.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        showAlert("Passwords do not match. Please re-enter.");
+        return;
+      }
+      if (!agree) {
+        showAlert("Please acknowledge the educational awareness terms.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating Account...";
+
+      try {
+        await window.ManSantulanAuth.registerUser({ name, email, password, ageGroup });
+        window.location.href = "index.html";
+      } catch (err) {
+        showAlert(err.message || "Failed to create account.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account & Access Dashboard";
+      }
+    });
+
+    document.getElementById("google-reg-btn").addEventListener("click", () => {
+      window.ManSantulanAuth.loginDemoUser();
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

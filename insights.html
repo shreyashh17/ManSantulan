@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Wellness Data Observatory — ManSantulan (मन संतुलन)</title>
+  <meta name="description" content="Explore empirical student wellness patterns, screen time correlations, and mental health trends across 5,000+ real records." />
+  
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- STICKY NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-brand" aria-label="ManSantulan Home">
+        <span class="nav-brand-icon" aria-hidden="true">🌿</span>
+        <div>
+          <span style="font-weight: 700;">ManSantulan</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1; font-family: var(--font-devanagari);">मन संतुलन</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+        <a href="assessment.html" class="nav-link" data-i18n="nav.assessment">Assessment</a>
+        <a href="insights.html" class="nav-link active" data-i18n="nav.insights">Insights</a>
+        <a href="wellness.html" class="nav-link" data-i18n="nav.wellness">Wellness</a>
+        <a href="resources.html" class="nav-link" data-i18n="nav.resources">Resources</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-dropdown-wrapper">
+          <button type="button" class="action-icon-btn" id="lang-btn" aria-label="Change Language">
+            <i data-lucide="globe"></i>
+          </button>
+          <div class="lang-menu" id="lang-menu">
+            <button type="button" class="lang-option active" data-lang="en">English (EN)</button>
+            <button type="button" class="lang-option" data-lang="hi">हिंदी (HI)</button>
+            <button type="button" class="lang-option" data-lang="mr">मराठी (MR)</button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn" id="theme-btn" aria-label="Toggle Theme">
+          <i data-lucide="moon" id="theme-icon"></i>
+        </button>
+
+        <div class="profile-wrapper">
+          <button type="button" class="profile-btn" id="profile-btn">
+            <span class="profile-avatar" id="nav-user-avatar">AS</span>
+            <span class="profile-name" id="nav-user-name">Alex</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <button type="button" class="profile-menu-item danger" id="nav-logout-btn">
+              <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="nav.logout">Log Out</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Home</a>
+      <a href="assessment.html" class="mobile-nav-link" data-i18n="nav.assessment">Assessment</a>
+      <a href="insights.html" class="mobile-nav-link" data-i18n="nav.insights">Insights</a>
+      <a href="wellness.html" class="mobile-nav-link" data-i18n="nav.wellness">Wellness</a>
+      <a href="resources.html" class="mobile-nav-link" data-i18n="nav.resources">Resources</a>
+    </div>
+  </header>
+
+  <!-- SUBPAGE INTRO BANNER -->
+  <header class="subpage-header" id="main-content">
+    <div class="container reveal-on-scroll">
+      <span class="subpage-badge">📊 Empirical Data Observatory</span>
+      <h1 class="subpage-title">Student Wellness Data Observatory</h1>
+      <p class="subpage-desc">
+        Comprehensive statistical analysis derived from 5,000+ student lifestyle and digital health survey records. Explore how daily screen hours, phone unlocks, and sleep architecture correlate with academic stamina.
+      </p>
+    </div>
+  </header>
+
+  <!-- MAIN INSIGHTS CONTENT -->
+  <main class="section" style="padding-top: var(--space-8);">
+    <div class="container">
+      
+      <!-- Key Findings 4-Card Summary -->
+      <div class="hero-stats-banner reveal-on-scroll" style="margin-top: 0; margin-bottom: var(--space-8);">
+        <div class="hero-stat-card card-hover-lift">
+          <div class="hero-stat-num" style="color: var(--coral-dark);">-35%</div>
+          <div class="hero-stat-label">Sleep Quality Decline past 5h Screen Time</div>
+        </div>
+        <div class="hero-stat-card card-hover-lift">
+          <div class="hero-stat-num" style="color: var(--sage-dark);">+1.3x</div>
+          <div class="hero-stat-label">Balance Score Boost with 1h Physical Movement</div>
+        </div>
+        <div class="hero-stat-card card-hover-lift">
+          <div class="hero-stat-num" style="color: var(--calm-blue-dark);">68 / day</div>
+          <div class="hero-stat-label">Daily Average Phone Unlock Frequency</div>
+        </div>
+        <div class="hero-stat-card card-hover-lift">
+          <div class="hero-stat-num" style="color: var(--lavender-dark);">7.2 / 10</div>
+          <div class="hero-stat-label">Highest Score Baseline (Professional Networking)</div>
+        </div>
+      </div>
+
+      <!-- Live Interactive Filter Controls -->
+      <div class="result-box reveal-on-scroll" style="margin-bottom: var(--space-8); padding: var(--space-5) var(--space-6);">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-4);">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">Interactive Dataset Slicer</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Filter benchmark cohorts to explore specific demographic trends.</p>
+          </div>
+          <span class="hero-pill" style="margin: 0; font-size: 0.8rem;">Cohort Sample: 5,000 Verified Students</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+          <div style="flex: 1; min-width: 200px;">
+            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px; display: block;">Academic Cohort</label>
+            <select class="form-select" id="insights-academic-filter" style="min-height: 40px; font-size: 0.9rem;">
+              <option value="all" selected>All Academic Levels (Combined)</option>
+              <option value="undergraduate">Undergraduate Students (3,120 records)</option>
+              <option value="graduate">Graduate / Masters (1,240 records)</option>
+              <option value="highschool">High School (640 records)</option>
+            </select>
+          </div>
+
+          <div style="flex: 1; min-width: 200px;">
+            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 4px; display: block;">Primary Platform Focus</label>
+            <select class="form-select" id="insights-platform-filter" style="min-height: 40px; font-size: 0.9rem;">
+              <option value="all" selected>All Primary Social Channels</option>
+              <option value="instagram">Instagram (Visual &amp; Reels)</option>
+              <option value="youtube">YouTube (Video &amp; Tutorials)</option>
+              <option value="linkedin">LinkedIn (Professional)</option>
+              <option value="snapchat">Snapchat (Direct Chat)</option>
+              <option value="tiktok">TikTok (Short Form)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Visualizations Grid -->
+      <div class="insights-grid reveal-on-scroll" style="grid-template-columns: 1fr; margin-bottom: var(--space-8);">
+        
+        <div class="chart-card card-hover-lift" style="min-height: 380px;">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--space-2); margin-bottom: var(--space-2);">
+            <div>
+              <h2 class="chart-title" style="font-size: 1.35rem;">Daily Screen Time vs. Sleep Duration</h2>
+              <p class="chart-desc">Observational relationship across 5,000 respondents.</p>
+            </div>
+            <span class="hero-pill" style="margin: 0; font-size: 0.8rem;">r = -0.68 strong inverse correlation</span>
+          </div>
+          <div class="chart-canvas-wrap" style="height: 300px;">
+            <canvas id="chart-usage-vs-sleep"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="insights-grid reveal-on-scroll" style="margin-bottom: var(--space-10);">
+        
+        <div class="chart-card card-hover-lift">
+          <h2 class="chart-title">Average Wellness Score by Primary Platform</h2>
+          <p class="chart-desc">Comparing self-reported lifestyle outcomes across social media apps.</p>
+          <div class="chart-canvas-wrap" style="height: 260px;">
+            <canvas id="chart-platform-scores"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card card-hover-lift">
+          <h2 class="chart-title">Stress Level Distribution</h2>
+          <p class="chart-desc">Reported academic &amp; personal perceived stress levels.</p>
+          <div class="chart-canvas-wrap" style="height: 260px;">
+            <canvas id="chart-stress-dist"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Deep Dive Dataset Table -->
+      <div class="result-box reveal-on-scroll" style="margin-bottom: var(--space-12);">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: var(--space-4);">
+          Key Empirical Takeaways for Students
+        </h3>
+        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+          <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
+            <span style="font-size: 1.5rem;">🛌</span>
+            <div>
+              <strong style="color: var(--text-primary);">The Late-Night Screen Penalty</strong>
+              <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 2px;">
+                Students utilizing smartphones past 11:30 PM experienced an average latency of 48 minutes before deep sleep onset, leading to lower morning alertness and heightened exam stress.
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
+            <span style="font-size: 1.5rem;">🏃</span>
+            <div>
+              <strong style="color: var(--text-primary);">Physical Activity Buffers Academic Stress</strong>
+              <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 2px;">
+                Just 45 to 60 minutes of daily physical movement (walking, yoga, team sports) counteracted up to 2 hours of sedentary screen fatigue in regression modeling.
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3); align-items: flex-start;">
+            <span style="font-size: 1.5rem;">📱</span>
+            <div>
+              <strong style="color: var(--text-primary);">Passive Scrolling vs. Intentional Learning</strong>
+              <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 2px;">
+                Platforms used primarily for Education and Professional Networking correlated with significantly higher self-efficacy and wellness indices compared to infinite video feeds.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA to Take Assessment -->
+      <div class="result-card reveal-on-scroll" style="text-align: center; padding: var(--space-10);">
+        <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: var(--space-2);">
+          Where do your habits sit on this curve?
+        </h3>
+        <p style="color: var(--text-secondary); max-width: 520px; margin: 0 auto var(--space-6);">
+          Get your own personalized, confidential score and actionable tips in under 2 minutes.
+        </p>
+        <a href="assessment.html" class="btn btn-primary" style="padding: 14px 36px; font-size: 1.05rem;">
+          <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+          <span>Check My Mental Balance</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-disclaimer-box" data-i18n="disclaimer.text">
+        Disclaimer: ManSantulan is an educational and self-awareness tool powered by machine learning, not a clinical diagnostic instrument.
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ManSantulan (मन संतुलन). Crafted with care for student wellness.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="assessment.html">Assessment</a>
+          <a href="wellness.html">Wellness</a>
+          <a href="resources.html">Resources</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

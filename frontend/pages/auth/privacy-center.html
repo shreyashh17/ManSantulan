@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Center — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <a href="/" class="sidebar-brand-title">
+          <span style="font-size: 1.4rem;">🌿</span>
+          <span class="sidebar-brand-text">ManSantulan</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav-section">
+        <div class="sidebar-heading">Sanctuary</div>
+        <a href="/dashboard" class="sidebar-link">
+          <i data-lucide="layout-dashboard"></i>
+          <span class="sidebar-link-text">Dashboard</span>
+        </a>
+        <a href="/assessment" class="sidebar-link">
+          <i data-lucide="sparkles"></i>
+          <span class="sidebar-link-text">AI Assessment</span>
+        </a>
+        <a href="/wellness" class="sidebar-link">
+          <i data-lucide="heart"></i>
+          <span class="sidebar-link-text">Wellness Toolkit</span>
+        </a>
+
+        <div class="sidebar-heading" style="margin-top: var(--space-4);">Account</div>
+        <a href="/profile" class="sidebar-link">
+          <i data-lucide="user"></i>
+          <span class="sidebar-link-text">My Profile</span>
+        </a>
+        <a href="/security" class="sidebar-link">
+          <i data-lucide="shield"></i>
+          <span class="sidebar-link-text">Security</span>
+        </a>
+        <a href="/privacy-center" class="sidebar-link active">
+          <i data-lucide="lock"></i>
+          <span class="sidebar-link-text">Privacy Center</span>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle Sidebar">
+            <i data-lucide="menu"></i>
+          </button>
+          <nav class="breadcrumbs" aria-label="Breadcrumb" style="margin-bottom: 0;">
+            <a href="/dashboard">Dashboard</a>
+            <span class="breadcrumb-separator">/</span>
+            <span aria-current="page">Privacy Center</span>
+          </nav>
+        </div>
+        <div class="topbar-actions">
+          <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+            <i data-lucide="moon" id="theme-icon"></i>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="shell-logout-btn">Log Out</button>
+        </div>
+      </header>
+
+      <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16); max-width: 760px;">
+        <span class="badge badge-sage" style="margin-bottom: var(--space-2);">🔒 Sovereign Data Control</span>
+        <h1 style="font-size: 1.8rem; margin-bottom: var(--space-3);">Student Privacy Center</h1>
+        <p style="color: var(--text-secondary); margin-bottom: var(--space-8); font-size: 0.95rem;">
+          You own your mental health data completely. Export your historical scores in open format or permanently erase all traces of your account at any moment.
+        </p>
+
+        <!-- Export Data Card -->
+        <div class="card card-lg" style="margin-bottom: var(--space-6);">
+          <div style="display: flex; gap: var(--space-4); align-items: flex-start;">
+            <div style="font-size: 2rem;">📥</div>
+            <div style="flex: 1;">
+              <h2 style="font-size: 1.25rem; margin-bottom: 4px;">Download Your Data (JSON Export)</h2>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--space-4);">
+                Receive a complete archive of your registered profile, language preferences, wellness goals, and every historical assessment prediction score.
+              </p>
+              <button type="button" class="btn btn-secondary" id="export-data-btn">
+                <i data-lucide="download"></i>
+                <span>Export My Data Archive</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delete Account Card -->
+        <div class="card card-lg" style="border-left: 5px solid var(--coral-dark);">
+          <div style="display: flex; gap: var(--space-4); align-items: flex-start;">
+            <div style="font-size: 2rem;">🗑️</div>
+            <div style="flex: 1;">
+              <h2 style="font-size: 1.25rem; margin-bottom: 4px; color: var(--coral-dark);">Permanent Account Deletion</h2>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--space-4);">
+                Permanently wipes your account credentials, Bcrypt hash, security audit logs, and all historical assessment predictions from our database. This action is irreversible.
+              </p>
+              <button type="button" class="btn btn-danger" id="delete-account-btn">
+                <i data-lucide="trash-2"></i>
+                <span>Permanently Delete My Data &amp; Account</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+  <script>
+    // Export Data handler
+    document.getElementById("export-data-btn").addEventListener("click", async () => {
+      try {
+        const data = await window.api.exportData();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `mansantulan_export_${new Date().toISOString().split("T")[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        alert(err.message || "Failed to export data.");
+      }
+    });
+
+    // Delete Account handler
+    document.getElementById("delete-account-btn").addEventListener("click", async () => {
+      const confirmDelete = confirm("Are you sure you want to permanently delete your ManSantulan account? All assessment history and settings will be permanently erased.");
+      if (!confirmDelete) return;
+
+      try {
+        await window.api.deleteAccount();
+        alert("Your account and personal data have been completely deleted.");
+        window.location.href = "/";
+      } catch (err) {
+        alert(err.message || "Failed to delete account.");
+      }
+    });
+  </script>
+</body>
+</html>

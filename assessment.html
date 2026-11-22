@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mental Balance Assessment — ManSantulan (मन संतुलन)</title>
+  <meta name="description" content="Calculate your personalized mental wellness score from social media, sleep, study, and stress parameters using machine learning." />
+  
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- STICKY NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-brand" aria-label="ManSantulan Home">
+        <span class="nav-brand-icon" aria-hidden="true">🌿</span>
+        <div>
+          <span style="font-weight: 700;">ManSantulan</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1; font-family: var(--font-devanagari);">मन संतुलन</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+        <a href="assessment.html" class="nav-link active" data-i18n="nav.assessment">Assessment</a>
+        <a href="insights.html" class="nav-link" data-i18n="nav.insights">Insights</a>
+        <a href="wellness.html" class="nav-link" data-i18n="nav.wellness">Wellness</a>
+        <a href="resources.html" class="nav-link" data-i18n="nav.resources">Resources</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-dropdown-wrapper">
+          <button type="button" class="action-icon-btn" id="lang-btn" aria-label="Change Language">
+            <i data-lucide="globe"></i>
+          </button>
+          <div class="lang-menu" id="lang-menu">
+            <button type="button" class="lang-option active" data-lang="en">English (EN)</button>
+            <button type="button" class="lang-option" data-lang="hi">हिंदी (HI)</button>
+            <button type="button" class="lang-option" data-lang="mr">मराठी (MR)</button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn" id="theme-btn" aria-label="Toggle Theme">
+          <i data-lucide="moon" id="theme-icon"></i>
+        </button>
+
+        <div class="profile-wrapper">
+          <button type="button" class="profile-btn" id="profile-btn">
+            <span class="profile-avatar" id="nav-user-avatar">AS</span>
+            <span class="profile-name" id="nav-user-name">Alex</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <button type="button" class="profile-menu-item danger" id="nav-logout-btn">
+              <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="nav.logout">Log Out</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Home</a>
+      <a href="assessment.html" class="mobile-nav-link" data-i18n="nav.assessment">Assessment</a>
+      <a href="insights.html" class="mobile-nav-link" data-i18n="nav.insights">Insights</a>
+      <a href="wellness.html" class="mobile-nav-link" data-i18n="nav.wellness">Wellness</a>
+      <a href="resources.html" class="mobile-nav-link" data-i18n="nav.resources">Resources</a>
+    </div>
+  </header>
+
+  <!-- SUBPAGE INTRO BANNER -->
+  <header class="subpage-header" id="main-content">
+    <div class="container reveal-on-scroll">
+      <span class="subpage-badge">✨ Precision ML Evaluation</span>
+      <h1 class="subpage-title">Student Mental Balance Assessment</h1>
+      <p class="subpage-desc">
+        Take 2 mindful minutes to map your digital habits, sleep quality, and academic load. Our machine learning model evaluates habits against 5,000 empirical benchmarks.
+      </p>
+    </div>
+  </header>
+
+  <!-- PRE-ASSESSMENT GUIDANCE CARDS -->
+  <section class="section" style="padding: var(--space-8) 0 var(--space-4);">
+    <div class="container">
+      <div class="steps-grid reveal-on-scroll">
+        
+        <div class="step-card card-hover-lift">
+          <div class="step-icon-wrap" aria-hidden="true">🎯</div>
+          <h3 class="step-title" style="font-size: 1.1rem;">Honest Self-Reflection</h3>
+          <p class="step-desc">
+            Estimate your genuine daily screen time and phone unlocks. The model uses your true baseline to generate constructive guidance.
+          </p>
+        </div>
+
+        <div class="step-card card-hover-lift">
+          <div class="step-icon-wrap" aria-hidden="true">🔒</div>
+          <h3 class="step-title" style="font-size: 1.1rem;">Zero Data Retention</h3>
+          <p class="step-desc">
+            Your responses are processed instantly in memory. No answers are sold, tracked across advertisers, or stored permanently.
+          </p>
+        </div>
+
+        <div class="step-card card-hover-lift">
+          <div class="step-icon-wrap" aria-hidden="true">💡</div>
+          <h3 class="step-title" style="font-size: 1.1rem;">Supportive Recommendations</h3>
+          <p class="step-desc">
+            Receive personalized, actionable sleep and screen adjustments, plus access to verified 24/7 student counseling resources.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Quick-Fill Preset Scenarios for Students -->
+      <div class="result-box reveal-on-scroll" style="margin-top: var(--space-6); padding: var(--space-4) var(--space-6); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3);">
+        <div>
+          <strong style="font-size: 0.95rem; color: var(--text-primary);">⚡ Quick Sample Presets (for instant testing):</strong>
+          <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Click to load simulated student habits into the calculator.</span>
+        </div>
+        <div style="display: flex; gap: var(--space-2); flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary btn-sm" id="preset-balanced" style="font-size: 0.82rem; padding: 6px 14px; min-height: 36px;">
+            🎓 Balanced Scholar
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="preset-crunch" style="font-size: 0.82rem; padding: 6px 14px; min-height: 36px;">
+            ⚡ Exam Crunch
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="preset-nightowl" style="font-size: 0.82rem; padding: 6px 14px; min-height: 36px;">
+            🌙 Night Owl Scroller
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT WIZARD COMPONENT -->
+  <main class="wizard-section" style="background: transparent; border: none; padding-top: var(--space-4);">
+    <div class="container">
+      
+      <div class="wizard-card reveal-on-scroll">
+        
+        <div class="wizard-privacy-note">
+          <i data-lucide="shield-check" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+          <span data-i18n="wizard.privacy">Privacy First: Your inputs are analyzed anonymously in-browser and never sold or permanently stored.</span>
+        </div>
+
+        <div class="wizard-progress-bar-wrap" aria-hidden="true">
+          <div class="wizard-progress-fill" id="wizard-progress-fill"></div>
+        </div>
+
+        <div class="wizard-indicators" role="tablist">
+          <div class="wizard-indicator active" id="indicator-1">
+            <span class="indicator-circle">1</span>
+            <span class="indicator-label" data-i18n="wizard.step1.label">Profile</span>
+          </div>
+          <div class="wizard-indicator" id="indicator-2">
+            <span class="indicator-circle">2</span>
+            <span class="indicator-label" data-i18n="wizard.step2.label">Digital Life</span>
+          </div>
+          <div class="wizard-indicator" id="indicator-3">
+            <span class="indicator-circle">3</span>
+            <span class="indicator-label" data-i18n="wizard.step3.label">Lifestyle</span>
+          </div>
+          <div class="wizard-indicator" id="indicator-4">
+            <span class="indicator-circle">4</span>
+            <span class="indicator-label" data-i18n="wizard.step4.label">Review</span>
+          </div>
+        </div>
+
+        <form id="predict-form" novalidate>
+          
+          <!-- STEP 1: STUDENT PROFILE -->
+          <div class="wizard-step active" id="wizard-step-1">
+            <div class="wizard-step-header">
+              <h3 class="wizard-step-title" data-i18n="wizard.step1.title">Tell us about yourself</h3>
+              <p class="wizard-step-desc" data-i18n="wizard.step1.desc">Demographic context helps personalize the baseline analysis.</p>
+            </div>
+
+            <div class="wizard-grid">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label class="form-label" for="age" data-i18n="wizard.age.label">Your Age</label>
+                  <span class="slider-val-badge" id="age-display">21 yrs</span>
+                </div>
+                <input type="range" class="slider-range" id="age" name="age" min="10" max="100" value="21" step="1" />
+                <div class="slider-meta">
+                  <span>10 years</span>
+                  <span>100 years</span>
+                </div>
+                <span class="field-error-text" id="age-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="wizard.gender.label">Gender</label>
+                <div class="chip-group" id="gender-chip-group">
+                  <button type="button" class="chip active" data-name="gender" data-value="Female">
+                    <span>👩</span> Female
+                  </button>
+                  <button type="button" class="chip" data-name="gender" data-value="Male">
+                    <span>👨</span> Male
+                  </button>
+                </div>
+                <input type="hidden" id="gender" name="gender" value="Female" required />
+                <span class="field-error-text" id="gender-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="country" data-i18n="wizard.country.label">Country of Residence</label>
+                <select class="form-select" id="country" name="country" required>
+                  <option value="India" selected>India</option>
+                  <option value="USA">USA</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                  <option value="UK">UK</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Mexico">Mexico</option>
+                  <option value="Turkey">Turkey</option>
+                  <option value="France">France</option>
+                  <option value="Bangladesh">Bangladesh</option>
+                  <option value="Brazil">Brazil</option>
+                  <option value="China">China</option>
+                  <option value="Indonesia">Indonesia</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Malaysia">Malaysia</option>
+                  <option value="Nepal">Nepal</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Pakistan">Pakistan</option>
+                  <option value="Singapore">Singapore</option>
+                  <option value="UAE">UAE</option>
+                  <option value="Other">Other / Global</option>
+                </select>
+                <span class="field-error-text" id="country-error"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: DIGITAL HABITS -->
+          <div class="wizard-step" id="wizard-step-2">
+            <div class="wizard-step-header">
+              <h3 class="wizard-step-title" data-i18n="wizard.step2.title">Your Digital Environment</h3>
+              <p class="wizard-step-desc" data-i18n="wizard.step2.desc">How you interact with screens, devices, and platforms.</p>
+            </div>
+
+            <div class="wizard-grid">
+              <div class="form-group">
+                <label class="form-label" data-i18n="wizard.academic.label">Academic Level</label>
+                <div class="chip-group" id="academic-chip-group">
+                  <button type="button" class="chip" data-name="academic_level" data-value="High School">🎒 High School</button>
+                  <button type="button" class="chip active" data-name="academic_level" data-value="Undergraduate">🎓 Undergraduate</button>
+                  <button type="button" class="chip" data-name="academic_level" data-value="Graduate">🏛️ Graduate / Masters</button>
+                </div>
+                <input type="hidden" id="academic_level" name="academic_level" value="Undergraduate" required />
+                <span class="field-error-text" id="academic-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="wizard.platform.label">Primary Social Media Platform</label>
+                <div class="chip-group" id="platform-chip-group">
+                  <button type="button" class="chip active" data-name="most_used_platform" data-value="Instagram">Instagram</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="YouTube">YouTube</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="WhatsApp">WhatsApp</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="Snapchat">Snapchat</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="Twitter">Twitter / X</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="TikTok">TikTok</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="LinkedIn">LinkedIn</button>
+                  <button type="button" class="chip" data-name="most_used_platform" data-value="Facebook">Facebook</button>
+                </div>
+                <input type="hidden" id="most_used_platform" name="most_used_platform" value="Instagram" required />
+                <span class="field-error-text" id="platform-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="wizard.purpose.label">Primary Purpose of Use</label>
+                <div class="chip-group" id="purpose-chip-group">
+                  <button type="button" class="chip" data-name="purpose_of_use" data-value="Education">📚 Education &amp; Study</button>
+                  <button type="button" class="chip active" data-name="purpose_of_use" data-value="Entertainment">🎬 Entertainment</button>
+                  <button type="button" class="chip" data-name="purpose_of_use" data-value="Networking">🤝 Social Networking</button>
+                  <button type="button" class="chip" data-name="purpose_of_use" data-value="News">📰 Current News</button>
+                </div>
+                <input type="hidden" id="purpose_of_use" name="purpose_of_use" value="Entertainment" required />
+                <span class="field-error-text" id="purpose-error"></span>
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label class="form-label" for="avg_daily_usage_hours" data-i18n="wizard.usage.label">Daily Social Media Usage</label>
+                  <span class="slider-val-badge" id="usage-display">4.5 hrs/day</span>
+                </div>
+                <input type="range" class="slider-range" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.5" value="4.5" />
+                <div class="slider-meta">
+                  <span>0 hours</span>
+                  <span>12 hours</span>
+                  <span>24 hours</span>
+                </div>
+                <span class="field-error-text" id="usage-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="daily_unlocks" data-i18n="wizard.unlocks.label">Estimated Daily Phone Unlocks</label>
+                <input type="number" class="form-input" id="daily_unlocks" name="daily_unlocks" min="0" max="1000" step="5" value="65" required />
+                <span class="field-error-text" id="unlocks-error"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: LIFESTYLE & STRESS -->
+          <div class="wizard-step" id="wizard-step-3">
+            <div class="wizard-step-header">
+              <h3 class="wizard-step-title" data-i18n="wizard.step3.title">Daily Routine &amp; Lifestyle</h3>
+              <p class="wizard-step-desc" data-i18n="wizard.step3.desc">Rest, study habits, and how your body and mind recharge.</p>
+            </div>
+
+            <div class="wizard-grid">
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label class="form-label" for="study_hours" data-i18n="wizard.study.label">Daily Study Hours</label>
+                  <span class="slider-val-badge" id="study-display">4.0 hrs/day</span>
+                </div>
+                <input type="range" class="slider-range" id="study_hours" name="study_hours" min="0" max="24" step="0.5" value="4.0" />
+                <div class="slider-meta">
+                  <span>0 hrs</span>
+                  <span>6 hrs</span>
+                  <span>12+ hrs</span>
+                </div>
+                <span class="field-error-text" id="study-error"></span>
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label class="form-label" for="physical_activity_hours" data-i18n="wizard.activity.label">Physical Activity / Movement</label>
+                  <span class="slider-val-badge" id="activity-display">1.0 hr/day</span>
+                </div>
+                <input type="range" class="slider-range" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.5" value="1.0" />
+                <span class="field-error-text" id="activity-error"></span>
+              </div>
+
+              <div class="slider-group">
+                <div class="slider-header">
+                  <label class="form-label" for="sleep_hours_per_night" data-i18n="wizard.sleep.label">Average Nightly Sleep</label>
+                  <span class="slider-val-badge" id="sleep-display">7.0 hrs/night</span>
+                </div>
+                <input type="range" class="slider-range" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.5" value="7.0" />
+                <span class="field-error-text" id="sleep-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="wizard.stress.label">Current Perceived Stress Level</label>
+                <div class="pill-group" id="stress-pill-group">
+                  <button type="button" class="pill-btn" data-value="Low">🌱 Low</button>
+                  <button type="button" class="pill-btn active" data-value="Medium">🌤️ Medium</button>
+                  <button type="button" class="pill-btn" data-value="High">⚡ High</button>
+                  <button type="button" class="pill-btn" data-value="Very High">🌊 Very High</button>
+                </div>
+                <input type="hidden" id="stress_level" name="stress_level" value="Medium" required />
+                <span class="field-error-text" id="stress-error"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: REVIEW -->
+          <div class="wizard-step" id="wizard-step-4">
+            <div class="wizard-step-header">
+              <h3 class="wizard-step-title" data-i18n="wizard.step4.title">Review Your Information</h3>
+              <p class="wizard-step-desc" data-i18n="wizard.step4.desc">Verify your entries before computing your balance score.</p>
+            </div>
+
+            <div class="wizard-review">
+              <div class="wizard-review-group">
+                <div class="wizard-review-group-header">
+                  <span class="wizard-review-group-title">1. Student Profile</span>
+                  <button type="button" class="wizard-review-edit" data-target-step="1">Edit</button>
+                </div>
+                <div class="wizard-review-grid">
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Age</span>
+                    <span class="wizard-review-value" id="rev-age">21 yrs</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Gender</span>
+                    <span class="wizard-review-value" id="rev-gender">Female</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Country</span>
+                    <span class="wizard-review-value" id="rev-country">India</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-review-group">
+                <div class="wizard-review-group-header">
+                  <span class="wizard-review-group-title">2. Digital Life</span>
+                  <button type="button" class="wizard-review-edit" data-target-step="2">Edit</button>
+                </div>
+                <div class="wizard-review-grid">
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Academic Level</span>
+                    <span class="wizard-review-value" id="rev-academic">Undergraduate</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Platform</span>
+                    <span class="wizard-review-value" id="rev-platform">Instagram</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Screen Time</span>
+                    <span class="wizard-review-value" id="rev-usage">4.5 hrs</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Phone Unlocks</span>
+                    <span class="wizard-review-value" id="rev-unlocks">65</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-review-group">
+                <div class="wizard-review-group-header">
+                  <span class="wizard-review-group-title">3. Lifestyle &amp; Routine</span>
+                  <button type="button" class="wizard-review-edit" data-target-step="3">Edit</button>
+                </div>
+                <div class="wizard-review-grid">
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Study Time</span>
+                    <span class="wizard-review-value" id="rev-study">4.0 hrs</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Activity</span>
+                    <span class="wizard-review-value" id="rev-activity">1.0 hr</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Nightly Sleep</span>
+                    <span class="wizard-review-value" id="rev-sleep">7.0 hrs</span>
+                  </div>
+                  <div class="wizard-review-item">
+                    <span class="wizard-review-label">Stress Level</span>
+                    <span class="wizard-review-value" id="rev-stress">Medium</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn btn-secondary" id="wizard-prev-btn" style="visibility: hidden;">
+              <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="wizard.btn.back">Back</span>
+            </button>
+
+            <button type="button" class="btn btn-primary" id="wizard-next-btn">
+              <span data-i18n="wizard.btn.next">Next Step</span>
+              <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+
+            <button type="submit" class="btn btn-primary" id="wizard-submit-btn" style="display: none;">
+              <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+              <span data-i18n="wizard.btn.submit">Calculate Mental Balance</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- RESULT CONTAINER -->
+  <section class="result-section hidden" id="result-section" aria-live="polite">
+    <div class="container">
+      <div class="result-card">
+        
+        <div class="loading-state" id="result-loading" style="display: none;">
+          <div class="loading-spinner"></div>
+          <h3 style="font-size: 1.3rem; font-weight: 700;">Evaluating Student Wellness Model...</h3>
+        </div>
+
+        <div class="loading-state" id="result-error" style="display: none;">
+          <div style="font-size: 2.5rem;">⚠️</div>
+          <h3 style="font-size: 1.3rem; font-weight: 700;">Connection Issue</h3>
+          <p id="error-message">Unable to contact backend server.</p>
+          <button type="button" class="btn btn-secondary" id="retry-calculation-btn">Try Again</button>
+        </div>
+
+        <div id="result-content">
+          <div class="result-score-block">
+            <div class="gauge-wrapper" aria-hidden="true">
+              <svg class="gauge-svg" viewBox="0 0 200 200">
+                <circle class="gauge-circle-bg" cx="100" cy="100" r="85"></circle>
+                <circle class="gauge-circle-fill" id="gauge-circle-fill" cx="100" cy="100" r="85"></circle>
+              </svg>
+              <div class="gauge-center-content">
+                <span class="score-number" id="score-number">0.0</span>
+                <span class="score-out-of">out of 10</span>
+              </div>
+            </div>
+
+            <div class="score-badge growing" id="score-badge">
+              <span id="score-badge-icon">🌿</span>
+              <span id="score-badge-text">Good Baseline Balance</span>
+            </div>
+
+            <p class="score-explanation" id="score-explanation"></p>
+          </div>
+
+          <div class="result-details-grid">
+            <div class="result-box">
+              <h4 class="result-box-title">
+                <i data-lucide="activity"></i>
+                <span data-i18n="result.factors.title">Contributing Habit Factors</span>
+              </h4>
+              <ul class="factors-list" id="factors-list"></ul>
+            </div>
+
+            <div class="result-box">
+              <h4 class="result-box-title">
+                <i data-lucide="lightbulb"></i>
+                <span data-i18n="result.tips.title">Personalized Action Steps</span>
+              </h4>
+              <ul class="tips-list" id="tips-list"></ul>
+            </div>
+          </div>
+
+          <div class="helpline-banner" id="helpline-banner" style="display: none;">
+            <div class="helpline-banner-content">
+              <span class="helpline-banner-icon">💙</span>
+              <div>
+                <h4 class="helpline-banner-title">Compassionate support is here for you.</h4>
+                <p class="helpline-banner-desc">You are not alone. Free, confidential student counseling is ready 24/7.</p>
+              </div>
+            </div>
+            <a href="tel:14416" class="btn btn-secondary" style="border-color: var(--coral-dark); color: var(--coral-dark);">
+              <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
+              <span>Call Tele-MANAS (14416)</span>
+            </a>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn btn-secondary" id="retake-btn">
+              <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="result.btn.retake">Retake Assessment</span>
+            </button>
+            <button type="button" class="btn btn-secondary" id="download-report-btn">
+              <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="result.btn.download">Save Report</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="share-btn">
+              <i data-lucide="share-2" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="result.btn.share">Share Awareness</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="margin-top: var(--space-12);">
+    <div class="container">
+      <div class="footer-disclaimer-box" data-i18n="disclaimer.text">
+        Disclaimer: ManSantulan is an educational and self-awareness tool powered by machine learning, not a clinical diagnostic instrument.
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ManSantulan (मन संतुलन). Crafted with care for student wellness.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="insights.html">Insights</a>
+          <a href="wellness.html">Wellness</a>
+          <a href="resources.html">Resources</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Quick-Fill Sample Presets
+    document.getElementById("preset-balanced")?.addEventListener("click", () => {
+      document.getElementById("age").value = 21;
+      document.getElementById("age-display").textContent = "21 yrs";
+      document.getElementById("avg_daily_usage_hours").value = 3.0;
+      document.getElementById("usage-display").textContent = "3.0 hrs/day";
+      document.getElementById("daily_unlocks").value = 45;
+      document.getElementById("study_hours").value = 5.0;
+      document.getElementById("study-display").textContent = "5.0 hrs/day";
+      document.getElementById("physical_activity_hours").value = 1.5;
+      document.getElementById("activity-display").textContent = "1.5 hr/day";
+      document.getElementById("sleep_hours_per_night").value = 7.5;
+      document.getElementById("sleep-display").textContent = "7.5 hrs/night";
+      document.querySelectorAll("#stress-pill-group .pill-btn").forEach(p => p.classList.remove("active"));
+      document.querySelector('#stress-pill-group .pill-btn[data-value="Low"]')?.classList.add("active");
+      document.getElementById("stress_level").value = "Low";
+      alert("Loaded 'Balanced Scholar' preset! Click Next Step to review.");
+    });
+
+    document.getElementById("preset-crunch")?.addEventListener("click", () => {
+      document.getElementById("age").value = 22;
+      document.getElementById("age-display").textContent = "22 yrs";
+      document.getElementById("avg_daily_usage_hours").value = 5.5;
+      document.getElementById("usage-display").textContent = "5.5 hrs/day";
+      document.getElementById("daily_unlocks").value = 95;
+      document.getElementById("study_hours").value = 8.0;
+      document.getElementById("study-display").textContent = "8.0 hrs/day";
+      document.getElementById("physical_activity_hours").value = 0.2;
+      document.getElementById("activity-display").textContent = "0.2 hr/day";
+      document.getElementById("sleep_hours_per_night").value = 5.0;
+      document.getElementById("sleep-display").textContent = "5.0 hrs/night";
+      document.querySelectorAll("#stress-pill-group .pill-btn").forEach(p => p.classList.remove("active"));
+      document.querySelector('#stress-pill-group .pill-btn[data-value="Very High"]')?.classList.add("active");
+      document.getElementById("stress_level").value = "Very High";
+      alert("Loaded 'Exam Crunch' preset! Click Next Step to review.");
+    });
+
+    document.getElementById("preset-nightowl")?.addEventListener("click", () => {
+      document.getElementById("age").value = 20;
+      document.getElementById("age-display").textContent = "20 yrs";
+      document.getElementById("avg_daily_usage_hours").value = 7.5;
+      document.getElementById("usage-display").textContent = "7.5 hrs/day";
+      document.getElementById("daily_unlocks").value = 130;
+      document.getElementById("study_hours").value = 2.5;
+      document.getElementById("study-display").textContent = "2.5 hrs/day";
+      document.getElementById("physical_activity_hours").value = 0.5;
+      document.getElementById("activity-display").textContent = "0.5 hr/day";
+      document.getElementById("sleep_hours_per_night").value = 5.5;
+      document.getElementById("sleep-display").textContent = "5.5 hrs/night";
+      document.querySelectorAll("#stress-pill-group .pill-btn").forEach(p => p.classList.remove("active"));
+      document.querySelector('#stress-pill-group .pill-btn[data-value="High"]')?.classList.add("active");
+      document.getElementById("stress_level").value = "High";
+      alert("Loaded 'Night Owl Scroller' preset! Click Next Step to review.");
+    });
+  </script>
+</body>
+</html>

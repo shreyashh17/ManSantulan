@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical &amp; Clinical Disclaimer — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <a href="/" class="sidebar-brand-title">
+        <span style="font-size: 1.4rem;">🌿</span>
+        <span>ManSantulan <small style="font-size: 0.75rem; color: var(--sage-dark);">मन संतुलन</small></span>
+      </a>
+    </div>
+    <div class="topbar-actions">
+      <a href="/features" class="btn btn-secondary btn-sm">Features</a>
+      <a href="/helplines" class="btn btn-secondary btn-sm" style="color: var(--coral-dark);">Helplines</a>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+        <i data-lucide="moon" id="theme-icon"></i>
+      </button>
+      <a href="/login" class="btn btn-primary btn-sm">Sign In</a>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16); max-width: 860px;">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span aria-current="page">Medical Disclaimer</span>
+    </nav>
+
+    <div class="reveal-on-scroll" style="margin-bottom: var(--space-8);">
+      <span class="badge badge-coral" style="margin-bottom: var(--space-3);">⚠️ Critical Clinical Notice</span>
+      <h1 style="font-size: clamp(2rem, 3.5vw, 2.75rem); margin-bottom: var(--space-3);">Medical &amp; Legal Disclaimer</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Please read carefully prior to utilizing any assessments or guides.</p>
+    </div>
+
+    <div class="card card-lg reveal-on-scroll" style="display: flex; flex-direction: column; gap: var(--space-6); line-height: 1.75; border-left: 4px solid var(--coral-dark);">
+      
+      <section>
+        <h2 style="font-size: 1.3rem; margin-bottom: var(--space-2); color: var(--coral-dark);">1. Not a Substitute for Professional Medical Advice</h2>
+        <p style="color: var(--text-secondary);">
+          The contents of ManSantulan, including AI prediction indices, self-regulation breathing patterns, standardized self-report screenings (PHQ-9, GAD-7), and educational articles, are provided exclusively for general psycho-educational awareness and digital lifestyle balance.
+        </p>
+      </section>
+
+      <section>
+        <h2 style="font-size: 1.3rem; margin-bottom: var(--space-2);">2. No Doctor-Patient Relationship</h2>
+        <p style="color: var(--text-secondary);">
+          Transmission of information through this website does not constitute a doctor-patient, therapist-client, or healthcare provider relationship. Never disregard professional medical advice or delay seeking it because of an assessment score on this platform.
+        </p>
+      </section>
+
+      <section>
+        <h2 style="font-size: 1.3rem; margin-bottom: var(--space-2); color: var(--coral-dark);">3. Emergency Crisis Protocols</h2>
+        <p style="color: var(--text-secondary); margin-bottom: var(--space-3);">
+          If you or someone you know is experiencing acute psychiatric distress, active thoughts of self-harm, or severe panic, please reach out immediately to qualified national hotlines:
+        </p>
+        <div style="display: flex; gap: var(--space-4); flex-wrap: wrap;">
+          <a href="tel:14416" class="btn btn-danger">Call Tele-MANAS (14416)</a>
+          <a href="tel:112" class="btn btn-secondary">Call National Emergency (112)</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+</body>
+</html>

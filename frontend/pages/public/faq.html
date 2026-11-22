@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <a href="/" class="sidebar-brand-title">
+        <span style="font-size: 1.4rem;">🌿</span>
+        <span>ManSantulan <small style="font-size: 0.75rem; color: var(--sage-dark);">मन संतुलन</small></span>
+      </a>
+    </div>
+    <div class="topbar-actions">
+      <a href="/features" class="btn btn-secondary btn-sm">Features</a>
+      <a href="/how-it-works" class="btn btn-secondary btn-sm">How it Works</a>
+      <a href="/helplines" class="btn btn-secondary btn-sm" style="color: var(--coral-dark);">Helplines</a>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+        <i data-lucide="moon" id="theme-icon"></i>
+      </button>
+      <a href="/login" class="btn btn-primary btn-sm">Sign In</a>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16); max-width: 860px;">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span aria-current="page">FAQ</span>
+    </nav>
+
+    <div class="reveal-on-scroll" style="margin-bottom: var(--space-8); text-align: center;">
+      <span class="badge badge-sage" style="margin-bottom: var(--space-3);">❓ Clear &amp; Transparent</span>
+      <h1 style="font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: var(--space-4);">Frequently Asked Questions</h1>
+      <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7;">
+        Answers to common questions about our AI assessment model, data privacy, standardized screenings, and crisis protocols.
+      </p>
+    </div>
+
+    <!-- Accordion List -->
+    <div style="display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-12);" class="reveal-on-scroll">
+      
+      <div class="card card-sm">
+        <h3 style="font-size: 1.15rem; margin-bottom: var(--space-2); color: var(--sage-dark);">How does the AI balance calculator compute my score?</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65;">
+          Our backend executes an ensemble Random Forest regression model trained on 5,000 real student lifestyle surveys. It assesses non-linear interactions between your daily screen time, phone unlocks, sleep duration, physical activity, and academic stress level to output an equilibrium index between 0.0 and 10.0.
+        </p>
+      </div>
+
+      <div class="card card-sm">
+        <h3 style="font-size: 1.15rem; margin-bottom: var(--space-2); color: var(--sage-dark);">Is my assessment data private and secure?</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65;">
+          Yes. ManSantulan adheres to zero-knowledge data minimization principles. Your input values are processed securely in memory. You can take the assessment anonymously as a guest without creating an account. If registered, you can download your complete data record or permanently delete it at any time via the Privacy Center.
+        </p>
+      </div>
+
+      <div class="card card-sm">
+        <h3 style="font-size: 1.15rem; margin-bottom: var(--space-2); color: var(--sage-dark);">Does this replace a psychologist or clinical diagnosis?</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65;">
+          No. ManSantulan is strictly an awareness, psycho-education, and lifestyle reflection platform. It does not diagnose clinical depression, anxiety disorders, or ADHD. If your score reflects persistent distress, we encourage consulting a licensed mental health professional or calling Tele-MANAS (14416).
+        </p>
+      </div>
+
+      <div class="card card-sm">
+        <h3 style="font-size: 1.15rem; margin-bottom: var(--space-2); color: var(--sage-dark);">Are the ambient soundscapes recorded audio files or synthesized?</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65;">
+          All ambient soundscapes (gentle rain, ocean waves, forest breeze, pink noise) are procedurally generated in real time using the browser's native Web Audio API. This means zero third-party audio downloads, zero tracking cookies, and instant offline functionality.
+        </p>
+      </div>
+
+      <div class="card card-sm">
+        <h3 style="font-size: 1.15rem; margin-bottom: var(--space-2); color: var(--sage-dark);">Which languages are supported?</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65;">
+          ManSantulan currently provides fluent English, Hindi (हिंदी), and Marathi (मराठी) localization via our client-side translation dictionary. You can toggle your preferred language at any time in the navigation bar.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="disclaimer-banner">
+      <i data-lucide="info" style="width: 20px; height: 20px; color: var(--calm-blue-dark); flex-shrink: 0;"></i>
+      <span><strong>Educational Notice:</strong> ManSantulan is strictly an awareness and self-reflection platform. It does not provide medical diagnoses or replace licensed clinical psychiatric evaluation.</span>
+    </div>
+  </main>
+
+  <a href="/helplines" class="emergency-float-btn" aria-label="Need Help Now">
+    <i data-lucide="phone"></i>
+    <span>Need Help Now?</span>
+  </a>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+</body>
+</html>

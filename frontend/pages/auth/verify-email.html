@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Email — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg-primary); padding: var(--space-4);">
+
+  <div class="card card-lg" style="width: 100%; max-width: 480px; text-align: center; box-shadow: var(--shadow-xl); border-radius: var(--radius-2xl);">
+    
+    <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--sage-light); color: var(--sage-dark); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-4);">
+      ✉️
+    </div>
+
+    <span class="badge badge-sage" style="margin-bottom: var(--space-3);">Email Verified</span>
+    <h1 style="font-size: 1.5rem; margin-bottom: var(--space-2);">Your Student Account Is Ready</h1>
+    <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: var(--space-6); line-height: 1.6;">
+      Thank you for verifying your student credentials. You now have full access to personalized historical scores, streak counters, and guided programs.
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+      <a href="/onboarding" class="btn btn-primary" style="font-size: 1rem; padding: 12px 24px;">
+        <span>Continue to Wellness Onboarding</span>
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+      </a>
+      <a href="/dashboard" class="btn btn-secondary">Go Directly to Dashboard</a>
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+</body>
+</html>

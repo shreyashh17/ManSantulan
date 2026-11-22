@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Student Account — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 20%, rgba(127, 182, 158, 0.16) 0%, var(--bg-primary) 70%); padding: var(--space-4);">
+
+  <div class="card card-lg" style="width: 100%; max-width: 480px; box-shadow: var(--shadow-xl); border-radius: var(--radius-2xl);">
+    
+    <div style="text-align: center; margin-bottom: var(--space-6);">
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: var(--space-2);">
+        <span style="font-size: 1.8rem;">🌿</span>
+        <span style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--text-primary);">ManSantulan</span>
+      </a>
+      <h1 style="font-size: 1.4rem; margin-bottom: 4px;">Begin Your Sanctuary</h1>
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">Create your anonymous, private mental wellness account.</p>
+    </div>
+
+    <div id="register-alert" class="alert alert-warning" style="display: none;"></div>
+
+    <form id="register-form">
+      <div class="form-group">
+        <label class="form-label" for="reg-name">Full Name</label>
+        <input type="text" id="reg-name" class="form-input" placeholder="e.g. Alex Sharma" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-email">Student or Personal Email</label>
+        <input type="email" id="reg-email" class="form-input" placeholder="alex@university.edu" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-age">Age Bracket</label>
+        <select id="reg-age" class="form-select" required>
+          <option value="18-24" selected>18 - 24 years (Undergraduate / Masters)</option>
+          <option value="13-17">13 - 17 years (High School)</option>
+          <option value="25-34">25 - 34 years (PhD / Postgraduate)</option>
+          <option value="35+">35+ years (Continuing Education)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-password">Password</label>
+        <input type="password" id="reg-password" class="form-input" placeholder="Minimum 8 characters" required />
+        
+        <!-- Live Strength Meter -->
+        <div style="margin-top: 6px;">
+          <div style="display: flex; gap: 4px; height: 5px; margin-bottom: 4px;">
+            <div id="bar-1" style="flex: 1; background: var(--border-default); border-radius: 4px; transition: background 0.3s;"></div>
+            <div id="bar-2" style="flex: 1; background: var(--border-default); border-radius: 4px; transition: background 0.3s;"></div>
+            <div id="bar-3" style="flex: 1; background: var(--border-default); border-radius: 4px; transition: background 0.3s;"></div>
+            <div id="bar-4" style="flex: 1; background: var(--border-default); border-radius: 4px; transition: background 0.3s;"></div>
+          </div>
+          <span id="strength-label" style="font-size: 0.78rem; color: var(--text-muted);">Enter password</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom: var(--space-6);">
+        <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; cursor: pointer; color: var(--text-secondary); line-height: 1.45;">
+          <input type="checkbox" id="reg-consent" required checked style="accent-color: var(--sage); width: 16px; height: 16px; margin-top: 2px;" />
+          <span>I agree to the <a href="/terms" target="_blank" style="color: var(--sage-dark); font-weight: 600; text-decoration: underline;">Terms</a> and understand that this tool is for awareness, not medical diagnosis.</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="reg-submit-btn" style="width: 100%; min-height: 48px; font-size: 1rem;">
+        <span>Create Account</span>
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+      </button>
+    </form>
+
+    <div style="text-align: center; margin-top: var(--space-6); font-size: 0.9rem; color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: var(--space-5);">
+      Already have an account? <a href="/login" style="color: var(--sage-dark); font-weight: 700; text-decoration: underline;">Sign In</a>
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script>
+    // Live Password Strength Calculator
+    const pw = document.getElementById("reg-password");
+    const label = document.getElementById("strength-label");
+    const bars = [document.getElementById("bar-1"), document.getElementById("bar-2"), document.getElementById("bar-3"), document.getElementById("bar-4")];
+
+    pw.addEventListener("input", () => {
+      const val = pw.value;
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      bars.forEach(b => b.style.background = "var(--border-default)");
+
+      if (val.length === 0) {
+        label.textContent = "Enter password";
+      } else if (score <= 1) {
+        bars[0].style.background = "var(--coral-dark)";
+        label.textContent = "Weak (add letters, numbers, and symbols)";
+        label.style.color = "var(--coral-dark)";
+      } else if (score === 2) {
+        bars[0].style.background = "#E3A008";
+        bars[1].style.background = "#E3A008";
+        label.textContent = "Fair (could be stronger)";
+        label.style.color = "#E3A008";
+      } else if (score === 3) {
+        bars[0].style.background = "var(--calm-blue-dark)";
+        bars[1].style.background = "var(--calm-blue-dark)";
+        bars[2].style.background = "var(--calm-blue-dark)";
+        label.textContent = "Good password";
+        label.style.color = "var(--calm-blue-dark)";
+      } else {
+        bars.forEach(b => b.style.background = "var(--sage-dark)");
+        label.textContent = "Strong password ✨";
+        label.style.color = "var(--sage-dark)";
+      }
+    });
+
+    // Form Submission
+    const form = document.getElementById("register-form");
+    const alertBox = document.getElementById("register-alert");
+    const submitBtn = document.getElementById("reg-submit-btn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      alertBox.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "<span>Creating Account...</span>";
+
+      try {
+        const name = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const age = document.getElementById("reg-age").value;
+        const password = pw.value;
+        const consent = document.getElementById("reg-consent").checked;
+
+        await window.api.register(name, email, password, age, consent);
+        window.location.href = "/onboarding";
+      } catch (err) {
+        alertBox.textContent = err.message || "Failed to create account. Please check your entries.";
+        alertBox.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Create Account</span><i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>`;
+        if (window.lucide) window.lucide.createIcons();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) window.lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

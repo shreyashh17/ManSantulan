@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — ManSantulan (मन संतुलन)</title>
+  <meta name="description" content="Sign in to your ManSantulan student wellness dashboard to calculate mental balance scores." />
+  
+  <!-- Google Fonts CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="auth-page">
+    
+    <!-- LEFT SIDE: CALM GRADIENT & ROTATING AFFIRMATIONS -->
+    <section class="auth-left" aria-hidden="true">
+      <div class="auth-blob auth-blob-1"></div>
+      <div class="auth-blob auth-blob-2"></div>
+
+      <div class="auth-left-content">
+        <div class="auth-brand-badge">
+          <span>🌿</span>
+          <span>ManSantulan • मन संतुलन</span>
+        </div>
+        <h2 style="font-size: 2.2rem; font-weight: 700; margin-bottom: var(--space-4); color: #fff;">
+          Take a deep breath.<br>You are in a safe place.
+        </h2>
+        <p style="font-size: 1.05rem; opacity: 0.9; margin-bottom: var(--space-8);">
+          A mindful student analytics companion designed to cultivate digital balance and emotional ease.
+        </p>
+
+        <div class="auth-quote-box">
+          <p class="auth-affirmation-text" id="affirmation-text">
+            "Your worth is not defined by academic pressure or screen time."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDE: SIGN IN FORM CARD -->
+    <section class="auth-right">
+      <div class="auth-card">
+        
+        <header class="auth-header">
+          <div class="auth-logo-row">
+            <span class="nav-brand-icon">🌿</span>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1.25rem;">ManSantulan</span>
+          </div>
+          <h1 class="auth-title">Welcome Back</h1>
+          <p class="auth-subtitle">Sign in to check your digital balance and mental wellness score.</p>
+        </header>
+
+        <!-- Inline alert for errors -->
+        <div class="auth-alert auth-alert-error" id="auth-alert" role="alert"></div>
+
+        <form class="auth-form" id="login-form" novalidate>
+          
+          <div class="form-group">
+            <label class="form-label" for="login-email">Student Email or ID</label>
+            <input 
+              type="email" 
+              class="form-input" 
+              id="login-email" 
+              placeholder="student@university.edu" 
+              required 
+              autocomplete="email" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="pw-wrapper">
+              <input 
+                type="password" 
+                class="form-input" 
+                id="login-password" 
+                placeholder="Enter your password" 
+                required 
+                autocomplete="current-password" 
+              />
+              <button type="button" class="pw-toggle-btn" id="pw-toggle-btn" aria-label="Toggle password visibility">
+                <i data-lucide="eye" id="pw-icon"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="auth-options-row">
+            <label class="checkbox-wrap">
+              <input type="checkbox" id="remember-me" checked />
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="auth-link" id="forgot-pw-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="signin-submit-btn">
+            <span>Sign In to Dashboard</span>
+          </button>
+
+          <div class="auth-divider">
+            <span>OR</span>
+          </div>
+
+          <button type="button" class="btn btn-secondary btn-full" id="google-signin-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.15z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.27 21.39 7.35 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.16 0 9.94 0 12s.45 3.84 1.25 5.42l4.03-3.15z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.27 2.61 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <button type="button" class="btn btn-ghost btn-full" id="demo-signin-btn">
+            <span>⚡ Instant Demo Access</span>
+          </button>
+
+        </form>
+
+        <footer class="auth-footer">
+          <span>Don't have an account? </span>
+          <a href="register.html" class="auth-link">Create Account</a>
+        </footer>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Forgot Password Modal -->
+  <div class="modal-overlay" id="forgot-modal" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="forgot-title">Reset Your Password</h3>
+        <button type="button" class="modal-close-btn" id="forgot-modal-close" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.95rem; color: var(--text-secondary);">
+          Enter your registered student email address. We will verify your session and send instructions.
+        </p>
+        <div class="form-group">
+          <label class="form-label" for="reset-email">Your Email</label>
+          <input type="email" class="form-input" id="reset-email" placeholder="student@university.edu" />
+        </div>
+        <button type="button" class="btn btn-primary btn-full" id="send-reset-btn">
+          Send Reset Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    lucide.createIcons();
+
+    // Rotating affirmations on the left panel
+    const affirmations = [
+      "Your worth is not defined by academic pressure or screen time.",
+      "Taking time to rest is an essential part of success.",
+      "Small daily balance habits lead to profound mental clarity.",
+      "It is completely okay to disconnect and recharge in silence.",
+      "You are capable, resilient, and deserving of peaceful thoughts."
+    ];
+    let affIndex = 0;
+    const affEl = document.getElementById("affirmation-text");
+    setInterval(() => {
+      if (!affEl) return;
+      affEl.style.opacity = "0";
+      setTimeout(() => {
+        affIndex = (affIndex + 1) % affirmations.length;
+        affEl.textContent = `"${affirmations[affIndex]}"`;
+        affEl.style.opacity = "1";
+      }, 400);
+    }, 6000);
+
+    // Toggle password visibility
+    const pwToggleBtn = document.getElementById("pw-toggle-btn");
+    const pwInput = document.getElementById("login-password");
+    if (pwToggleBtn && pwInput) {
+      pwToggleBtn.addEventListener("click", () => {
+        const isPw = pwInput.type === "password";
+        pwInput.type = isPw ? "text" : "password";
+        pwToggleBtn.innerHTML = isPw ? '<i data-lucide="eye-off"></i>' : '<i data-lucide="eye"></i>';
+        lucide.createIcons();
+      });
+    }
+
+    // Sign in form handler
+    const loginForm = document.getElementById("login-form");
+    const alertBox = document.getElementById("auth-alert");
+    const submitBtn = document.getElementById("signin-submit-btn");
+
+    function showAlert(msg) {
+      alertBox.textContent = msg;
+      alertBox.classList.add("visible");
+    }
+
+    if (loginForm) {
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        alertBox.classList.remove("visible");
+        
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        const remember = document.getElementById("remember-me").checked;
+
+        if (!email || !password) {
+          showAlert("Please fill in both email and password.");
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Signing In...";
+
+        try {
+          await window.ManSantulanAuth.loginUser(email, password, remember);
+          window.location.href = "index.html";
+        } catch (err) {
+          showAlert(err.message || "Unable to sign in. Please try again.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign In to Dashboard";
+        }
+      });
+    }
+
+    // Demo access button
+    document.getElementById("demo-signin-btn").addEventListener("click", () => {
+      window.ManSantulanAuth.loginDemoUser();
+      window.location.href = "index.html";
+    });
+
+    // Google Sign-in demo
+    document.getElementById("google-signin-btn").addEventListener("click", () => {
+      window.ManSantulanAuth.loginDemoUser();
+      window.location.href = "index.html";
+    });
+
+    // Forgot password modal
+    const forgotLink = document.getElementById("forgot-pw-link");
+    const forgotModal = document.getElementById("forgot-modal");
+    const forgotClose = document.getElementById("forgot-modal-close");
+    const sendResetBtn = document.getElementById("send-reset-btn");
+
+    if (forgotLink && forgotModal) {
+      forgotLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        forgotModal.classList.add("open");
+      });
+      forgotClose.addEventListener("click", () => forgotModal.classList.remove("open"));
+      forgotModal.addEventListener("click", (e) => {
+        if (e.target === forgotModal) forgotModal.classList.remove("open");
+      });
+      sendResetBtn.addEventListener("click", () => {
+        alert("Demo Reset: If this account exists, password reset instructions have been sent.");
+        forgotModal.classList.remove("open");
+      });
+    }
+  </script>
+</body>
+</html>

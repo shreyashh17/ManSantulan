@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Profile — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- Sidebar -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <a href="/" class="sidebar-brand-title">
+          <span style="font-size: 1.4rem;">🌿</span>
+          <span class="sidebar-brand-text">ManSantulan</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav-section">
+        <div class="sidebar-heading">Sanctuary</div>
+        <a href="/dashboard" class="sidebar-link">
+          <i data-lucide="layout-dashboard"></i>
+          <span class="sidebar-link-text">Dashboard</span>
+        </a>
+        <a href="/assessment" class="sidebar-link">
+          <i data-lucide="sparkles"></i>
+          <span class="sidebar-link-text">AI Assessment</span>
+        </a>
+        <a href="/wellness" class="sidebar-link">
+          <i data-lucide="heart"></i>
+          <span class="sidebar-link-text">Wellness Toolkit</span>
+        </a>
+        <a href="/insights" class="sidebar-link">
+          <i data-lucide="bar-chart-2"></i>
+          <span class="sidebar-link-text">Data Observatory</span>
+        </a>
+
+        <div class="sidebar-heading" style="margin-top: var(--space-4);">Account</div>
+        <a href="/profile" class="sidebar-link active">
+          <i data-lucide="user"></i>
+          <span class="sidebar-link-text">My Profile</span>
+        </a>
+        <a href="/security" class="sidebar-link">
+          <i data-lucide="shield"></i>
+          <span class="sidebar-link-text">Security</span>
+        </a>
+        <a href="/privacy-center" class="sidebar-link">
+          <i data-lucide="lock"></i>
+          <span class="sidebar-link-text">Privacy Center</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle Sidebar">
+            <i data-lucide="menu"></i>
+          </button>
+          <nav class="breadcrumbs" aria-label="Breadcrumb" style="margin-bottom: 0;">
+            <a href="/dashboard">Dashboard</a>
+            <span class="breadcrumb-separator">/</span>
+            <span aria-current="page">Profile</span>
+          </nav>
+        </div>
+        <div class="topbar-actions">
+          <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+            <i data-lucide="moon" id="theme-icon"></i>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="shell-logout-btn">Log Out</button>
+        </div>
+      </header>
+
+      <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16); max-width: 720px;">
+        <h1 style="font-size: 1.8rem; margin-bottom: var(--space-6);">Student Profile</h1>
+
+        <div class="card card-lg" style="margin-bottom: var(--space-6);">
+          <div style="display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6);">
+            <div id="prof-avatar" style="width: 64px; height: 64px; border-radius: 50%; background: var(--sage-light); color: var(--sage-dark); font-size: 1.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center;">
+              AS
+            </div>
+            <div>
+              <h2 id="prof-name" style="font-size: 1.3rem;">Alex Sharma</h2>
+              <span id="prof-email" style="color: var(--text-muted); font-size: 0.9rem;">alex.sharma@university.edu</span>
+            </div>
+          </div>
+
+          <form id="profile-form">
+            <div class="form-group">
+              <label class="form-label" for="edit-name">Display Name</label>
+              <input type="text" id="edit-name" class="form-input" value="Alex Sharma" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="edit-age">Age Bracket</label>
+              <select id="edit-age" class="form-select">
+                <option value="18-24" selected>18 - 24 years</option>
+                <option value="13-17">13 - 17 years</option>
+                <option value="25-34">25 - 34 years</option>
+                <option value="35+">35+ years</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="save-prof-btn">
+              <span>Save Profile Updates</span>
+              <i data-lucide="check" style="width: 16px; height: 16px;"></i>
+            </button>
+          </form>
+          <div id="prof-success" class="alert alert-success" style="display: none; margin-top: var(--space-4);">
+            Profile updated successfully.
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const user = await window.api.me();
+        if (user) {
+          document.getElementById("prof-name").textContent = user.name;
+          document.getElementById("edit-name").value = user.name;
+          document.getElementById("prof-email").textContent = user.email;
+          const initials = user.name.split(" ").map(n => n[0]).slice(0, 2).join("").toUpperCase();
+          document.getElementById("prof-avatar").textContent = initials;
+        }
+      } catch {}
+
+      document.getElementById("profile-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = document.getElementById("edit-name").value.trim();
+        const age = document.getElementById("edit-age").value;
+        try {
+          await window.api.updateProfile(name, age);
+          document.getElementById("prof-success").style.display = "block";
+          document.getElementById("prof-name").textContent = name;
+        } catch (err) {
+          alert(err.message || "Failed to update profile.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Mental Health Resources &amp; Helplines — ManSantulan (मन संतुलन)</title>
+  <meta name="description" content="Verified 24/7 mental health helplines in India, student crisis support, academic burnout recovery guides, and FAQs." />
+  
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- STICKY NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-brand" aria-label="ManSantulan Home">
+        <span class="nav-brand-icon" aria-hidden="true">🌿</span>
+        <div>
+          <span style="font-weight: 700;">ManSantulan</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1; font-family: var(--font-devanagari);">मन संतुलन</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+        <a href="assessment.html" class="nav-link" data-i18n="nav.assessment">Assessment</a>
+        <a href="insights.html" class="nav-link" data-i18n="nav.insights">Insights</a>
+        <a href="wellness.html" class="nav-link" data-i18n="nav.wellness">Wellness</a>
+        <a href="resources.html" class="nav-link active" data-i18n="nav.resources">Resources</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-dropdown-wrapper">
+          <button type="button" class="action-icon-btn" id="lang-btn" aria-label="Change Language">
+            <i data-lucide="globe"></i>
+          </button>
+          <div class="lang-menu" id="lang-menu">
+            <button type="button" class="lang-option active" data-lang="en">English (EN)</button>
+            <button type="button" class="lang-option" data-lang="hi">हिंदी (HI)</button>
+            <button type="button" class="lang-option" data-lang="mr">मराठी (MR)</button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn" id="theme-btn" aria-label="Toggle Theme">
+          <i data-lucide="moon" id="theme-icon"></i>
+        </button>
+
+        <div class="profile-wrapper">
+          <button type="button" class="profile-btn" id="profile-btn">
+            <span class="profile-avatar" id="nav-user-avatar">AS</span>
+            <span class="profile-name" id="nav-user-name">Alex</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <button type="button" class="profile-menu-item danger" id="nav-logout-btn">
+              <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="nav.logout">Log Out</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Home</a>
+      <a href="assessment.html" class="mobile-nav-link" data-i18n="nav.assessment">Assessment</a>
+      <a href="insights.html" class="mobile-nav-link" data-i18n="nav.insights">Insights</a>
+      <a href="wellness.html" class="mobile-nav-link" data-i18n="nav.wellness">Wellness</a>
+      <a href="resources.html" class="mobile-nav-link" data-i18n="nav.resources">Resources</a>
+    </div>
+  </header>
+
+  <!-- SUBPAGE INTRO BANNER -->
+  <header class="subpage-header" id="main-content">
+    <div class="container reveal-on-scroll">
+      <span class="subpage-badge">🛡️ Verified Support Directory</span>
+      <h1 class="subpage-title">Student Guides &amp; Verified Helplines</h1>
+      <p class="subpage-desc">
+        Access free, confidential mental health services across India, alongside practical, research-backed guides on managing academic burnout and digital fatigue.
+      </p>
+    </div>
+  </header>
+
+  <main class="section" style="padding-top: var(--space-8);">
+    <div class="container">
+      
+      <!-- Primary Emergency Warning Box -->
+      <div class="helpline-banner reveal-on-scroll" style="margin-bottom: var(--space-8);">
+        <div class="helpline-banner-content">
+          <span style="font-size: 2.2rem;">🆘</span>
+          <div>
+            <h2 class="helpline-banner-title" style="font-size: 1.25rem;">In Immediate Crisis or Emotional Distress?</h2>
+            <p class="helpline-banner-desc">
+              If you or a student colleague are experiencing severe panic or thoughts of self-harm, please dial <strong>Tele-MANAS (14416)</strong> or national emergency <strong>112</strong> right now. You are worthy of help and compassionate care.
+            </p>
+          </div>
+        </div>
+        <a href="tel:14416" class="btn btn-primary" style="background: var(--coral-dark); border: none; white-space: nowrap;">
+          <i data-lucide="phone"></i>
+          <span>Call 14416 Toll-Free</span>
+        </a>
+      </div>
+
+      <!-- Live Search / Filter Input for Resources -->
+      <div class="resource-search-bar reveal-on-scroll">
+        <input type="text" class="resource-search-input" id="resource-search-box" placeholder="🔍 Search helplines, guides, topics (e.g. sleep, burnout, panic)..." />
+      </div>
+
+      <!-- Verified National Helplines (India) -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-4);">
+        <div>
+          <h2 style="font-size: 1.6rem; font-weight: 700;">Verified 24/7 Mental Health Helplines (India)</h2>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Free, anonymous, and student-supportive crisis hotlines.</p>
+        </div>
+        <span class="hero-pill" style="margin: 0; font-size: 0.8rem;">All Numbers Verified 2026</span>
+      </div>
+
+      <div class="helplines-grid reveal-on-scroll" id="helpline-cards-container" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-bottom: var(--space-12);">
+        
+        <div class="helpline-card card-hover-lift" data-keywords="tele-manas government national 14416 telemanas">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="helpline-name">Tele-MANAS (Govt. of India)</span>
+            <span class="badge-live-pulse" style="font-size: 0.75rem; color: #3FB950; font-weight: 700;">24/7 Live</span>
+          </div>
+          <a href="tel:14416" class="helpline-number">14416 / 1800-891-4416</a>
+          <p class="helpline-desc">
+            National tele-mental health programme available in 20+ regional Indian languages. Fully confidential and free.
+          </p>
+        </div>
+
+        <div class="helpline-card card-hover-lift" data-keywords="icall tiss mumbai student psychosocial 9152987821">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="helpline-name">iCall (TISS Mumbai)</span>
+            <span style="font-size: 0.75rem; color: var(--calm-blue-dark); font-weight: 700;">Mon–Sat 10am–8pm</span>
+          </div>
+          <a href="tel:9152987821" class="helpline-number">9152987821</a>
+          <p class="helpline-desc">
+            Run by the Tata Institute of Social Sciences. Professional counseling for students and young adults.
+          </p>
+        </div>
+
+        <div class="helpline-card card-hover-lift" data-keywords="vandrevala foundation counseling psychologists 9999666555">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="helpline-name">Vandrevala Foundation</span>
+            <span class="badge-live-pulse" style="font-size: 0.75rem; color: #3FB950; font-weight: 700;">24/7 Live</span>
+          </div>
+          <a href="tel:9999666555" class="helpline-number">9999 666 555</a>
+          <p class="helpline-desc">
+            24/7 psychological first aid and emotional counseling provided by qualified clinical practitioners.
+          </p>
+        </div>
+
+        <div class="helpline-card card-hover-lift" data-keywords="kiran ministry helpline 18005990019">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="helpline-name">Kiran Mental Health Line</span>
+            <span class="badge-live-pulse" style="font-size: 0.75rem; color: #3FB950; font-weight: 700;">24/7 Live</span>
+          </div>
+          <a href="tel:18005990019" class="helpline-number">1800-599-0019</a>
+          <p class="helpline-desc">
+            Toll-free helpline launched by the Ministry of Social Justice and Empowerment for distress alleviation.
+          </p>
+        </div>
+
+        <div class="helpline-card card-hover-lift" data-keywords="aasra crisis emotional support 9820466726">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="helpline-name">AASRA Helpline</span>
+            <span class="badge-live-pulse" style="font-size: 0.75rem; color: #3FB950; font-weight: 700;">24/7 Live</span>
+          </div>
+          <a href="tel:9820466726" class="helpline-number">9820466726</a>
+          <p class="helpline-desc">
+            24/7 confidential emotional support for individuals experiencing acute distress or suicidal thoughts.
+          </p>
+        </div>
+
+        <div class="helpline-card card-hover-lift" data-keywords="emergency police medical ambulance 112">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="helpline-name">National Emergency (All-in-One)</span>
+            <span class="badge-live-pulse" style="font-size: 0.75rem; color: #3FB950; font-weight: 700;">24/7 Live</span>
+          </div>
+          <a href="tel:112" class="helpline-number">112</a>
+          <p class="helpline-desc">
+            Unified emergency dispatch number for immediate ambulance, police, or medical rescue intervention.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- In-Depth Educational Articles Grid -->
+      <h2 style="font-size: 1.6rem; font-weight: 700; margin-bottom: var(--space-4);">
+        Evidence-Based Student Wellness Guides
+      </h2>
+
+      <div class="resources-grid reveal-on-scroll" style="margin-bottom: var(--space-12);">
+        
+        <article class="article-card card-hover-lift" style="padding: var(--space-8);">
+          <span class="article-emoji" aria-hidden="true">🧠</span>
+          <h3 class="article-title">Deconstructing Academic Burnout</h3>
+          <p class="article-desc" style="margin-bottom: var(--space-4);">
+            Recognizing the subtle shift from productive focus to emotional exhaustion, brain fog, and chronic cynicism towards coursework.
+          </p>
+          <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; padding-left: 18px;">
+            <li>Set explicit daily "off-clock" hours where schoolwork is paused.</li>
+            <li>Replace perfectionism with iterative progress ("good enough" submission).</li>
+          </ul>
+        </article>
+
+        <article class="article-card card-hover-lift" style="padding: var(--space-8);">
+          <span class="article-emoji" aria-hidden="true">📱</span>
+          <h3 class="article-title">Social Media &amp; Comparative Anxiety</h3>
+          <p class="article-desc" style="margin-bottom: var(--space-4);">
+            How curated highlight reels of peer accomplishments trigger subconscious feelings of inadequacy and imposter syndrome.
+          </p>
+          <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; padding-left: 18px;">
+            <li>Conduct a monthly unfollow or mute audit of triggering accounts.</li>
+            <li>Remember that public posts capture outcomes, never the struggle behind them.</li>
+          </ul>
+        </article>
+
+        <article class="article-card card-hover-lift" style="padding: var(--space-8);">
+          <span class="article-emoji" aria-hidden="true">🌙</span>
+          <h3 class="article-title">Sleep Architecture for Exam Stamina</h3>
+          <p class="article-desc" style="margin-bottom: var(--space-4);">
+            Why all-nighters deplete hippocampal memory consolidation and increase exam errors by up to 30%.
+          </p>
+          <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; padding-left: 18px;">
+            <li>Prioritize 7 hours of sleep over last-minute cramming before testing.</li>
+            <li>Maintain dark, cool sleeping quarters free from vibrating phones.</li>
+          </ul>
+        </article>
+
+        <article class="article-card card-hover-lift" style="padding: var(--space-8);">
+          <span class="article-emoji" aria-hidden="true">🌿</span>
+          <h3 class="article-title">Somatic Grounding for Test Panic</h3>
+          <p class="article-desc" style="margin-bottom: var(--space-4);">
+            Simple 5-4-3-2-1 sensory exercises to anchor racing thoughts right before or during difficult examinations.
+          </p>
+          <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; padding-left: 18px;">
+            <li>Notice 5 things you can see, 4 you can touch, 3 you can hear.</li>
+            <li>Take 3 deep diaphragmatic breaths through your nose into the abdomen.</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="faq-wrap reveal-on-scroll">
+        <h2 style="font-size: 1.6rem; font-weight: 700; margin-bottom: var(--space-4); text-align: center;">
+          Resource Questions &amp; Support Protocol
+        </h2>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>Are calls to Tele-MANAS (14416) really free and private?</span>
+            <span class="faq-icon" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-answer">
+            Yes. Tele-MANAS is a 100% free, toll-free initiative run by the Ministry of Health &amp; Family Welfare, Government of India. You can speak in your native language (English, Hindi, Marathi, Tamil, Bengali, etc.), and counselors adhere to medical confidentiality guidelines.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>What if I feel uncomfortable talking on the phone?</span>
+            <span class="faq-icon" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-answer">
+            Services like iCall (TISS) also provide email-based counseling support at icall@tiss.edu. You can compose your thoughts in writing at your own pace.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>How can I support a fellow student who seems withdrawn?</span>
+            <span class="faq-icon" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-answer">
+            Listen without immediately offering solutions or saying "you'll get over it." Acknowledge their pain, ask gentle open-ended questions like "How have you been sleeping lately?", and offer to accompany them to university health centers or helpline calls if they wish.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-disclaimer-box" data-i18n="disclaimer.text">
+        Disclaimer: ManSantulan is an educational and self-awareness tool powered by machine learning, not a clinical diagnostic instrument.
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ManSantulan (मन संतुलन). Crafted with care for student wellness.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="assessment.html">Assessment</a>
+          <a href="insights.html">Insights</a>
+          <a href="wellness.html">Wellness</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Live Search Filter for Resources & Helplines
+    const searchBox = document.getElementById("resource-search-box");
+    const cards = document.querySelectorAll("#helpline-cards-container .helpline-card, .resources-grid .article-card");
+
+    if (searchBox) {
+      searchBox.addEventListener("input", () => {
+        const query = searchBox.value.toLowerCase().trim();
+        cards.forEach((card) => {
+          const text = card.textContent.toLowerCase();
+          const keywords = card.getAttribute("data-keywords") || "";
+          if (!query || text.includes(query) || keywords.includes(query)) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>

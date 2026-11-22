@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <!-- Top App Navigation -->
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <a href="/" class="sidebar-brand-title">
+        <span style="font-size: 1.4rem;">🌿</span>
+        <span>ManSantulan <small style="font-size: 0.75rem; color: var(--sage-dark);">मन संतुलन</small></span>
+      </a>
+    </div>
+    <div class="topbar-actions">
+      <a href="/features" class="btn btn-secondary btn-sm">Features</a>
+      <a href="/how-it-works" class="btn btn-secondary btn-sm">How it Works</a>
+      <a href="/helplines" class="btn btn-secondary btn-sm" style="color: var(--coral-dark);">Helplines</a>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+        <i data-lucide="moon" id="theme-icon"></i>
+      </button>
+      <a href="/login" class="btn btn-primary btn-sm">Sign In</a>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16);">
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span aria-current="page">About Us</span>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="reveal-on-scroll" style="margin-bottom: var(--space-8); text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+      <span class="badge badge-sage" style="margin-bottom: var(--space-3);">🌿 Our Mission</span>
+      <h1 style="font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: var(--space-4);">Balance of Mind for Every Student</h1>
+      <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7;">
+        "ManSantulan" (मन संतुलन) bridges empirical data science and psychological warmth, helping Indian university students understand their digital rhythms without judgment or stigma.
+      </p>
+    </div>
+
+    <!-- Core Values Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-12);" class="reveal-on-scroll">
+      <div class="card card-hover-lift">
+        <div style="font-size: 2rem; margin-bottom: var(--space-3);">🛡️</div>
+        <h3 style="margin-bottom: var(--space-2);">100% Non-Clinical & Safe</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          We replace scary diagnostic verdicts with compassionate, constructive self-awareness. Stressed students find clarity within 5 seconds.
+        </p>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="font-size: 2rem; margin-bottom: var(--space-3);">📊</div>
+        <h3 style="margin-bottom: var(--space-2);">Grounded in Real Data</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Trained on 5,000 real student lifestyle records, correlating screen exposure, sleep architecture, and study habits with wellbeing outcomes.
+        </p>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="font-size: 2rem; margin-bottom: var(--space-3);">🇮🇳</div>
+        <h3 style="margin-bottom: var(--space-2);">Culturally Contextualized</h3>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">
+          Tailored to Indian academic realities — exam crunch seasons, late-night hostel schedules, and direct integration with Tele-MANAS (14416).
+        </p>
+      </div>
+    </div>
+
+    <!-- Founder Note -->
+    <div class="card card-lg reveal-on-scroll" style="background: linear-gradient(135deg, var(--bg-card), var(--bg-card-hover));">
+      <h2 style="margin-bottom: var(--space-3);">The Story Behind ManSantulan</h2>
+      <p style="color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.75;">
+        As students ourselves, we noticed how late-night social media scrolling combined with intense academic expectations created silent burnout cycles. Existing mental health tools were either clinical, alarming, or Western-centric. ManSantulan was created to provide a soothing sanctuary: an evidence-based balance index, gentle daily micro-practices, and immediate access to accredited counselors.
+      </p>
+      <div style="display: flex; gap: var(--space-4); align-items: center;">
+        <a href="/assessment" class="btn btn-primary">Check Your Balance</a>
+        <a href="/team" class="btn btn-secondary">Meet the Team</a>
+      </div>
+    </div>
+
+    <!-- Mandatory Safety Disclaimer -->
+    <div class="disclaimer-banner">
+      <i data-lucide="info" style="width: 20px; height: 20px; color: var(--calm-blue-dark); flex-shrink: 0;"></i>
+      <span><strong>Educational Notice:</strong> ManSantulan is strictly an awareness and self-reflection platform. It does not provide medical diagnoses or replace licensed clinical psychiatric evaluation.</span>
+    </div>
+  </main>
+
+  <a href="/helplines" class="emergency-float-btn" aria-label="Need Help Now">
+    <i data-lucide="phone"></i>
+    <span>Need Help Now?</span>
+  </a>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 20%, rgba(127, 182, 158, 0.16) 0%, var(--bg-primary) 70%); padding: var(--space-4);">
+
+  <div class="card card-lg" style="width: 100%; max-width: 440px; box-shadow: var(--shadow-xl); border-radius: var(--radius-2xl);">
+    
+    <div style="text-align: center; margin-bottom: var(--space-6);">
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: var(--space-2);">
+        <span style="font-size: 1.8rem;">🌿</span>
+        <span style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--text-primary);">ManSantulan</span>
+      </a>
+      <h1 style="font-size: 1.4rem; margin-bottom: 4px;">Welcome Back</h1>
+      <p style="font-size: 0.9rem; color: var(--text-secondary);">Sign in to access your dashboard, mood tracker, and balance history.</p>
+    </div>
+
+    <div id="login-alert" class="alert alert-warning" style="display: none;"></div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label class="form-label" for="login-email">Student or College Email</label>
+        <input type="email" id="login-email" class="form-input" placeholder="alex.sharma@university.edu" required />
+      </div>
+
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <label class="form-label" for="login-password">Password</label>
+          <a href="/forgot-password" style="font-size: 0.82rem; color: var(--sage-dark); font-weight: 600;">Forgot Password?</a>
+        </div>
+        <div style="position: relative;">
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required />
+          <button type="button" id="toggle-pw-btn" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);" aria-label="Toggle password visibility">
+            <i data-lucide="eye" id="pw-icon" style="width: 18px; height: 18px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.88rem; cursor: pointer; color: var(--text-secondary);">
+          <input type="checkbox" id="remember-me" checked style="accent-color: var(--sage); width: 16px; height: 16px;" />
+          <span>Remember me</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="login-submit-btn" style="width: 100%; min-height: 48px; font-size: 1rem;">
+        <span>Sign In</span>
+        <i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>
+      </button>
+
+      <!-- Instant Demo Login Button -->
+      <button type="button" id="demo-login-btn" class="btn btn-secondary" style="width: 100%; margin-top: var(--space-3); font-size: 0.88rem;">
+        <span>⚡ Quick Demo Login (Alex Sharma)</span>
+      </button>
+    </form>
+
+    <div style="text-align: center; margin-top: var(--space-6); font-size: 0.9rem; color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: var(--space-5);">
+      Don't have an account yet? <a href="/register" style="color: var(--sage-dark); font-weight: 700; text-decoration: underline;">Create Account</a>
+    </div>
+
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script>
+    // Toggle Password Visibility
+    const toggleBtn = document.getElementById("toggle-pw-btn");
+    const pwInput = document.getElementById("login-password");
+    const pwIcon = document.getElementById("pw-icon");
+    if (toggleBtn && pwInput) {
+      toggleBtn.addEventListener("click", () => {
+        const isPw = pwInput.type === "password";
+        pwInput.type = isPw ? "text" : "password";
+        pwIcon.setAttribute("data-lucide", isPw ? "eye-off" : "eye");
+        if (window.lucide) window.lucide.createIcons();
+      });
+    }
+
+    // Form submission
+    const form = document.getElementById("login-form");
+    const alertBox = document.getElementById("login-alert");
+    const submitBtn = document.getElementById("login-submit-btn");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      alertBox.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = "<span>Signing In...</span>";
+
+      try {
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        await window.api.login(email, password);
+        window.location.href = "/dashboard";
+      } catch (err) {
+        alertBox.textContent = err.message || "Failed to sign in. Please verify your credentials.";
+        alertBox.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Sign In</span><i data-lucide="arrow-right" style="width: 18px; height: 18px;"></i>`;
+        if (window.lucide) window.lucide.createIcons();
+      }
+    });
+
+    // Quick Demo Login Button
+    document.getElementById("demo-login-btn")?.addEventListener("click", async () => {
+      document.getElementById("login-email").value = "alex.sharma@university.edu";
+      document.getElementById("login-password").value = "StudentPass123!";
+      form.dispatchEvent(new Event("submit"));
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) window.lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

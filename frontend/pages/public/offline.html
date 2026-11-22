@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline Mode — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+
+  <div class="card card-lg" style="max-width: 520px; text-align: center; margin: var(--space-4);">
+    <div style="font-size: 3rem; margin-bottom: var(--space-3);">📡</div>
+    <span class="badge badge-lavender" style="margin-bottom: var(--space-3);">Offline Campus Sanctuary</span>
+    <h1 style="font-size: 1.8rem; margin-bottom: var(--space-3);">You're Currently Offline</h1>
+    <p style="color: var(--text-secondary); margin-bottom: var(--space-6); font-size: 0.95rem; line-height: 1.6;">
+      No internet connection detected. You can still access your offline wellness tools, including breathing resets, study timers, and ambient soundscapes.
+    </p>
+
+    <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-6);">
+      <a href="/wellness" class="btn btn-primary">
+        <i data-lucide="wind"></i>
+        <span>Practice Box Breathing Offline</span>
+      </a>
+      <button type="button" class="btn btn-secondary" onclick="window.location.reload();">
+        <i data-lucide="rotate-cw"></i>
+        <span>Retry Connection</span>
+      </button>
+    </div>
+
+    <div style="font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: var(--space-4);">
+      National Helplines work over standard cellular calls without internet: <br />
+      <strong>Tele-MANAS: <a href="tel:14416" style="color: var(--coral-dark); font-weight: 700;">14416</a></strong>
+    </div>
+  </div>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+</body>
+</html>

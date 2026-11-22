@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness Sanctuary &amp; Micro-Tools — ManSantulan (मन संतुलन)</title>
+  <meta name="description" content="Immediate student self-care tools: box breathing exercise, ambient study soundscapes, digital detox tracker, and daily affirmations." />
+  
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- STICKY NAVBAR -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      <a href="index.html" class="nav-brand" aria-label="ManSantulan Home">
+        <span class="nav-brand-icon" aria-hidden="true">🌿</span>
+        <div>
+          <span style="font-weight: 700;">ManSantulan</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1; font-family: var(--font-devanagari);">मन संतुलन</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+        <a href="assessment.html" class="nav-link" data-i18n="nav.assessment">Assessment</a>
+        <a href="insights.html" class="nav-link" data-i18n="nav.insights">Insights</a>
+        <a href="wellness.html" class="nav-link active" data-i18n="nav.wellness">Wellness</a>
+        <a href="resources.html" class="nav-link" data-i18n="nav.resources">Resources</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-dropdown-wrapper">
+          <button type="button" class="action-icon-btn" id="lang-btn" aria-label="Change Language">
+            <i data-lucide="globe"></i>
+          </button>
+          <div class="lang-menu" id="lang-menu">
+            <button type="button" class="lang-option active" data-lang="en">English (EN)</button>
+            <button type="button" class="lang-option" data-lang="hi">हिंदी (HI)</button>
+            <button type="button" class="lang-option" data-lang="mr">मराठी (MR)</button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn" id="theme-btn" aria-label="Toggle Theme">
+          <i data-lucide="moon" id="theme-icon"></i>
+        </button>
+
+        <div class="profile-wrapper">
+          <button type="button" class="profile-btn" id="profile-btn">
+            <span class="profile-avatar" id="nav-user-avatar">AS</span>
+            <span class="profile-name" id="nav-user-name">Alex</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px;"></i>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <button type="button" class="profile-menu-item danger" id="nav-logout-btn">
+              <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="nav.logout">Log Out</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Home</a>
+      <a href="assessment.html" class="mobile-nav-link" data-i18n="nav.assessment">Assessment</a>
+      <a href="insights.html" class="mobile-nav-link" data-i18n="nav.insights">Insights</a>
+      <a href="wellness.html" class="mobile-nav-link" data-i18n="nav.wellness">Wellness</a>
+      <a href="resources.html" class="mobile-nav-link" data-i18n="nav.resources">Resources</a>
+    </div>
+  </header>
+
+  <!-- SUBPAGE INTRO BANNER -->
+  <header class="subpage-header" id="main-content">
+    <div class="container reveal-on-scroll">
+      <span class="subpage-badge">🧘 Mindful Self-Regulation</span>
+      <h1 class="subpage-title">Student Wellness Sanctuary</h1>
+      <p class="subpage-desc">
+        Take a moment to decompress. Micro-practices and ambient tools engineered to soothe sensory overload, calm test anxiety, and reset mental clarity.
+      </p>
+    </div>
+  </header>
+
+  <!-- WELLNESS TOOLS GRID -->
+  <main class="section" style="padding-top: var(--space-8);">
+    <div class="container">
+      
+      <div class="wellness-grid reveal-on-scroll" style="margin-bottom: var(--space-10);">
+        
+        <!-- Box Breathing Exercise with Breathing Mode Switcher -->
+        <div class="wellness-card card-hover-lift" style="padding: var(--space-8);">
+          <div style="font-size: 2.2rem; margin-bottom: 4px;">🫁</div>
+          <h2 class="wellness-card-title" data-i18n="breathing.title">Guided Breathing Reset</h2>
+          <p class="wellness-card-desc" data-i18n="breathing.desc">
+            Soothes the autonomic nervous system. Follow the visual rhythm.
+          </p>
+
+          <!-- Breathing Mode Selector -->
+          <div style="display: flex; gap: 6px; margin-bottom: var(--space-4); justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm active" id="breathe-mode-box" style="font-size: 0.78rem; padding: 4px 10px; min-height: 32px;">Box (4-4-4-4)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="breathe-mode-sleep" style="font-size: 0.78rem; padding: 4px 10px; min-height: 32px;">Sleep (4-7-8)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="breathe-mode-coherent" style="font-size: 0.78rem; padding: 4px 10px; min-height: 32px;">Coherent (5-5)</button>
+          </div>
+
+          <div class="breathing-visual-wrap" id="breathing-visual" aria-hidden="true">
+            <div class="breathing-circle-outer"></div>
+            <div class="breathing-circle" id="breathing-label">Inhale</div>
+          </div>
+
+          <button type="button" class="btn btn-secondary" id="breathing-toggle-btn" style="min-width: 220px;">
+            <i data-lucide="wind" style="width: 18px; height: 18px;"></i>
+            <span id="breathing-btn-text" data-i18n="breathing.btn.start">Start Breathing Exercise</span>
+          </button>
+        </div>
+
+        <!-- 5-Minute Study Mindfulness Timer -->
+        <div class="wellness-card card-hover-lift" style="padding: var(--space-8);">
+          <div style="font-size: 2.2rem; margin-bottom: 4px;">⏳</div>
+          <h2 class="wellness-card-title">5-Min Study Rest Timer</h2>
+          <p class="wellness-card-desc">
+            Rest your eyes and posture between study blocks. Step away from notifications.
+          </p>
+
+          <div style="font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; color: var(--calm-blue-dark); margin: var(--space-6) 0;" id="study-timer-display">
+            05:00
+          </div>
+
+          <div style="display: flex; gap: var(--space-2);">
+            <button type="button" class="btn btn-primary" id="timer-toggle-btn">
+              <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+              <span id="timer-btn-label">Start Timer</span>
+            </button>
+            <button type="button" class="btn btn-secondary" id="timer-reset-btn">
+              <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Digital Detox Streak -->
+        <div class="wellness-card card-hover-lift" style="padding: var(--space-8);">
+          <div style="font-size: 2.2rem; margin-bottom: 4px;">📵</div>
+          <h2 class="wellness-card-title" data-i18n="detox.title">Digital Detox Streak</h2>
+          <p class="wellness-card-desc" data-i18n="detox.desc">
+            Commit to keeping your phone in another room or charging station 1 hour prior to sleep.
+          </p>
+
+          <div class="detox-counter-block">
+            <span class="detox-days" id="detox-days-count">3</span>
+            <span class="detox-label">Consecutive Nights Completed</span>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="detox-log-btn">
+            <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+            <span data-i18n="detox.btn">Log Today's Detox</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Ambient Soundscapes Synthesizer (Built with Web Audio API) -->
+      <div class="result-box reveal-on-scroll" style="margin-bottom: var(--space-10);">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2);">
+          <div>
+            <h2 style="font-size: 1.45rem; font-weight: 700;">🎧 Calming Ambient Soundscapes</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Generated purely in-browser using Web Audio synthesis to mask distracting study noise and soothe racing thoughts.
+            </p>
+          </div>
+          <button type="button" class="btn btn-ghost" id="stop-all-audio-btn" style="color: var(--coral-dark);">
+            <i data-lucide="square" style="width: 16px; height: 16px;"></i>
+            <span>Stop Audio</span>
+          </button>
+        </div>
+
+        <div class="soundscape-grid">
+          <button type="button" class="soundscape-btn" data-sound="rain">
+            <span class="soundscape-icon">🌧️</span>
+            <span class="soundscape-title">Gentle Rain</span>
+            <span class="soundscape-status">Click to play</span>
+          </button>
+
+          <button type="button" class="soundscape-btn" data-sound="waves">
+            <span class="soundscape-icon">🌊</span>
+            <span class="soundscape-title">Ocean Tide</span>
+            <span class="soundscape-status">Click to play</span>
+          </button>
+
+          <button type="button" class="soundscape-btn" data-sound="forest">
+            <span class="soundscape-icon">🍃</span>
+            <span class="soundscape-title">Forest Wind</span>
+            <span class="soundscape-status">Click to play</span>
+          </button>
+
+          <button type="button" class="soundscape-btn" data-sound="whitenoise">
+            <span class="soundscape-icon">📻</span>
+            <span class="soundscape-title">Pink Noise (Focus)</span>
+            <span class="soundscape-status">Click to play</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gratitude & Mindful Thought Micro-Diary -->
+      <div class="result-card reveal-on-scroll" style="padding: var(--space-8); margin-bottom: var(--space-10);">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: var(--space-2);">
+          <span style="font-size: 1.5rem;">📖</span>
+          <h2 style="font-size: 1.4rem; font-weight: 700;">Student Daily Gratitude Reflection</h2>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: var(--space-4);">
+          Taking 30 seconds to record one small positive moment reduces cortisol and counters the brain's natural negativity bias during exams.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-4);">
+          <textarea class="form-input" id="gratitude-input" rows="3" placeholder="What is one small thing that brought you comfort, relief, or a smile today?"></textarea>
+          <div style="display: flex; justify-content: flex-end;">
+            <button type="button" class="btn btn-primary" id="save-gratitude-btn">
+              <i data-lucide="heart" style="width: 16px; height: 16px;"></i>
+              <span>Save to Private Diary</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="gratitude-feed" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Dynamically loaded from localStorage -->
+        </div>
+      </div>
+
+      <!-- Daily Affirmation Deck -->
+      <div class="result-card reveal-on-scroll" style="text-align: center; padding: var(--space-10); margin-bottom: var(--space-12);">
+        <span style="font-size: 2.5rem; display: block; margin-bottom: var(--space-2);">✨</span>
+        <h2 style="font-size: 1.6rem; font-weight: 700; margin-bottom: var(--space-2);" data-i18n="affirmation.title">
+          Daily Student Affirmation
+        </h2>
+        <div style="min-height: 90px; display: flex; align-items: center; justify-content: center; max-width: 620px; margin: 0 auto var(--space-6);">
+          <p id="daily-affirmation-text" style="font-size: 1.25rem; font-weight: 500; font-style: italic; color: var(--text-primary); line-height: 1.5;">
+            "Your worth is not defined by academic productivity or notification counts."
+          </p>
+        </div>
+        <button type="button" class="btn btn-secondary" id="new-affirmation-btn" style="padding: 12px 28px;">
+          <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+          <span data-i18n="affirmation.btn">New Affirmation</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-disclaimer-box" data-i18n="disclaimer.text">
+        Disclaimer: ManSantulan is an educational and self-awareness tool powered by machine learning, not a clinical diagnostic instrument.
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ManSantulan (मन संतुलन). Crafted with care for student wellness.</span>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="assessment.html">Assessment</a>
+          <a href="insights.html">Insights</a>
+          <a href="resources.html">Resources</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Gratitude Diary Logic
+    const gratitudeInput = document.getElementById("gratitude-input");
+    const saveGratitudeBtn = document.getElementById("save-gratitude-btn");
+    const gratitudeFeed = document.getElementById("gratitude-feed");
+    const GRATITUDE_KEY = "mansantulan_gratitudes";
+
+    function loadGratitudes() {
+      if (!gratitudeFeed) return;
+      try {
+        const list = JSON.parse(localStorage.getItem(GRATITUDE_KEY)) || [
+          { text: "Finished my morning assignment and enjoyed a quiet warm cup of tea.", date: "Today" }
+        ];
+        gratitudeFeed.innerHTML = "";
+        list.slice(-3).reverse().forEach(item => {
+          const card = document.createElement("div");
+          card.style.background = "var(--bg-primary)";
+          card.style.padding = "10px 14px";
+          card.style.borderRadius = "var(--radius-md)";
+          card.style.borderLeft = "3px solid var(--sage)";
+          card.style.fontSize = "0.9rem";
+          card.innerHTML = `<span style="font-size: 0.75rem; color: var(--text-muted); display: block;">${item.date}</span><p style="margin-top: 2px;">${item.text}</p>`;
+          gratitudeFeed.appendChild(card);
+        });
+      } catch(e) {}
+    }
+
+    loadGratitudes();
+
+    if (saveGratitudeBtn && gratitudeInput) {
+      saveGratitudeBtn.addEventListener("click", () => {
+        const text = gratitudeInput.value.trim();
+        if (!text) return;
+        try {
+          const list = JSON.parse(localStorage.getItem(GRATITUDE_KEY)) || [];
+          list.push({ text, date: new Date().toLocaleDateString() });
+          localStorage.setItem(GRATITUDE_KEY, JSON.stringify(list));
+          gratitudeInput.value = "";
+          loadGratitudes();
+        } catch(e) {}
+      });
+    }
+
+    // 5-Minute Study Timer
+    let timerSeconds = 300;
+    let timerInterval = null;
+    let isTimerRunning = false;
+    const timerDisplay = document.getElementById("study-timer-display");
+    const timerBtn = document.getElementById("timer-toggle-btn");
+    const timerBtnLabel = document.getElementById("timer-btn-label");
+    const timerResetBtn = document.getElementById("timer-reset-btn");
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerSeconds / 60).toString().padStart(2, "0");
+      const secs = (timerSeconds % 60).toString().padStart(2, "0");
+      if (timerDisplay) timerDisplay.textContent = `${mins}:${secs}`;
+    }
+
+    if (timerBtn) {
+      timerBtn.addEventListener("click", () => {
+        isTimerRunning = !isTimerRunning;
+        if (isTimerRunning) {
+          timerBtnLabel.textContent = "Pause Timer";
+          timerBtn.innerHTML = '<i data-lucide="pause"></i> <span>Pause</span>';
+          timerInterval = setInterval(() => {
+            if (timerSeconds > 0) {
+              timerSeconds--;
+              updateTimerDisplay();
+            } else {
+              clearInterval(timerInterval);
+              isTimerRunning = false;
+              alert("5-Minute Rest complete! Take a sip of water and stretch gently.");
+              timerSeconds = 300;
+              updateTimerDisplay();
+              timerBtnLabel.textContent = "Start Timer";
+            }
+          }, 1000);
+        } else {
+          clearInterval(timerInterval);
+          timerBtn.innerHTML = '<i data-lucide="play"></i> <span>Resume</span>';
+        }
+        lucide.createIcons();
+      });
+    }
+
+    if (timerResetBtn) {
+      timerResetBtn.addEventListener("click", () => {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        timerSeconds = 300;
+        updateTimerDisplay();
+        if (timerBtn) timerBtn.innerHTML = '<i data-lucide="play"></i> <span>Start Timer</span>';
+        lucide.createIcons();
+      });
+    }
+
+    // Web Audio Synthesizer for Ambient Study Sounds
+    let audioCtx = null;
+    let activeSoundNode = null;
+    let activeBtn = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return audioCtx;
+    }
+
+    function stopAllAudio() {
+      if (activeSoundNode) {
+        try { activeSoundNode.stop(); activeSoundNode.disconnect(); } catch(e){}
+        activeSoundNode = null;
+      }
+      document.querySelectorAll(".soundscape-btn").forEach((btn) => {
+        btn.classList.remove("playing");
+        const status = btn.querySelector(".soundscape-status");
+        if (status) status.textContent = "Click to play";
+      });
+      activeBtn = null;
+    }
+
+    document.getElementById("stop-all-audio-btn")?.addEventListener("click", stopAllAudio);
+
+    document.querySelectorAll(".soundscape-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const soundType = btn.getAttribute("data-sound");
+
+        if (activeBtn === btn) {
+          stopAllAudio();
+          return;
+        }
+
+        stopAllAudio();
+        const ctx = getAudioContext();
+        if (ctx.state === "suspended") ctx.resume();
+
+        const bufferSize = ctx.sampleRate * 2;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          if (soundType === "rain") {
+            output[i] = (lastOut + (0.02 * white)) / 1.02;
+          } else if (soundType === "waves") {
+            const waveMod = Math.sin((i / bufferSize) * Math.PI * 4);
+            output[i] = ((lastOut + (0.03 * white)) / 1.03) * (0.6 + 0.4 * waveMod);
+          } else if (soundType === "forest") {
+            output[i] = (lastOut + (0.01 * white)) / 1.01;
+          } else {
+            output[i] = (lastOut + (0.05 * white)) / 1.05;
+          }
+          lastOut = output[i];
+        }
+
+        const whiteNoise = ctx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const gainNode = ctx.createGain();
+        gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
+
+        whiteNoise.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        whiteNoise.start();
+
+        activeSoundNode = whiteNoise;
+        activeBtn = btn;
+        btn.classList.add("playing");
+        const status = btn.querySelector(".soundscape-status");
+        if (status) status.textContent = "Playing...";
+      });
+    });
+  </script>
+</body>
+</html>

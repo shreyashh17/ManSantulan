@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Platform Features — ManSantulan (मन संतुलन)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/frontend/css/tokens.css" />
+  <link rel="stylesheet" href="/frontend/css/components.css" />
+  <link rel="stylesheet" href="/frontend/css/animations.css" />
+  <link rel="stylesheet" href="/frontend/css/shell.css" />
+</head>
+<body>
+
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <a href="/" class="sidebar-brand-title">
+        <span style="font-size: 1.4rem;">🌿</span>
+        <span>ManSantulan <small style="font-size: 0.75rem; color: var(--sage-dark);">मन संतुलन</small></span>
+      </a>
+    </div>
+    <div class="topbar-actions">
+      <a href="/features" class="btn btn-secondary btn-sm" style="color: var(--sage-dark); font-weight: 700;">Features</a>
+      <a href="/how-it-works" class="btn btn-secondary btn-sm">How it Works</a>
+      <a href="/helplines" class="btn btn-secondary btn-sm" style="color: var(--coral-dark);">Helplines</a>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Toggle Theme">
+        <i data-lucide="moon" id="theme-icon"></i>
+      </button>
+      <a href="/login" class="btn btn-primary btn-sm">Sign In</a>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-16);">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span aria-current="page">Features</span>
+    </nav>
+
+    <div class="reveal-on-scroll" style="margin-bottom: var(--space-8); text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+      <span class="badge badge-blue" style="margin-bottom: var(--space-3);">⚡ Comprehensive Suite</span>
+      <h1 style="font-size: clamp(2.2rem, 4vw, 3rem); margin-bottom: var(--space-4);">Engineered for Student Equilibrium</h1>
+      <p style="font-size: 1.15rem; color: var(--text-secondary); line-height: 1.7;">
+        Discover how our AI assessment, daily self-regulation toolkit, empirical observatory, and certified counselor directory work together.
+      </p>
+    </div>
+
+    <!-- 6 Feature Pillars Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-12);" class="reveal-on-scroll">
+      
+      <div class="card card-hover-lift">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3);">
+          <span style="font-size: 1.8rem; background: var(--sage-light); padding: 8px; border-radius: var(--radius-lg);">🎯</span>
+          <h3 style="font-size: 1.2rem;">AI Mental Health Predictor</h3>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: var(--space-4);">
+          Uses Random Forest regression trained on 5,000 real student lifestyle profiles to evaluate 12 habit metrics and output a personalized 0-10 balance index.
+        </p>
+        <a href="/assessment" class="btn btn-secondary btn-sm">Launch Assessment →</a>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3);">
+          <span style="font-size: 1.8rem; background: var(--calm-blue-light); padding: 8px; border-radius: var(--radius-lg);">🫁</span>
+          <h3 style="font-size: 1.2rem;">Guided Breathing Sanctuary</h3>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: var(--space-4);">
+          Visual pacing for Box Breathing (4-4-4-4), 4-7-8 Sleep Induction, and Coherent Respiration with audio chime feedback to calm the vagus nerve.
+        </p>
+        <a href="/wellness" class="btn btn-secondary btn-sm">Try Breathing Reset →</a>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3);">
+          <span style="font-size: 1.8rem; background: var(--lavender-light); padding: 8px; border-radius: var(--radius-lg);">🎧</span>
+          <h3 style="font-size: 1.2rem;">Web Audio Soundscapes</h3>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: var(--space-4);">
+          Procedural pink noise, gentle rain, ocean surf, and forest breeze synthesizers generated in real time in your browser without tracking or ads.
+        </p>
+        <a href="/wellness" class="btn btn-secondary btn-sm">Listen to Soundscapes →</a>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3);">
+          <span style="font-size: 1.8rem; background: var(--coral-light); padding: 8px; border-radius: var(--radius-lg);">📊</span>
+          <h3 style="font-size: 1.2rem;">Empirical Data Observatory</h3>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: var(--space-4);">
+          Interactive Chart.js breakdowns cross-tabulating screen time vs. sleep deprivation, platform risks, and stress distribution across universities.
+        </p>
+        <a href="/insights" class="btn btn-secondary btn-sm">Explore Observatory →</a>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3);">
+          <span style="font-size: 1.8rem; background: var(--sage-light); padding: 8px; border-radius: var(--radius-lg);">🔒</span>
+          <h3 style="font-size: 1.2rem;">Zero-Knowledge Privacy Center</h3>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: var(--space-4);">
+          Full compliance with data minimization: export your complete profile and historical assessments with one click, or delete your entire record instantly.
+        </p>
+        <a href="/privacy-center" class="btn btn-secondary btn-sm">Visit Privacy Center →</a>
+      </div>
+
+      <div class="card card-hover-lift">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: var(--space-3);">
+          <span style="font-size: 1.8rem; background: var(--calm-blue-light); padding: 8px; border-radius: var(--radius-lg);">🆘</span>
+          <h3 style="font-size: 1.2rem;">24/7 Verified Indian Helplines</h3>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: var(--space-4);">
+          Direct 1-click dialing to Government of India's Tele-MANAS (14416), iCall (TISS Mumbai), Vandrevala Foundation, Kiran, and AASRA.
+        </p>
+        <a href="/helplines" class="btn btn-secondary btn-sm">View All Helplines →</a>
+      </div>
+
+    </div>
+
+    <!-- CTA Section -->
+    <div class="card card-lg reveal-on-scroll" style="text-align: center; background: radial-gradient(circle at 50% 50%, var(--sage-light) 0%, var(--bg-card) 70%);">
+      <h2 style="font-size: 1.8rem; margin-bottom: var(--space-3);">Ready to Map Your Digital Equilibrium?</h2>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto var(--space-6);">
+        Take the free, private 2-minute student assessment to see your baseline score.
+      </p>
+      <a href="/assessment" class="btn btn-primary" style="font-size: 1.05rem; padding: 14px 36px;">Start Mindful Assessment</a>
+    </div>
+
+    <div class="disclaimer-banner">
+      <i data-lucide="info" style="width: 20px; height: 20px; color: var(--calm-blue-dark); flex-shrink: 0;"></i>
+      <span><strong>Educational Notice:</strong> ManSantulan is strictly an awareness and self-reflection platform. It does not provide medical diagnoses or replace licensed clinical psychiatric evaluation.</span>
+    </div>
+  </main>
+
+  <a href="/helplines" class="emergency-float-btn" aria-label="Need Help Now">
+    <i data-lucide="phone"></i>
+    <span>Need Help Now?</span>
+  </a>
+
+  <script src="/frontend/js/api.js"></script>
+  <script src="/frontend/js/app_shell.js"></script>
+</body>
+</html>

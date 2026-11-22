@@ -1,366 +1,1248 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mental Health Score Calculator — Student Wellness Analytics</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ManSantulan (मन संतुलन) — Student Digital Wellness & Mental Balance</title>
+  <meta name="description" content="A warm, supportive, AI-powered mental wellness calculator for students. Discover balance between screen habits, study pressure, sleep, and emotional health." />
+  
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Google Fonts CDN: Inter, Poppins, Noto Sans Devanagari -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Application Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="bg-grid-pattern" aria-hidden="true"></div>
-
-<!-- =========================================================
-     STANDALONE AUTHENTICATION PAGE VIEW (LOGIN & REGISTER)
-     ========================================================= -->
-<section class="login-screen" id="login-screen">
-  <div class="login-card">
-    <div class="login-header">
-      <div class="app-logo-badge">
-        <div class="logo-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+  <!-- =========================================================================
+       1. STICKY TOP NAVBAR
+       ========================================================================= -->
+  <header class="navbar" role="banner">
+    <div class="container navbar-inner">
+      
+      <!-- Brand Logo -->
+      <a href="#hero-section" class="nav-brand" aria-label="ManSantulan Home">
+        <span class="nav-brand-icon" aria-hidden="true">🌿</span>
+        <div>
+          <span style="font-weight: 700; letter-spacing: -0.01em;">ManSantulan</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted); display: block; line-height: 1; font-family: var(--font-devanagari);">मन संतुलन</span>
         </div>
-        <span class="logo-text">Mental Health Analytics</span>
+      </a>
+
+      <!-- Desktop Navigation Links (Directly Linking Core Portals) -->
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="/app" class="nav-link active" data-i18n="nav.home">Home</a>
+        <a href="/dashboard" class="nav-link">
+          <span style="background: var(--sage-light); color: var(--sage-dark); font-size: 0.72rem; font-weight: 700; padding: 2px 6px; border-radius: var(--radius-full); margin-right: 4px;">Live</span>
+          Dashboard
+        </a>
+        <a href="/assessment" class="nav-link">Assessment</a>
+        <a href="/insights" class="nav-link">Insights</a>
+        <a href="/wellness" class="nav-link">Wellness</a>
+        <a href="/helplines" class="nav-link" style="color: var(--coral-dark); font-weight: 600;">Helplines</a>
+      </nav>
+
+      <!-- Nav Actions (Lang, Theme, Direct Auth Buttons, Profile) -->
+      <div class="nav-actions">
+        
+        <!-- Language Switcher -->
+        <div class="lang-dropdown-wrapper">
+          <button type="button" class="action-icon-btn" id="lang-btn" aria-label="Change Language" aria-expanded="false">
+            <i data-lucide="globe"></i>
+          </button>
+          <div class="lang-menu" id="lang-menu" role="menu">
+            <button type="button" class="lang-option active" data-lang="en">English (EN)</button>
+            <button type="button" class="lang-option" data-lang="hi">हिंदी (HI)</button>
+            <button type="button" class="lang-option" data-lang="mr">मराठी (MR)</button>
+          </div>
+        </div>
+
+        <!-- Light/Dark Mode Toggle -->
+        <button type="button" class="action-icon-btn" id="theme-btn" aria-label="Toggle Dark/Light Mode">
+          <i data-lucide="moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Direct Sign In / Register Buttons -->
+        <a href="/login" class="btn btn-secondary btn-sm" style="font-size: 0.85rem; padding: 6px 14px; min-height: 38px;">
+          Sign In
+        </a>
+        <a href="/register" class="btn btn-primary btn-sm" style="font-size: 0.85rem; padding: 6px 14px; min-height: 38px;">
+          Register
+        </a>
+
+        <!-- User Profile Dropdown -->
+        <div class="profile-wrapper">
+          <button type="button" class="profile-btn" id="profile-btn" aria-expanded="false" aria-label="User Profile Menu">
+            <span class="profile-avatar" id="nav-user-avatar">AS</span>
+            <span class="profile-name" id="nav-user-name">Alex</span>
+            <i data-lucide="chevron-down" style="width: 14px; height: 14px; color: var(--text-muted);"></i>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <div style="padding: 6px 10px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 4px;">
+              <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Signed in as</span>
+              <strong id="dropdown-user-email" style="font-size: 0.85rem; word-break: break-all;">alex.sharma@university.edu</strong>
+            </div>
+            <a href="/dashboard" class="profile-menu-item">
+              <i data-lucide="layout-dashboard" style="width: 16px; height: 16px;"></i>
+              <span>Student Dashboard</span>
+            </a>
+            <a href="/assessment" class="profile-menu-item">
+              <i data-lucide="clipboard-check" style="width: 16px; height: 16px;"></i>
+              <span>Take Assessment</span>
+            </a>
+            <a href="/privacy-center" class="profile-menu-item">
+              <i data-lucide="lock" style="width: 16px; height: 16px;"></i>
+              <span>Privacy Center</span>
+            </a>
+            <a href="/security" class="profile-menu-item">
+              <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
+              <span>Security Settings</span>
+            </a>
+            <button type="button" class="profile-menu-item danger" id="nav-logout-btn">
+              <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="nav.logout">Log Out</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Drawer Toggle -->
+        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu">
+          <i data-lucide="menu"></i>
+        </button>
+
       </div>
-      <h2 class="login-title" id="auth-title">Sign In to Dashboard</h2>
-      <p class="login-subtitle" id="auth-subtitle">Sign in with your student account or create a new profile</p>
     </div>
 
-    <!-- Auth Mode Selector Tabs -->
-    <div class="auth-tabs" role="tablist">
-      <button type="button" class="tab-btn active" id="tab-btn-signin" role="tab" aria-selected="true">Sign In</button>
-      <button type="button" class="tab-btn" id="tab-btn-register" role="tab" aria-selected="false">Create Account</button>
-    </div>
-
-    <!-- SIGN IN FORM PANEL -->
-    <form class="login-form auth-panel" id="login-form">
-      <div class="form-group">
-        <label for="login-email">Student ID or Email</label>
-        <input type="text" class="form-control" id="login-email" placeholder="student@university.edu" required autocomplete="username" />
-      </div>
-
-      <div class="form-group">
-        <label for="login-password">Password</label>
-        <div class="pw-wrapper">
-          <input type="password" class="form-control" id="login-password" placeholder="••••••••" required autocomplete="current-password" />
-          <button type="button" class="toggle-pw-btn" id="toggle-pw-btn">Show</button>
-        </div>
-      </div>
-
-      <div class="login-row">
-        <label class="checkbox-wrap">
-          <input type="checkbox" id="remember-me" checked />
-          <span>Remember session</span>
-        </label>
-        <a href="#" class="link-btn" onclick="alert('Demo Access is enabled below!'); return false;">Forgot?</a>
-      </div>
-
-      <button type="submit" class="btn-primary">
-        <span>Sign In</span>
-      </button>
-
-      <div class="divider">OR</div>
-
-      <button type="button" class="btn-secondary" id="demo-login-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-        <span>Quick Demo Access</span>
-      </button>
-    </form>
-
-    <!-- REGISTER / CREATE ACCOUNT FORM PANEL -->
-    <form class="login-form auth-panel" id="register-form" style="display: none;">
-      <div class="form-group">
-        <label for="reg-name">Full Name</label>
-        <input type="text" class="form-control" id="reg-name" placeholder="e.g. Rahul Sharma" required />
-      </div>
-
-      <div class="form-group">
-        <label for="reg-email">Student Email / ID</label>
-        <input type="email" class="form-control" id="reg-email" placeholder="rahul@university.edu" required />
-      </div>
-
-      <div class="form-group">
-        <label for="reg-level">Academic Level</label>
-        <select class="form-control" id="reg-level" required>
-          <option value="" disabled selected hidden>Select level</option>
-          <option value="High School">High School</option>
-          <option value="Undergraduate">Undergraduate</option>
-          <option value="Graduate">Graduate</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="reg-password">Password</label>
-        <input type="password" class="form-control" id="reg-password" placeholder="Minimum 6 characters" required />
-      </div>
-
-      <div class="form-group">
-        <label for="reg-password-confirm">Confirm Password</label>
-        <input type="password" class="form-control" id="reg-password-confirm" placeholder="Re-enter password" required />
-      </div>
-
-      <div class="error-msg" id="reg-error-msg" style="margin-bottom: 4px;"></div>
-
-      <button type="submit" class="btn-primary">
-        <span>Create Account &amp; Access Calculator</span>
-      </button>
-    </form>
-
-  </div>
-</section>
-
-<!-- =========================================================
-     MAIN APPLICATION DASHBOARD (Revealed after Login / Register)
-     ========================================================= -->
-<div id="app-dashboard" hidden>
-
-  <!-- TOP NAVIGATION HEADER -->
-  <header class="app-header">
-    <div class="nav-container">
-      <div class="brand-wrapper">
-        <div class="logo-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        </div>
-        <span class="brand-title">Mental Health Analytics</span>
-        <span class="api-status-badge">
-          <span class="status-dot"></span> ML Model API Ready
-        </span>
-      </div>
-
-      <!-- User Navigation Badge -->
-      <div class="user-nav-badge" id="user-profile-badge">
-        <div class="user-avatar" id="user-avatar">AS</div>
-        <span class="user-name-label" id="user-name-display">Alex Student</span>
-        <button type="button" class="btn-ghost-logout" id="logout-btn">Log Out</button>
-      </div>
+    <!-- Mobile Drawer (Student-Friendly Navigation) -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <a href="/app" class="mobile-nav-link" data-i18n="nav.home">Home</a>
+      <a href="/dashboard" class="mobile-nav-link">Student Sanctuary (Dashboard)</a>
+      <a href="/assessment" class="mobile-nav-link">AI Assessment</a>
+      <a href="/wellness" class="mobile-nav-link">Wellness Tools</a>
+      <a href="/insights" class="mobile-nav-link">Habit Insights</a>
+      <a href="/helplines" class="mobile-nav-link" style="color: var(--coral-dark);">24/7 Crisis Helplines</a>
+      <a href="/resources" class="mobile-nav-link">Student Coping Guides</a>
+      <a href="/privacy-center" class="mobile-nav-link">Privacy &amp; Safety</a>
+      <a href="/login" class="mobile-nav-link">Sign In</a>
+      <a href="/register" class="mobile-nav-link">Create Account</a>
     </div>
   </header>
 
-  <!-- PAGE BANNER INTRO -->
-  <div class="page-banner">
-    <h1 class="page-title">Mental Health Score Calculator</h1>
-    <p class="page-desc">Predictive student wellness score calculated from digital usage habits, sleep, study time, and stress levels.</p>
-  </div>
+  <!-- =========================================================================
+       2. HERO SECTION
+       ========================================================================= -->
+  <main id="main-content">
+    <!-- =========================================================================
+         2. HERO SECTION
+         ========================================================================= -->
+    <section class="hero" id="hero-section">
+      <div class="hero-bg-accent" aria-hidden="true"></div>
+      
+      <!-- Floating Badges for Desktop Polish -->
+      <div class="hero-floating-badge badge-left" aria-hidden="true">
+        <span>🌿 100% Anonymous &amp; Private</span>
+      </div>
+      <div class="hero-floating-badge badge-right" aria-hidden="true">
+        <span>📊 5,000+ Student Habits Studied</span>
+      </div>
 
-  <!-- MAIN APPLICATION GRID LAYOUT -->
-  <main class="main-layout" id="main-layout">
+      <div class="container hero-content">
+        
+        <div class="hero-pill">
+          <span aria-hidden="true">✨</span>
+          <span data-i18n="hero.badge">AI-Powered Student Wellness</span>
+        </div>
 
-    <!-- FORM PANEL CARD -->
-    <section class="panel-card form-panel">
-      <form id="predict-form" novalidate>
+        <h1 class="hero-title">
+          <span class="hero-title-greeting" id="hero-greeting-line">
+            <span id="hero-greeting">Good evening</span>, <span id="hero-student-name">Alex</span> 🌙
+          </span>
+          <span class="hero-title-highlight" data-i18n="hero.title">Find your mind's natural equilibrium</span>
+        </h1>
 
-        <!-- SECTION 01: PROFILE -->
-        <div class="section-block">
-          <div class="section-header">
-            <span class="section-num">1</span>
-            <h2 class="section-title">Student Profile</h2>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+          A safe, calm space designed for students to understand how social media and daily habits influence mental balance.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#assessment-section" class="btn btn-hero-primary">
+            <i data-lucide="sparkles" style="width: 20px; height: 20px;"></i>
+            <span data-i18n="hero.cta">Check My Balance</span>
+          </a>
+          <a href="/dashboard" class="btn btn-hero-secondary">
+            <i data-lucide="layout-dashboard" style="width: 20px; height: 20px;"></i>
+            <span>Student Dashboard</span>
+          </a>
+          <a href="#insights-section" class="btn btn-hero-secondary">
+            <i data-lucide="bar-chart-2" style="width: 20px; height: 20px;"></i>
+            <span data-i18n="hero.secondary">Explore Insights</span>
+          </a>
+        </div>
+
+        <!-- Centered 4-Metric Stats Row -->
+        <div class="hero-stats-banner">
+          <div class="hero-stat-card card-hover-lift">
+            <div class="hero-stat-num">5,000+</div>
+            <div class="hero-stat-label">Student Records Analyzed</div>
           </div>
-          <div class="form-grid grid-cols-3">
-            <div class="field">
-              <label for="age">Age</label>
-              <input type="number" class="form-control" id="age" name="age" min="10" max="100" step="1" required placeholder="21" />
-              <span class="field-hint">Range: 10–100</span>
-              <span class="error-msg" data-for="age"></span>
-            </div>
-            <div class="field">
-              <label for="gender">Gender</label>
-              <select class="form-control" id="gender" name="gender" required>
-                <option value="" disabled selected hidden>Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-              <span class="error-msg" data-for="gender"></span>
-            </div>
-            <div class="field">
-              <label for="country">Country</label>
-              <input type="text" class="form-control" id="country" name="country" list="country-list" required placeholder="e.g. India" autocomplete="off" />
-              <datalist id="country-list">
-                <option value="India"></option>
-                <option value="USA"></option>
-                <option value="Canada"></option>
-                <option value="Australia"></option>
-                <option value="UK"></option>
-                <option value="Germany"></option>
-                <option value="Mexico"></option>
-                <option value="Turkey"></option>
-                <option value="France"></option>
-              </datalist>
-              <span class="error-msg" data-for="country"></span>
-            </div>
+          <div class="hero-stat-card card-hover-lift">
+            <div class="hero-stat-num">12</div>
+            <div class="hero-stat-label">Habit &amp; Lifestyle Metrics</div>
+          </div>
+          <div class="hero-stat-card card-hover-lift">
+            <div class="hero-stat-num">24/7</div>
+            <div class="hero-stat-label">Tele-MANAS (14416) Support</div>
+          </div>
+          <div class="hero-stat-card card-hover-lift">
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-label">Anonymous &amp; Private</div>
           </div>
         </div>
 
-        <!-- SECTION 02: ACADEMIC & DIGITAL HABITS -->
-        <div class="section-block">
-          <div class="section-header">
-            <span class="section-num">2</span>
-            <h2 class="section-title">Academic &amp; Digital Habits</h2>
-          </div>
-          <div class="form-grid grid-cols-2">
-            <div class="field">
-              <label for="academic_level">Academic Level</label>
-              <select class="form-control" id="academic_level" name="academic_level" required>
-                <option value="" disabled selected hidden>Select</option>
-                <option value="High School">High School</option>
-                <option value="Undergraduate">Undergraduate</option>
-                <option value="Graduate">Graduate</option>
-              </select>
-              <span class="error-msg" data-for="academic_level"></span>
-            </div>
-            <div class="field">
-              <label for="most_used_platform">Primary Social Platform</label>
-              <select class="form-control" id="most_used_platform" name="most_used_platform" required>
-                <option value="" disabled selected hidden>Select</option>
-                <option value="Facebook">Facebook</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Snapchat">Snapchat</option>
-                <option value="Twitter">Twitter</option>
-                <option value="YouTube">YouTube</option>
-                <option value="TikTok">TikTok</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="LINE">LINE</option>
-                <option value="KakaoTalk">KakaoTalk</option>
-                <option value="VKontakte">VKontakte</option>
-                <option value="WhatsApp">WhatsApp</option>
-                <option value="WeChat">WeChat</option>
-              </select>
-              <span class="error-msg" data-for="most_used_platform"></span>
-            </div>
-            <div class="field">
-              <label for="purpose_of_use">Primary Purpose</label>
-              <select class="form-control" id="purpose_of_use" name="purpose_of_use" required>
-                <option value="" disabled selected hidden>Select</option>
-                <option value="Networking">Networking</option>
-                <option value="Education">Education</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="News">News</option>
-              </select>
-              <span class="error-msg" data-for="purpose_of_use"></span>
-            </div>
-            <div class="field">
-              <label for="avg_daily_usage_hours">Avg. Daily Screen Time</label>
-              <div class="unit-field">
-                <input type="number" class="form-control" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" required placeholder="4.5" />
-                <span class="unit-tag">hrs</span>
-              </div>
-              <span class="error-msg" data-for="avg_daily_usage_hours"></span>
-            </div>
-            <div class="field">
-              <label for="daily_unlocks">Daily Phone Unlocks</label>
-              <input type="number" class="form-control" id="daily_unlocks" name="daily_unlocks" min="0" step="1" required placeholder="60" />
-              <span class="error-msg" data-for="daily_unlocks"></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- SECTION 03: LIFESTYLE & STRESS -->
-        <div class="section-block">
-          <div class="section-header">
-            <span class="section-num">3</span>
-            <h2 class="section-title">Lifestyle &amp; Stress Level</h2>
-          </div>
-          <div class="form-grid grid-cols-3">
-            <div class="field">
-              <label for="study_hours">Daily Study Hours</label>
-              <div class="unit-field">
-                <input type="number" class="form-control" id="study_hours" name="study_hours" min="0" max="24" step="0.1" required placeholder="5.0" />
-                <span class="unit-tag">hrs</span>
-              </div>
-              <span class="error-msg" data-for="study_hours"></span>
-            </div>
-            <div class="field">
-              <label for="physical_activity_hours">Physical Activity / Day</label>
-              <div class="unit-field">
-                <input type="number" class="form-control" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.1" required placeholder="1.0" />
-                <span class="unit-tag">hrs</span>
-              </div>
-              <span class="error-msg" data-for="physical_activity_hours"></span>
-            </div>
-            <div class="field">
-              <label for="sleep_hours_per_night">Nightly Sleep</label>
-              <div class="unit-field">
-                <input type="number" class="form-control" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" required placeholder="7.5" />
-                <span class="unit-tag">hrs</span>
-              </div>
-              <span class="error-msg" data-for="sleep_hours_per_night"></span>
-            </div>
-            <div class="field field-full">
-              <label for="stress_level">Perceived Stress Level</label>
-              <div class="segmented-control" id="stress_level_group" data-name="stress_level">
-                <button type="button" class="seg-btn" data-value="Low">Low</button>
-                <button type="button" class="seg-btn" data-value="Medium">Medium</button>
-                <button type="button" class="seg-btn" data-value="High">High</button>
-                <button type="button" class="seg-btn" data-value="Very High">Very High</button>
-              </div>
-              <input type="hidden" id="stress_level" name="stress_level" required />
-              <span class="error-msg" data-for="stress_level"></span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn-primary" id="submit-btn">
-            <span>Calculate Score</span>
-          </button>
-        </div>
-
-      </form>
+      </div>
     </section>
 
-    <!-- RESULT PANEL CARD -->
-    <aside class="panel-card result-panel" aria-live="polite">
-      <div class="state state-idle" id="state-idle">
-        <svg class="gauge gauge-idle" viewBox="0 0 240 160" aria-hidden="true">
-          <path class="gauge-track" d="M 30 140 A 100 100 0 0 1 210 140" />
-          <g class="gauge-ticks"></g>
-        </svg>
-        <h3 class="idle-title">Ready for Assessment</h3>
-        <p class="idle-desc">Fill out the student profile parameters and click Calculate Score to run the prediction model.</p>
-      </div>
-
-      <div class="state state-loading" id="state-loading" hidden>
-        <div class="spinner-ring"></div>
-        <h3 class="loading-title">Calculating Score...</h3>
-        <p class="loading-desc">Processing parameters through machine learning model.</p>
-      </div>
-
-      <div class="state state-result" id="state-result" hidden>
-        <svg class="gauge gauge-result" viewBox="0 0 240 160" aria-hidden="true">
-          <defs>
-            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#F85149"/>
-              <stop offset="50%" stop-color="#D29922"/>
-              <stop offset="100%" stop-color="#2EA043"/>
-            </linearGradient>
-          </defs>
-          <path class="gauge-track" d="M 30 140 A 100 100 0 0 1 210 140" />
-          <path class="gauge-fill" id="gauge-fill" d="M 30 140 A 100 100 0 0 1 210 140" />
-          <g class="gauge-ticks"></g>
-          <circle class="gauge-needle-hub" cx="120" cy="140" r="4" />
-        </svg>
-        <div>
-          <span class="score-number" id="score-number">0.0</span>
-          <span class="score-denom">/10</span>
+    <!-- =========================================================================
+         3. HOW IT WORKS (3-STEP INTRO)
+         ========================================================================= -->
+    <section class="section">
+      <div class="container">
+        
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag" data-i18n="steps.tag">Simple &amp; Safe Process</span>
+          <h2 class="section-title" data-i18n="steps.title">How ManSantulan Works</h2>
+          <p class="section-desc" data-i18n="steps.desc">Three quick steps to understand and nurture your mental wellbeing.</p>
         </div>
-        <div class="score-badge" id="score-band">—</div>
-        <p class="score-explanation" id="score-context"></p>
-        <button type="button" class="btn-secondary" id="reset-btn">Run Another Calculation</button>
-      </div>
 
-      <div class="state state-error" id="state-error" hidden>
-        <p class="score-explanation" id="error-copy"></p>
-        <button type="button" class="btn-secondary" id="error-retry-btn">Try Again</button>
-      </div>
-    </aside>
+        <div class="steps-grid reveal-on-scroll">
+          
+          <div class="step-card card-hover-lift">
+            <span class="step-badge">01</span>
+            <div class="step-icon-wrap" aria-hidden="true">📝</div>
+            <h3 class="step-title" data-i18n="steps.1.title">1. Share Your Habits</h3>
+            <p class="step-desc" data-i18n="steps.1.desc">
+              Answer a few gentle questions about your screen time, sleep, and study routine.
+            </p>
+          </div>
 
+          <div class="step-card card-hover-lift">
+            <span class="step-badge">02</span>
+            <div class="step-icon-wrap" aria-hidden="true">🤖</div>
+            <h3 class="step-title" data-i18n="steps.2.title">2. AI Analysis</h3>
+            <p class="step-desc" data-i18n="steps.2.desc">
+              Our trained machine learning model evaluates habits against wellness benchmarks.
+            </p>
+          </div>
+
+          <div class="step-card card-hover-lift">
+            <span class="step-badge">03</span>
+            <div class="step-icon-wrap" aria-hidden="true">💡</div>
+            <h3 class="step-title" data-i18n="steps.3.title">3. Actionable Insights</h3>
+            <p class="step-desc" data-i18n="steps.3.desc">
+              Receive a supportive, non-clinical score breakdown and practical self-care tips.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         4. ASSESSMENT WIZARD (MULTI-STEP REDESIGN)
+         ========================================================================= -->
+    <section class="wizard-section reveal-on-scroll" id="assessment-section">
+      <div class="container">
+        
+        <div style="display: flex; justify-content: flex-end; margin-bottom: var(--space-4);">
+          <a href="assessment.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 6px 14px; min-height: 36px;">
+            <span>Open Dedicated Assessment Page</span>
+            <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+          </a>
+        </div>
+
+        <div class="wizard-card">
+          
+          <!-- Privacy Pledge Badge -->
+          <div class="wizard-privacy-note">
+            <i data-lucide="shield-check" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+            <span data-i18n="wizard.privacy">Privacy First: Your inputs are analyzed anonymously in-browser and never sold or permanently stored.</span>
+          </div>
+
+          <!-- Wizard Progress Bar -->
+          <div class="wizard-progress-bar-wrap" aria-hidden="true">
+            <div class="wizard-progress-fill" id="wizard-progress-fill"></div>
+          </div>
+
+          <!-- Wizard Step Indicator Icons -->
+          <div class="wizard-indicators" role="tablist" aria-label="Assessment Progress">
+            <div class="wizard-indicator active" id="indicator-1">
+              <span class="indicator-circle">1</span>
+              <span class="indicator-label" data-i18n="wizard.step1.label">Profile</span>
+            </div>
+            <div class="wizard-indicator" id="indicator-2">
+              <span class="indicator-circle">2</span>
+              <span class="indicator-label" data-i18n="wizard.step2.label">Digital Life</span>
+            </div>
+            <div class="wizard-indicator" id="indicator-3">
+              <span class="indicator-circle">3</span>
+              <span class="indicator-label" data-i18n="wizard.step3.label">Lifestyle</span>
+            </div>
+            <div class="wizard-indicator" id="indicator-4">
+              <span class="indicator-circle">4</span>
+              <span class="indicator-label" data-i18n="wizard.step4.label">Review</span>
+            </div>
+          </div>
+
+          <!-- Form Element -->
+          <form id="predict-form" novalidate>
+            
+            <!-- STEP 1: STUDENT PROFILE -->
+            <div class="wizard-step active" id="wizard-step-1">
+              <div class="wizard-step-header">
+                <h3 class="wizard-step-title" data-i18n="wizard.step1.title">Tell us about yourself</h3>
+                <p class="wizard-step-desc" data-i18n="wizard.step1.desc">Demographic context helps personalize the baseline analysis.</p>
+              </div>
+
+              <div class="wizard-grid">
+                
+                <!-- Age Interactive Slider -->
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="form-label" for="age" data-i18n="wizard.age.label">Your Age</label>
+                    <span class="slider-val-badge" id="age-display">21 yrs</span>
+                  </div>
+                  <input type="range" class="slider-range" id="age" name="age" min="10" max="100" value="21" step="1" />
+                  <div class="slider-meta">
+                    <span>10 years</span>
+                    <span>100 years</span>
+                  </div>
+                  <span class="field-error-text" id="age-error"></span>
+                </div>
+
+                <!-- Gender Selection Chips -->
+                <div class="form-group">
+                  <label class="form-label" data-i18n="wizard.gender.label">Gender</label>
+                  <div class="chip-group" id="gender-chip-group">
+                    <button type="button" class="chip active" data-name="gender" data-value="Female">
+                      <span>👩</span> Female
+                    </button>
+                    <button type="button" class="chip" data-name="gender" data-value="Male">
+                      <span>👨</span> Male
+                    </button>
+                  </div>
+                  <input type="hidden" id="gender" name="gender" value="Female" required />
+                  <span class="field-error-text" id="gender-error"></span>
+                </div>
+
+                <!-- Country Dropdown (All 110+ Dataset Countries Included) -->
+                <div class="form-group">
+                  <label class="form-label" for="country" data-i18n="wizard.country.label">Country of Residence</label>
+                  <select class="form-select" id="country" name="country" required>
+                    <option value="India" selected>India</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="UK">UK</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="France">France</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Armenia">Armenia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Bahamas">Bahamas</option>
+                    <option value="Bahrain">Bahrain</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Bhutan">Bhutan</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China">China</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Egypt">Egypt</option>
+                    <option value="Finland">Finland</option>
+                    <option value="Hong Kong">Hong Kong</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="Nepal">Nepal</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="UAE">UAE</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Other">Other / Global</option>
+                  </select>
+                  <span class="field-error-text" id="country-error"></span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- STEP 2: DIGITAL HABITS -->
+            <div class="wizard-step" id="wizard-step-2">
+              <div class="wizard-step-header">
+                <h3 class="wizard-step-title" data-i18n="wizard.step2.title">Your Digital Environment</h3>
+                <p class="wizard-step-desc" data-i18n="wizard.step2.desc">How you interact with screens, devices, and platforms.</p>
+              </div>
+
+              <div class="wizard-grid">
+                
+                <!-- Academic Level Chips -->
+                <div class="form-group">
+                  <label class="form-label" data-i18n="wizard.academic.label">Academic Level</label>
+                  <div class="chip-group" id="academic-chip-group">
+                    <button type="button" class="chip" data-name="academic_level" data-value="High School">
+                      🎒 High School
+                    </button>
+                    <button type="button" class="chip active" data-name="academic_level" data-value="Undergraduate">
+                      🎓 Undergraduate
+                    </button>
+                    <button type="button" class="chip" data-name="academic_level" data-value="Graduate">
+                      🏛️ Graduate / Masters
+                    </button>
+                  </div>
+                  <input type="hidden" id="academic_level" name="academic_level" value="Undergraduate" required />
+                  <span class="field-error-text" id="academic-error"></span>
+                </div>
+
+                <!-- Primary Social Platform Chips -->
+                <div class="form-group">
+                  <label class="form-label" data-i18n="wizard.platform.label">Primary Social Media Platform</label>
+                  <div class="chip-group" id="platform-chip-group">
+                    <button type="button" class="chip active" data-name="most_used_platform" data-value="Instagram">Instagram</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="YouTube">YouTube</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="WhatsApp">WhatsApp</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="Snapchat">Snapchat</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="Twitter">Twitter / X</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="TikTok">TikTok</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="LinkedIn">LinkedIn</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="Facebook">Facebook</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="Reddit">Reddit</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="WeChat">WeChat</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="LINE">LINE</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="KakaoTalk">KakaoTalk</button>
+                    <button type="button" class="chip" data-name="most_used_platform" data-value="VKontakte">VKontakte</button>
+                  </div>
+                  <input type="hidden" id="most_used_platform" name="most_used_platform" value="Instagram" required />
+                  <span class="field-error-text" id="platform-error"></span>
+                </div>
+
+                <!-- Primary Purpose Chips -->
+                <div class="form-group">
+                  <label class="form-label" data-i18n="wizard.purpose.label">Primary Purpose of Use</label>
+                  <div class="chip-group" id="purpose-chip-group">
+                    <button type="button" class="chip" data-name="purpose_of_use" data-value="Education">📚 Education &amp; Study</button>
+                    <button type="button" class="chip active" data-name="purpose_of_use" data-value="Entertainment">🎬 Entertainment</button>
+                    <button type="button" class="chip" data-name="purpose_of_use" data-value="Networking">🤝 Social Networking</button>
+                    <button type="button" class="chip" data-name="purpose_of_use" data-value="News">📰 Current News</button>
+                  </div>
+                  <input type="hidden" id="purpose_of_use" name="purpose_of_use" value="Entertainment" required />
+                  <span class="field-error-text" id="purpose-error"></span>
+                </div>
+
+                <!-- Screen Time Interactive Slider -->
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="form-label" for="avg_daily_usage_hours" data-i18n="wizard.usage.label">Daily Social Media Usage</label>
+                    <span class="slider-val-badge" id="usage-display">4.5 hrs/day</span>
+                  </div>
+                  <input type="range" class="slider-range" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.5" value="4.5" />
+                  <div class="slider-meta">
+                    <span>0 hours</span>
+                    <span>12 hours</span>
+                    <span>24 hours</span>
+                  </div>
+                  <span class="field-error-text" id="usage-error"></span>
+                </div>
+
+                <!-- Phone Unlocks Input with Stepper Helper -->
+                <div class="form-group">
+                  <label class="form-label" for="daily_unlocks" data-i18n="wizard.unlocks.label">Estimated Daily Phone Unlocks</label>
+                  <input type="number" class="form-input" id="daily_unlocks" name="daily_unlocks" min="0" max="1000" step="5" value="65" placeholder="e.g. 60" required />
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">College students average between 50 and 90 unlocks daily.</span>
+                  <span class="field-error-text" id="unlocks-error"></span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- STEP 3: LIFESTYLE & STRESS -->
+            <div class="wizard-step" id="wizard-step-3">
+              <div class="wizard-step-header">
+                <h3 class="wizard-step-title" data-i18n="wizard.step3.title">Daily Routine &amp; Lifestyle</h3>
+                <p class="wizard-step-desc" data-i18n="wizard.step3.desc">Rest, study habits, and how your body and mind recharge.</p>
+              </div>
+
+              <div class="wizard-grid">
+                
+                <!-- Study Hours Slider -->
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="form-label" for="study_hours" data-i18n="wizard.study.label">Daily Study Hours</label>
+                    <span class="slider-val-badge" id="study-display">4.0 hrs/day</span>
+                  </div>
+                  <input type="range" class="slider-range" id="study_hours" name="study_hours" min="0" max="24" step="0.5" value="4.0" />
+                  <div class="slider-meta">
+                    <span>0 hrs</span>
+                    <span>6 hrs</span>
+                    <span>12+ hrs</span>
+                  </div>
+                  <span class="field-error-text" id="study-error"></span>
+                </div>
+
+                <!-- Physical Activity Slider -->
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="form-label" for="physical_activity_hours" data-i18n="wizard.activity.label">Physical Activity / Movement</label>
+                    <span class="slider-val-badge" id="activity-display">1.0 hr/day</span>
+                  </div>
+                  <input type="range" class="slider-range" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.5" value="1.0" />
+                  <div class="slider-meta">
+                    <span>0 (Sedentary)</span>
+                    <span>1 - 2 hrs (Active)</span>
+                    <span>4+ hrs (Athletic)</span>
+                  </div>
+                  <span class="field-error-text" id="activity-error"></span>
+                </div>
+
+                <!-- Nightly Sleep Slider -->
+                <div class="slider-group">
+                  <div class="slider-header">
+                    <label class="form-label" for="sleep_hours_per_night" data-i18n="wizard.sleep.label">Average Nightly Sleep</label>
+                    <span class="slider-val-badge" id="sleep-display">7.0 hrs/night</span>
+                  </div>
+                  <input type="range" class="slider-range" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.5" value="7.0" />
+                  <div class="slider-meta">
+                    <span>&lt; 5 hrs (Deprived)</span>
+                    <span>7 - 8 hrs (Recommended)</span>
+                    <span>10+ hrs</span>
+                  </div>
+                  <span class="field-error-text" id="sleep-error"></span>
+                </div>
+
+                <!-- Perceived Stress Level Segmented Control -->
+                <div class="form-group">
+                  <label class="form-label" data-i18n="wizard.stress.label">Current Perceived Stress Level</label>
+                  <div class="pill-group" id="stress-pill-group">
+                    <button type="button" class="pill-btn" data-value="Low">
+                      🌱 Low
+                    </button>
+                    <button type="button" class="pill-btn active" data-value="Medium">
+                      🌤️ Medium
+                    </button>
+                    <button type="button" class="pill-btn" data-value="High">
+                      ⚡ High
+                    </button>
+                    <button type="button" class="pill-btn" data-value="Very High">
+                      🌊 Very High
+                    </button>
+                  </div>
+                  <input type="hidden" id="stress_level" name="stress_level" value="Medium" required />
+                  <span class="field-error-text" id="stress-error"></span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- STEP 4: REVIEW & CONFIRMATION -->
+            <div class="wizard-step" id="wizard-step-4">
+              <div class="wizard-step-header">
+                <h3 class="wizard-step-title" data-i18n="wizard.step4.title">Review Your Information</h3>
+                <p class="wizard-step-desc" data-i18n="wizard.step4.desc">Verify your entries before computing your balance score.</p>
+              </div>
+
+              <div class="wizard-review">
+                
+                <div class="wizard-review-group">
+                  <div class="wizard-review-group-header">
+                    <span class="wizard-review-group-title">1. Student Profile</span>
+                    <button type="button" class="wizard-review-edit" data-target-step="1">Edit</button>
+                  </div>
+                  <div class="wizard-review-grid">
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Age</span>
+                      <span class="wizard-review-value" id="rev-age">21 yrs</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Gender</span>
+                      <span class="wizard-review-value" id="rev-gender">Female</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Country</span>
+                      <span class="wizard-review-value" id="rev-country">India</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="wizard-review-group">
+                  <div class="wizard-review-group-header">
+                    <span class="wizard-review-group-title">2. Digital Life</span>
+                    <button type="button" class="wizard-review-edit" data-target-step="2">Edit</button>
+                  </div>
+                  <div class="wizard-review-grid">
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Academic Level</span>
+                      <span class="wizard-review-value" id="rev-academic">Undergraduate</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Platform</span>
+                      <span class="wizard-review-value" id="rev-platform">Instagram</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Purpose</span>
+                      <span class="wizard-review-value" id="rev-purpose">Entertainment</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Screen Time</span>
+                      <span class="wizard-review-value" id="rev-usage">4.5 hrs</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Daily Unlocks</span>
+                      <span class="wizard-review-value" id="rev-unlocks">65</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="wizard-review-group">
+                  <div class="wizard-review-group-header">
+                    <span class="wizard-review-group-title">3. Routine &amp; Wellness</span>
+                    <button type="button" class="wizard-review-edit" data-target-step="3">Edit</button>
+                  </div>
+                  <div class="wizard-review-grid">
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Study Time</span>
+                      <span class="wizard-review-value" id="rev-study">4.0 hrs</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Activity</span>
+                      <span class="wizard-review-value" id="rev-activity">1.0 hr</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Sleep</span>
+                      <span class="wizard-review-value" id="rev-sleep">7.0 hrs</span>
+                    </div>
+                    <div class="wizard-review-item">
+                      <span class="wizard-review-label">Stress</span>
+                      <span class="wizard-review-value" id="rev-stress">Medium</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Wizard Step Navigation Buttons -->
+            <div class="wizard-nav">
+              <button type="button" class="btn btn-secondary" id="wizard-prev-btn" style="visibility: hidden;">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                <span data-i18n="wizard.btn.back">Back</span>
+              </button>
+
+              <button type="button" class="btn btn-primary" id="wizard-next-btn">
+                <span data-i18n="wizard.btn.next">Next Step</span>
+                <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+              </button>
+
+              <button type="submit" class="btn btn-primary" id="wizard-submit-btn" style="display: none;">
+                <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                <span data-i18n="wizard.btn.submit">Calculate Mental Balance</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         5. RESULT SECTION & SCORE RING GAUGE
+         ========================================================================= -->
+    <section class="result-section hidden" id="result-section" aria-live="polite">
+      <div class="container">
+        
+        <div class="result-card" id="result-card">
+          
+          <!-- Loading State -->
+          <div class="loading-state" id="result-loading" style="display: none;">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;">Analyzing Your Wellness Profile...</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">Evaluating parameters against our trained student model.</p>
+          </div>
+
+          <!-- Error Fallback State -->
+          <div class="loading-state" id="result-error" style="display: none;">
+            <div style="font-size: 2.5rem; margin-bottom: var(--space-2);">⚠️</div>
+            <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: var(--space-2);">Unable to Complete Calculation</h3>
+            <p style="color: var(--text-secondary); max-width: 440px; margin: 0 auto var(--space-4);" id="error-message">
+              We couldn't reach the backend prediction service.
+            </p>
+            <button type="button" class="btn btn-secondary" id="retry-calculation-btn">
+              <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+              <span>Try Again</span>
+            </button>
+          </div>
+
+          <!-- Successful Prediction Display -->
+          <div id="result-content">
+            
+            <div class="result-score-block">
+              
+              <!-- Circular SVG Progress Ring Gauge -->
+              <div class="gauge-wrapper" aria-hidden="true">
+                <svg class="gauge-svg" viewBox="0 0 200 200">
+                  <circle class="gauge-circle-bg" cx="100" cy="100" r="85"></circle>
+                  <circle class="gauge-circle-fill" id="gauge-circle-fill" cx="100" cy="100" r="85"></circle>
+                </svg>
+                <div class="gauge-center-content">
+                  <span class="score-number" id="score-number">0.0</span>
+                  <span class="score-out-of">out of 10</span>
+                </div>
+              </div>
+
+              <!-- Score Status Classification -->
+              <div class="score-badge growing" id="score-badge">
+                <span id="score-badge-icon">🌿</span>
+                <span id="score-badge-text">Good Baseline Balance</span>
+              </div>
+
+              <p class="score-explanation" id="score-explanation">
+                Your daily habits show a stable routine. Optimizing evening screen time could further boost your rest.
+              </p>
+
+            </div>
+
+            <!-- Contributing Habits & Personalized Tips -->
+            <div class="result-details-grid">
+              
+              <div class="result-box">
+                <h4 class="result-box-title">
+                  <i data-lucide="activity" style="color: var(--calm-blue-dark);"></i>
+                  <span data-i18n="result.factors.title">Contributing Habit Factors</span>
+                </h4>
+                <ul class="factors-list" id="factors-list">
+                  <!-- Dynamically populated -->
+                </ul>
+              </div>
+
+              <div class="result-box">
+                <h4 class="result-box-title">
+                  <i data-lucide="lightbulb" style="color: var(--sage-dark);"></i>
+                  <span data-i18n="result.tips.title">Personalized Action Steps</span>
+                </h4>
+                <ul class="tips-list" id="tips-list">
+                  <!-- Dynamically populated -->
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- Supportive Helpline Banner (Conditional for lower scores) -->
+            <div class="helpline-banner" id="helpline-banner" style="display: none;">
+              <div class="helpline-banner-content">
+                <span class="helpline-banner-icon">💙</span>
+                <div>
+                  <h4 class="helpline-banner-title">You don't have to carry student stress alone.</h4>
+                  <p class="helpline-banner-desc">
+                    If academic strain or life feels overwhelming, compassionate counselors are ready to listen free of cost.
+                  </p>
+                </div>
+              </div>
+              <a href="tel:14416" class="btn btn-secondary" style="border-color: var(--coral-dark); color: var(--coral-dark);">
+                <i data-lucide="phone-call" style="width: 16px; height: 16px;"></i>
+                <span>Call Tele-MANAS (14416)</span>
+              </a>
+            </div>
+
+            <!-- Actions: Retake, Download, Share -->
+            <div class="result-actions">
+              <button type="button" class="btn btn-secondary" id="retake-btn">
+                <i data-lucide="rotate-ccw" style="width: 16px; height: 16px;"></i>
+                <span data-i18n="result.btn.retake">Retake Assessment</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="download-report-btn">
+                <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                <span data-i18n="result.btn.download">Save Report</span>
+              </button>
+              <button type="button" class="btn btn-ghost" id="share-btn">
+                <i data-lucide="share-2" style="width: 16px; height: 16px;"></i>
+                <span data-i18n="result.btn.share">Share Awareness</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         6. INSIGHTS SECTION (DATASET FINDINGS & CHART.JS)
+         ========================================================================= -->
+    <section class="section" id="insights-section">
+      <div class="container">
+        
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Empirical Data</span>
+          <h2 class="section-title" data-i18n="insights.title">Student Wellness Data Insights</h2>
+          <p class="section-desc" data-i18n="insights.desc">
+            Patterns discovered from 5,000+ student digital lifestyle survey records.
+          </p>
+        </div>
+
+        <div class="insights-grid reveal-on-scroll">
+          
+          <div class="chart-card card-hover-lift">
+            <h3 class="chart-title">Screen Time vs. Mental Balance</h3>
+            <p class="chart-desc">Higher daily social media usage correlates with reduced restorative sleep.</p>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-usage-vs-sleep"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card-hover-lift">
+            <h3 class="chart-title">Average Score by Platform</h3>
+            <p class="chart-desc">Student mental health score distribution across primary social channels.</p>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-platform-scores"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card card-hover-lift">
+            <h3 class="chart-title">Stress Level Distribution</h3>
+            <p class="chart-desc">Percentage breakdown of perceived academic &amp; daily life stress levels.</p>
+            <div class="chart-canvas-wrap">
+              <canvas id="chart-stress-dist"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-8);" class="reveal-on-scroll">
+          <a href="insights.html" class="btn btn-secondary" style="font-size: 0.95rem; padding: 12px 26px;">
+            <span>Explore Full Data Observatory &amp; Research</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         7. WELLNESS TOOLKIT (BREATHING, AFFIRMATIONS, DETOX)
+         ========================================================================= -->
+    <section class="wellness-section" id="wellness-section">
+      <div class="container">
+        
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Self-Regulation</span>
+          <h2 class="section-title" data-i18n="wellness.title">Interactive Wellness Toolkit</h2>
+          <p class="section-desc" data-i18n="wellness.desc">
+            Immediate micro-practices you can do right now to reset your nervous system.
+          </p>
+        </div>
+
+        <div class="wellness-grid reveal-on-scroll">
+          
+          <!-- Box Breathing Exercise -->
+          <div class="wellness-card card-hover-lift">
+            <h3 class="wellness-card-title" data-i18n="breathing.title">Box Breathing Reset</h3>
+            <p class="wellness-card-desc" data-i18n="breathing.desc">
+              Follow the expanding circle: inhale for 4s, hold, exhale for 4s.
+            </p>
+            <div class="breathing-visual-wrap" id="breathing-visual" aria-hidden="true">
+              <div class="breathing-circle-outer"></div>
+              <div class="breathing-circle" id="breathing-label">Inhale</div>
+            </div>
+            <button type="button" class="btn btn-secondary" id="breathing-toggle-btn">
+              <i data-lucide="wind" style="width: 16px; height: 16px;"></i>
+              <span id="breathing-btn-text" data-i18n="breathing.btn.start">Start Breathing Exercise</span>
+            </button>
+          </div>
+
+          <!-- Daily Affirmation Card -->
+          <div class="wellness-card card-hover-lift">
+            <h3 class="wellness-card-title" data-i18n="affirmation.title">Daily Affirmation</h3>
+            <p class="wellness-card-desc" data-i18n="affirmation.desc">A gentle reminder for student life.</p>
+            <div class="affirmation-quote-card">
+              <p id="daily-affirmation-text" style="font-style: italic;">
+                "Your worth is not defined by academic productivity or notification counts."
+              </p>
+            </div>
+            <button type="button" class="btn btn-secondary" id="new-affirmation-btn">
+              <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="affirmation.btn">New Affirmation</span>
+            </button>
+          </div>
+
+          <!-- Digital Detox Streak Counter -->
+          <div class="wellness-card card-hover-lift">
+            <h3 class="wellness-card-title" data-i18n="detox.title">Digital Detox Streak</h3>
+            <p class="wellness-card-desc" data-i18n="detox.desc">Commit to 1 hour phone-free before sleep.</p>
+            <div class="detox-counter-block">
+              <span class="detox-days" id="detox-days-count">3</span>
+              <span class="detox-label">Consecutive Days Logged</span>
+            </div>
+            <button type="button" class="btn btn-primary" id="detox-log-btn">
+              <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+              <span data-i18n="detox.btn">Log Today's Detox</span>
+            </button>
+          </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-8);" class="reveal-on-scroll">
+          <a href="wellness.html" class="btn btn-secondary" style="font-size: 0.95rem; padding: 12px 26px;">
+            <span>Enter Wellness Sanctuary (Ambient Sounds &amp; Study Timer)</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         8. RESOURCES, ARTICLES, FAQ & VERIFIED HELPLINES
+         ========================================================================= -->
+    <section class="section" id="resources-section">
+      <div class="container">
+        
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Student Support</span>
+          <h2 class="section-title">Guides &amp; Helplines</h2>
+          <p class="section-desc">Practical habits for balanced studying and trusted 24/7 support lines.</p>
+        </div>
+
+        <!-- Four Student Wellbeing Articles -->
+        <div class="resources-grid reveal-on-scroll">
+          
+          <article class="article-card card-hover-lift">
+            <span class="article-emoji" aria-hidden="true">🌙</span>
+            <h3 class="article-title">The Blue Light Wind-down</h3>
+            <p class="article-desc">
+              Why turning off screens 45 minutes before sleep restores REM cycles and boosts morning focus.
+            </p>
+          </article>
+
+          <article class="article-card card-hover-lift">
+            <span class="article-emoji" aria-hidden="true">⏱️</span>
+            <h3 class="article-title">The 25/5 Pomodoro Cadence</h3>
+            <p class="article-desc">
+              Preventing academic burnout with structured breaks away from social media feeds.
+            </p>
+          </article>
+
+          <article class="article-card card-hover-lift">
+            <span class="article-emoji" aria-hidden="true">📵</span>
+            <h3 class="article-title">Notification Dieting</h3>
+            <p class="article-desc">
+              How turning off non-essential notifications cuts daily dopamine spikes and unlocks by 40%.
+            </p>
+          </article>
+
+          <article class="article-card card-hover-lift">
+            <span class="article-emoji" aria-hidden="true">🌱</span>
+            <h3 class="article-title">Active Over Passive Rest</h3>
+            <p class="article-desc">
+              Replacing endless algorithmic scrolling with light walking, journaling, or stretching.
+            </p>
+          </article>
+
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="faq-wrap reveal-on-scroll">
+          <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: var(--space-4); text-align: center;" data-i18n="faq.title">
+            Frequently Asked Questions
+          </h3>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span>How does the AI score calculator work?</span>
+              <span class="faq-icon" aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-answer">
+              ManSantulan runs a machine learning regression model trained on over 5,000 real student lifestyle records. It correlates your daily screen time, phone unlocks, sleep duration, physical activity, and study habits to predict an overall wellness balance index between 0 and 10.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span>Is my personal information stored or shared?</span>
+              <span class="faq-icon" aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-answer">
+              No. Your privacy is paramount. Calculations are processed transiently in your session. No user responses are sold, logged into third-party advertising databases, or permanently retained on servers.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span>What should I do if my score indicates strain?</span>
+              <span class="faq-icon" aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-answer">
+              A lower score is simply a gentle signal that your nervous system needs recovery. Try setting a consistent bedtime, reducing late-night screen time by 30 minutes, or engaging in light movement. If stress feels persistent, we encourage reaching out to student counselors or calling a helpline.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false">
+              <span>Can I use this tool for clinical diagnosis?</span>
+              <span class="faq-icon" aria-hidden="true">▾</span>
+            </button>
+            <div class="faq-answer">
+              No. ManSantulan is strictly an educational awareness and self-reflection tool. It does not replace professional medical evaluations, psychotherapy, or clinical psychiatric diagnostics.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Verified Indian Helplines -->
+        <div class="helplines-grid reveal-on-scroll">
+          
+          <div class="helpline-card card-hover-lift">
+            <span class="helpline-name">Tele-MANAS (Govt. of India)</span>
+            <a href="tel:14416" class="helpline-number">14416 / 1800-891-4416</a>
+            <p class="helpline-desc">24/7 toll-free multilingual psychological counseling and mental health support.</p>
+          </div>
+
+          <div class="helpline-card card-hover-lift">
+            <span class="helpline-name">iCall Psychosocial Helpline</span>
+            <a href="tel:9152987821" class="helpline-number">9152987821</a>
+            <p class="helpline-desc">Run by Tata Institute of Social Sciences (TISS). Mon–Sat, 10 AM to 8 PM.</p>
+          </div>
+
+          <div class="helpline-card card-hover-lift">
+            <span class="helpline-name">Vandrevala Foundation</span>
+            <a href="tel:9999666555" class="helpline-number">9999 666 555</a>
+            <p class="helpline-desc">24/7 free mental health counseling by professional clinical psychologists.</p>
+          </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-8);" class="reveal-on-scroll">
+          <a href="resources.html" class="btn btn-secondary" style="font-size: 0.95rem; padding: 12px 26px;">
+            <span>View Complete Student Guides &amp; All India Crisis Lines</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
   </main>
 
-  <footer class="app-footer">
-    <p>Student Mental Health Prediction Tool • Built with FastAPI &amp; scikit-learn • Informational model only.</p>
+  <!-- =========================================================================
+       9. FOOTER (COMPLETE 10-PORTAL COMPREHENSIVE DIRECTORY)
+       ========================================================================= -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-8); padding-bottom: var(--space-8); border-bottom: 1px solid var(--border-subtle);">
+        
+        <!-- Col 1: Brand -->
+        <div style="grid-column: span 1;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 1.5rem;">🌿</span>
+            <span style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">
+              ManSantulan
+            </span>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--sage-dark); font-weight: 700; display: block; margin-bottom: 8px; font-family: var(--font-devanagari);">मन संतुलन • Balance of Mind</span>
+          <p style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin-bottom: var(--space-4);">
+            Empowering students with non-clinical AI analytics to nurture digital peace, restful sleep, and academic equilibrium.
+          </p>
+          <div style="background: var(--bg-card); padding: 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--border-default); font-size: 0.8rem;">
+            🆘 Tele-MANAS: <strong style="color: var(--coral-dark);">14416</strong> (24/7 Toll-Free)
+          </div>
+        </div>
+
+        <!-- Col 2: Student Portals -->
+        <div>
+          <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); display: block; margin-bottom: 12px;">
+            Core Student Portals
+          </span>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.88rem; color: var(--text-secondary);">
+            <li><a href="/app" style="transition: color 0.2s;">🌿 Main Landing Page</a></li>
+            <li><a href="/dashboard" style="transition: color 0.2s; font-weight: 600; color: var(--sage-dark);">📊 Student Dashboard</a></li>
+            <li><a href="/assessment" style="transition: color 0.2s;">🎯 AI Assessment Page</a></li>
+            <li><a href="/insights" style="transition: color 0.2s;">📈 Data Observatory</a></li>
+            <li><a href="/wellness" style="transition: color 0.2s;">🧘 Wellness Sanctuary</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Support & Data Sovereignty -->
+        <div>
+          <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); display: block; margin-bottom: 12px;">
+            Support &amp; Trust
+          </span>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.88rem; color: var(--text-secondary);">
+            <li><a href="/helplines" style="transition: color 0.2s; color: var(--coral-dark); font-weight: 600;">🆘 24/7 Verified Helplines</a></li>
+            <li><a href="/privacy-center" style="transition: color 0.2s;">🔒 Privacy Center (Export/Delete)</a></li>
+            <li><a href="/security" style="transition: color 0.2s;">🛡️ Security Settings</a></li>
+            <li><a href="/how-it-works" style="transition: color 0.2s;">🔬 How It Works</a></li>
+            <li><a href="/about" style="transition: color 0.2s;">👥 About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Accounts & Student Community -->
+        <div>
+          <span style="font-weight: 700; font-size: 0.95rem; color: var(--text-primary); display: block; margin-bottom: 12px;">
+            Student Access &amp; Care
+          </span>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.88rem; color: var(--text-secondary);">
+            <li><a href="/login" style="transition: color 0.2s;">🔑 Student Sign In</a></li>
+            <li><a href="/register" style="transition: color 0.2s;">✨ Create Account</a></li>
+            <li><a href="/resources" style="transition: color 0.2s; color: var(--sage-dark); font-weight: 600;">📖 Student Coping Guides</a></li>
+            <li><a href="/contact" style="transition: color 0.2s;">📬 Campus Contact &amp; Inquiries</a></li>
+            <li><a href="/disclaimer" style="transition: color 0.2s;">⚠️ Clinical Disclaimer</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Critical Disclaimer Box -->
+      <div class="footer-disclaimer-box" data-i18n="disclaimer.text" style="margin-top: var(--space-6);">
+        Disclaimer: ManSantulan is an educational and self-awareness tool powered by machine learning, not a clinical diagnostic instrument. If you are experiencing distress, please reach out to licensed mental health professionals or trusted counselors.
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 ManSantulan (मन संतुलन). Crafted with care for Indian student wellness.</span>
+        <div class="footer-links">
+          <a href="/dashboard" style="text-decoration: underline;">Dashboard</a>
+          <a href="/assessment" style="text-decoration: underline;">Assessment</a>
+          <a href="/wellness" style="text-decoration: underline;">Wellness Tools</a>
+          <a href="/resources" style="text-decoration: underline;">Guides</a>
+          <a href="/privacy-center" style="text-decoration: underline;">Privacy</a>
+        </div>
+      </div>
+
+    </div>
   </footer>
 
-</div>
+  <!-- =========================================================================
+       10. FLOATING EMERGENCY FAB & MODAL
+       ========================================================================= -->
+  <button type="button" class="help-fab" id="help-fab" aria-label="Open emergency student support resources">
+    <i data-lucide="phone-call" style="width: 18px; height: 18px;"></i>
+    <span data-i18n="helpline.fab">Need help now?</span>
+  </button>
 
-<script src="script.js"></script>
+  <div class="modal-overlay" id="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="help-modal-title" data-i18n="helpline.modal.title">
+          24/7 Verified Student Support Helplines
+        </h3>
+        <button type="button" class="modal-close-btn" id="help-modal-close" aria-label="Close emergency modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.95rem; color: var(--text-secondary);">
+          You are valuable and your feelings matter. If you are experiencing overwhelming anxiety or distress, these free confidential helplines are available right now:
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="tel:14416" class="btn btn-primary btn-full" style="justify-content: flex-start; padding: 12px 18px;">
+            <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
+            <div style="text-align: left;">
+              <strong>Tele-MANAS: Call 14416</strong>
+              <div style="font-size: 0.8rem; opacity: 0.9;">Govt. of India 24/7 Multilingual Support</div>
+            </div>
+          </a>
+
+          <a href="tel:9152987821" class="btn btn-secondary btn-full" style="justify-content: flex-start; padding: 12px 18px;">
+            <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
+            <div style="text-align: left;">
+              <strong>iCall (TISS): 9152987821</strong>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Mon–Sat 10am–8pm Psychosocial Support</div>
+            </div>
+          </a>
+
+          <a href="tel:9999666555" class="btn btn-secondary btn-full" style="justify-content: flex-start; padding: 12px 18px;">
+            <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
+            <div style="text-align: left;">
+              <strong>Vandrevala Foundation: 9999 666 555</strong>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">24/7 Free Crisis Counseling</div>
+            </div>
+          </a>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-top: 4px;">
+          In immediate life-threatening physical danger, dial <strong>112</strong> immediately.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       11. MOBILE BOTTOM NAVIGATION (<768px)
+       ========================================================================= -->
+  <nav class="bottom-nav" aria-label="Mobile Navigation">
+    <a href="#hero-section" class="bottom-nav-item active">
+      <i data-lucide="home" style="width: 20px; height: 20px;"></i>
+      <span>Home</span>
+    </a>
+    <a href="#assessment-section" class="bottom-nav-item">
+      <i data-lucide="clipboard-check" style="width: 20px; height: 20px;"></i>
+      <span>Check</span>
+    </a>
+    <a href="#insights-section" class="bottom-nav-item">
+      <i data-lucide="bar-chart-2" style="width: 20px; height: 20px;"></i>
+      <span>Insights</span>
+    </a>
+    <a href="#wellness-section" class="bottom-nav-item">
+      <i data-lucide="smile" style="width: 20px; height: 20px;"></i>
+      <span>Wellness</span>
+    </a>
+    <a href="#resources-section" class="bottom-nav-item">
+      <i data-lucide="life-buoy" style="width: 20px; height: 20px;"></i>
+      <span>Help</span>
+    </a>
+  </nav>
+
+  <!-- Application Scripts -->
+  <script src="auth.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
