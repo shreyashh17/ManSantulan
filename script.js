@@ -28,35 +28,41 @@
   let currentSession = null;
   if (window.ManSantulanAuth) {
     currentSession = window.ManSantulanAuth.getSession();
-    if (!currentSession) {
-      // Provide instant guest demo session so the landing page experience is immediately interactive
-      currentSession = window.ManSantulanAuth.loginDemoUser();
-    }
   }
 
   // Populate personalized user information
   function setupUserGreeting() {
-    const userName = currentSession?.name || "Student";
-    const userEmail = currentSession?.email || "student@university.edu";
+    const navAuthButtons = document.getElementById("nav-auth-buttons");
+    const navProfileWrapper = document.getElementById("nav-profile-wrapper");
 
-    const heroNameEl = document.getElementById("hero-student-name");
-    const navNameEl = document.getElementById("nav-user-name");
-    const navAvatarEl = document.getElementById("nav-user-avatar");
-    const dropdownEmailEl = document.getElementById("dropdown-user-email");
-    const heroGreetingEl = document.getElementById("hero-greeting");
+    if (currentSession && currentSession.name) {
+      const userName = currentSession.name;
+      const userEmail = currentSession.email || "student@university.edu";
 
-    if (heroNameEl) heroNameEl.textContent = userName.split(" ")[0];
-    if (navNameEl) navNameEl.textContent = userName.split(" ")[0];
-    if (dropdownEmailEl) dropdownEmailEl.textContent = userEmail;
+      const heroNameEl = document.getElementById("hero-student-name");
+      const navNameEl = document.getElementById("nav-user-name");
+      const navAvatarEl = document.getElementById("nav-user-avatar");
+      const dropdownEmailEl = document.getElementById("dropdown-user-email");
 
-    if (navAvatarEl) {
-      const initials = userName
-        .split(" ")
-        .map((n) => n[0])
-        .slice(0, 2)
-        .join("")
-        .toUpperCase();
-      navAvatarEl.textContent = initials || "ST";
+      if (heroNameEl) heroNameEl.textContent = userName.split(" ")[0];
+      if (navNameEl) navNameEl.textContent = userName.split(" ")[0];
+      if (dropdownEmailEl) dropdownEmailEl.textContent = userEmail;
+
+      if (navAvatarEl) {
+        const initials = userName
+          .split(" ")
+          .map((n) => n[0])
+          .slice(0, 2)
+          .join("")
+          .toUpperCase();
+        navAvatarEl.textContent = initials || "ST";
+      }
+
+      if (navAuthButtons) navAuthButtons.style.display = "none";
+      if (navProfileWrapper) navProfileWrapper.style.display = "inline-flex";
+    } else {
+      if (navAuthButtons) navAuthButtons.style.display = "inline-flex";
+      if (navProfileWrapper) navProfileWrapper.style.display = "none";
     }
 
     // Time-based friendly greeting
@@ -70,19 +76,9 @@
       timeGreeting = "Good evening";
       icon = "🌙";
     }
+    const heroGreetingEl = document.getElementById("hero-greeting");
     if (heroGreetingEl) {
       heroGreetingEl.textContent = `${timeGreeting}`;
-    }
-
-    // Toggle between auth buttons (Sign In / Register) and user profile pill (Alex)
-    const navAuthButtons = document.getElementById("nav-auth-buttons");
-    const navProfileWrapper = document.getElementById("nav-profile-wrapper");
-    if (currentSession && currentSession.name) {
-      if (navAuthButtons) navAuthButtons.style.display = "none";
-      if (navProfileWrapper) navProfileWrapper.style.display = "flex";
-    } else {
-      if (navAuthButtons) navAuthButtons.style.display = "inline-flex";
-      if (navProfileWrapper) navProfileWrapper.style.display = "none";
     }
   }
 
