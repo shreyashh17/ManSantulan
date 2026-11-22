@@ -2382,40 +2382,10 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   14. FLOATING EMERGENCY FAB & MODAL
+   14. FLOATING EMERGENCY FAB (DISABLED) & MODAL
    -------------------------------------------------------------------------- */
 .help-fab {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  right: auto;
-  z-index: 990;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  background: var(--coral-dark);
-  color: #FFFFFF;
-  padding: 12px 20px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 4px 20px rgba(212, 123, 98, 0.4);
-  font-weight: 700;
-  font-size: 0.95rem;
-  min-height: 48px;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-.help-fab:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(212, 123, 98, 0.55);
-}
-
-@media (max-width: 767px) {
-  .help-fab {
-    bottom: 84px; /* avoid mobile bottom nav overlap */
-    left: 16px;
-    padding: 10px 16px;
-    font-size: 0.88rem;
-  }
+  display: none !important;
 }
 
 .modal-overlay {

@@ -231,37 +231,9 @@ button {
   margin-top: var(--space-10);
 }
 
-/* Emergency Floating Trigger */
+/* Emergency Floating Trigger (Disabled) */
 .emergency-float-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--coral-dark);
-  color: #FFFFFF;
-  padding: 12px 20px;
-  border-radius: var(--radius-full);
-  box-shadow: 0 8px 24px rgba(212, 123, 98, 0.45);
-  font-weight: 700;
-  font-size: 0.92rem;
-  transition: all var(--transition-normal);
-}
-
-.emergency-float-btn:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(212, 123, 98, 0.6);
-}
-
-@media (max-width: 768px) {
-  .emergency-float-btn {
-    bottom: 80px; /* Above mobile bottom nav */
-    right: 16px;
-    padding: 10px 16px;
-    font-size: 0.85rem;
-  }
+  display: none !important;
 }
 
 /* Empty States */
