@@ -34,6 +34,7 @@
   function setupUserGreeting() {
     const navAuthButtons = document.getElementById("nav-auth-buttons");
     const navProfileWrapper = document.getElementById("nav-profile-wrapper");
+    const mobileDrawerAuth = document.getElementById("mobile-drawer-auth");
 
     if (currentSession && currentSession.name) {
       const userName = currentSession.name;
@@ -60,9 +61,11 @@
 
       if (navAuthButtons) navAuthButtons.style.display = "none";
       if (navProfileWrapper) navProfileWrapper.style.display = "inline-flex";
+      if (mobileDrawerAuth) mobileDrawerAuth.style.display = "none";
     } else {
-      if (navAuthButtons) navAuthButtons.style.display = "inline-flex";
+      if (navAuthButtons) navAuthButtons.style.display = "";
       if (navProfileWrapper) navProfileWrapper.style.display = "none";
+      if (mobileDrawerAuth) mobileDrawerAuth.style.display = "flex";
     }
 
     // Time-based friendly greeting

@@ -315,18 +315,43 @@ button {
   gap: 16px !important;
 }
 
+@media (max-width: 767px) {
+  .navbar-container,
+  .navbar-inner {
+    height: 64px !important;
+    padding: 0 16px !important;
+    gap: 8px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1079px) {
+  .navbar-container,
+  .navbar-inner {
+    height: 68px !important;
+    padding: 0 20px !important;
+  }
+}
+
 .nav-brand {
   display: inline-flex !important;
   align-items: center !important;
   gap: 12px !important;
   font-family: var(--font-heading) !important;
-  font-size: 1.25rem !important;
+  font-size: clamp(1.1rem, 1.2vw, 1.25rem) !important;
   font-weight: 700 !important;
   color: var(--text-primary) !important;
   flex-shrink: 0 !important;
-  margin-right: 36px !important;
+  margin-right: clamp(12px, 2vw, 36px) !important;
   text-decoration: none !important;
   white-space: nowrap !important;
+}
+
+@media (max-width: 767px) {
+  .nav-brand {
+    margin-right: 0 !important;
+    font-size: 1.1rem !important;
+    gap: 8px !important;
+  }
 }
 
 .nav-brand-icon {
@@ -342,6 +367,14 @@ button {
   flex-shrink: 0 !important;
 }
 
+@media (max-width: 767px) {
+  .nav-brand-icon {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 1rem !important;
+  }
+}
+
 .nav-links {
   display: none;
   list-style: none !important;
@@ -349,12 +382,12 @@ button {
   padding: 0 !important;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .nav-links {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 18px !important;
+    gap: clamp(8px, 1.2vw, 18px) !important;
     flex-wrap: nowrap !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
@@ -363,10 +396,10 @@ button {
 
 .nav-link {
   font-weight: 500 !important;
-  font-size: 0.94rem !important;
+  font-size: clamp(0.85rem, 0.9vw, 0.94rem) !important;
   color: var(--text-secondary) !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  padding: 8px 12px !important;
+  padding: 6px clamp(6px, 0.9vw, 12px) !important;
   border-radius: var(--radius-md) !important;
   position: relative !important;
   display: inline-flex !important;
@@ -429,6 +462,12 @@ button {
   flex-shrink: 0 !important;
 }
 
+@media (max-width: 767px) {
+  .auth-btn-group {
+    display: none !important;
+  }
+}
+
 .nav-auth-btn {
   font-size: 0.88rem !important;
   font-weight: 600 !important;
@@ -445,6 +484,15 @@ button {
   text-decoration: none !important;
   flex-shrink: 0 !important;
   box-sizing: border-box !important;
+}
+
+@media (min-width: 1080px) and (max-width: 1366px) {
+  .nav-auth-btn {
+    height: 38px !important;
+    line-height: 38px !important;
+    padding: 0 clamp(10px, 1.2vw, 16px) !important;
+    font-size: 0.84rem !important;
+  }
 }
 
 .nav-auth-btn.nav-signin-btn {
@@ -639,18 +687,18 @@ button {
 
 /* Mobile Hamburger Menu */
 .mobile-menu-btn {
-  display: inline-flex;
+  display: inline-flex !important;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1080px) {
   .mobile-menu-btn {
-    display: none;
+    display: none !important;
   }
 }
 
 .mobile-nav-drawer {
   position: fixed;
-  inset: 68px 0 0 0;
+  inset: 72px 0 0 0;
   background: var(--bg-primary);
   padding: var(--space-6);
   display: none;
@@ -658,10 +706,40 @@ button {
   gap: var(--space-4);
   z-index: 999;
   border-top: 1px solid var(--border-default);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767px) {
+  .mobile-nav-drawer {
+    inset: 64px 0 0 0;
+    padding: var(--space-4);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1079px) {
+  .mobile-nav-drawer {
+    inset: 68px 0 0 0;
+  }
 }
 
 .mobile-nav-drawer.open {
   display: flex;
+}
+
+.mobile-auth-actions {
+  display: flex;
+  gap: 10px;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .profile-name {
+    display: none !important;
+  }
 }
 
 .mobile-nav-link {
@@ -1119,6 +1197,16 @@ button {
   }
 }
 
+@media (max-width: 479px) {
+  .hero-cta-group .btn-hero-primary,
+  .hero-cta-group .btn-hero-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 52px !important;
+    padding: 14px 20px !important;
+  }
+}
+
 .btn-hero-primary {
   min-height: 58px;
   padding: 16px 42px;
@@ -1268,6 +1356,22 @@ button {
   font-size: 0.85rem;
   color: var(--text-secondary);
   font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .hero-stats-banner {
+    gap: 10px;
+  }
+  .hero-stat-card {
+    padding: 14px 10px;
+    border-radius: var(--radius-lg);
+  }
+  .hero-stat-num {
+    font-size: 1.6rem;
+  }
+  .hero-stat-label {
+    font-size: 0.76rem;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1801,6 +1905,13 @@ button {
   width: 220px;
   height: 220px;
   margin: 0 auto var(--space-4);
+}
+
+@media (max-width: 480px) {
+  .gauge-wrapper {
+    width: 180px;
+    height: 180px;
+  }
 }
 
 .gauge-svg {
@@ -2496,7 +2607,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   15. MOBILE BOTTOM NAVIGATION (<768px)
+   15. MOBILE BOTTOM NAVIGATION (<768px) & VOICE CONSOLE RESPONSIVENESS
    -------------------------------------------------------------------------- */
 .bottom-nav {
   position: fixed;
@@ -2513,9 +2624,27 @@ button {
   z-index: 980;
 }
 
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 74px !important;
+  }
+  elevenlabs-convai {
+    position: fixed !important;
+    bottom: 76px !important;
+    right: 16px !important;
+    z-index: 990 !important;
+  }
+}
+
 @media (min-width: 768px) {
   .bottom-nav {
     display: none;
+  }
+  elevenlabs-convai {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    z-index: 990 !important;
   }
 }
 

@@ -36,6 +36,9 @@
   .app-sidebar {
     display: none; /* Mobile uses bottom nav */
   }
+  .sidebar-toggle-btn {
+    display: none !important;
+  }
 }
 
 .sidebar-brand {
@@ -175,6 +178,9 @@
     padding: 8px 10px;
   }
   .topbar-search-text {
+    display: none;
+  }
+  .topbar-search-trigger kbd {
     display: none;
   }
 }
@@ -450,4 +456,29 @@
 .search-result-item:hover, .search-result-item.highlighted {
   background: var(--sage-light);
   color: var(--sage-dark);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE DASHBOARD LAYOUT & SPLIT GRIDS
+   -------------------------------------------------------------------------- */
+.dash-split-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+@media (min-width: 992px) {
+  .dash-split-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  elevenlabs-convai {
+    position: fixed !important;
+    bottom: 76px !important;
+    right: 16px !important;
+    z-index: 990 !important;
+  }
 }
