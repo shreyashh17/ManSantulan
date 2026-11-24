@@ -34,7 +34,12 @@
   function setupUserGreeting() {
     const navAuthButtons = document.getElementById("nav-auth-buttons");
     const navProfileWrapper = document.getElementById("nav-profile-wrapper");
-    const mobileDrawerAuth = document.getElementById("mobile-drawer-auth");
+    const mobileGuestBlock = document.getElementById("mobile-guest-block");
+    const mobileUserBlock = document.getElementById("mobile-user-block");
+    const mobileDrawerFooter = document.getElementById("mobile-drawer-footer");
+    const mobileUserName = document.getElementById("mobile-user-name");
+    const mobileUserEmail = document.getElementById("mobile-user-email");
+    const mobileUserAvatar = document.getElementById("mobile-user-avatar");
 
     if (currentSession && currentSession.name) {
       const userName = currentSession.name;
@@ -49,23 +54,33 @@
       if (navNameEl) navNameEl.textContent = userName.split(" ")[0];
       if (dropdownEmailEl) dropdownEmailEl.textContent = userEmail;
 
+      const initials = userName
+        .split(" ")
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase();
+
       if (navAvatarEl) {
-        const initials = userName
-          .split(" ")
-          .map((n) => n[0])
-          .slice(0, 2)
-          .join("")
-          .toUpperCase();
         navAvatarEl.textContent = initials || "ST";
       }
 
       if (navAuthButtons) navAuthButtons.style.display = "none";
       if (navProfileWrapper) navProfileWrapper.style.display = "inline-flex";
-      if (mobileDrawerAuth) mobileDrawerAuth.style.display = "none";
+
+      if (mobileGuestBlock) mobileGuestBlock.style.display = "none";
+      if (mobileUserBlock) mobileUserBlock.style.display = "block";
+      if (mobileDrawerFooter) mobileDrawerFooter.style.display = "block";
+      if (mobileUserName) mobileUserName.textContent = userName;
+      if (mobileUserEmail) mobileUserEmail.textContent = userEmail;
+      if (mobileUserAvatar) mobileUserAvatar.textContent = initials || "ST";
     } else {
       if (navAuthButtons) navAuthButtons.style.display = "";
       if (navProfileWrapper) navProfileWrapper.style.display = "none";
-      if (mobileDrawerAuth) mobileDrawerAuth.style.display = "flex";
+
+      if (mobileGuestBlock) mobileGuestBlock.style.display = "block";
+      if (mobileUserBlock) mobileUserBlock.style.display = "none";
+      if (mobileDrawerFooter) mobileDrawerFooter.style.display = "none";
     }
 
     // Time-based friendly greeting
@@ -211,15 +226,71 @@
       });
     }
 
-    // Mobile nav drawer
+    // Mobile nav drawer controller
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileDrawer = document.getElementById("mobile-nav-drawer");
-    if (mobileMenuBtn && mobileDrawer) {
+    const mobileBackdrop = document.getElementById("mobile-nav-backdrop");
+    const mobileDrawerCloseBtn = document.getElementById("mobile-drawer-close-btn");
+    const mobileLogoutBtn = document.getElementById("mobile-logout-btn");
+
+    function openMobileDrawer() {
+      if (!mobileDrawer) return;
+      mobileDrawer.classList.add("open");
+      if (mobileBackdrop) mobileBackdrop.classList.add("open");
+      if (mobileMenuBtn) {
+        mobileMenuBtn.setAttribute("aria-expanded", "true");
+        mobileMenuBtn.innerHTML = '<i data-lucide="x"></i>';
+        if (window.lucide) lucide.createIcons();
+      }
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileDrawer() {
+      if (!mobileDrawer) return;
+      mobileDrawer.classList.remove("open");
+      if (mobileBackdrop) mobileBackdrop.classList.remove("open");
+      if (mobileMenuBtn) {
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu"></i>';
+        if (window.lucide) lucide.createIcons();
+      }
+      document.body.style.overflow = "";
+    }
+
+    if (mobileMenuBtn) {
       mobileMenuBtn.addEventListener("click", () => {
-        mobileDrawer.classList.toggle("open");
+        if (mobileDrawer && mobileDrawer.classList.contains("open")) {
+          closeMobileDrawer();
+        } else {
+          openMobileDrawer();
+        }
       });
+    }
+
+    if (mobileDrawerCloseBtn) {
+      mobileDrawerCloseBtn.addEventListener("click", closeMobileDrawer);
+    }
+
+    if (mobileBackdrop) {
+      mobileBackdrop.addEventListener("click", closeMobileDrawer);
+    }
+
+    if (mobileDrawer) {
       mobileDrawer.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => mobileDrawer.classList.remove("open"));
+        link.addEventListener("click", closeMobileDrawer);
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobileDrawer && mobileDrawer.classList.contains("open")) {
+        closeMobileDrawer();
+      }
+    });
+
+    if (mobileLogoutBtn && window.ManSantulanAuth) {
+      mobileLogoutBtn.addEventListener("click", () => {
+        closeMobileDrawer();
+        window.ManSantulanAuth.logoutUser();
       });
     }
   }

@@ -67,20 +67,58 @@
           </div>
         </div>
 
-        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn">
+        <button type="button" class="action-icon-btn mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu">
           <i data-lucide="menu"></i>
         </button>
       </div>
     </div>
-
-    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-      <a href="index.html" class="mobile-nav-link" data-i18n="nav.home">Home</a>
-      <a href="assessment.html" class="mobile-nav-link" data-i18n="nav.assessment">Assessment</a>
-      <a href="insights.html" class="mobile-nav-link" data-i18n="nav.insights">Insights</a>
-      <a href="wellness.html" class="mobile-nav-link" data-i18n="nav.wellness">Wellness</a>
-      <a href="resources.html" class="mobile-nav-link" data-i18n="nav.resources">Resources</a>
-    </div>
   </header>
+
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <div class="mobile-drawer-brand">
+        <span class="nav-brand-icon" aria-hidden="true">🌿</span>
+        <div>
+          <span style="font-weight: 700; font-family: var(--font-heading); color: var(--text-primary); font-size: 1.15rem; display: block; line-height: 1.1;">ManSantulan</span>
+          <span style="font-size: 0.72rem; color: var(--text-muted); display: block; line-height: 1; font-family: var(--font-devanagari);">मन संतुलन</span>
+        </div>
+      </div>
+      <button type="button" class="action-icon-btn" id="mobile-drawer-close-btn" aria-label="Close navigation menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="/app" class="mobile-nav-item">
+        <div class="mobile-nav-icon"><i data-lucide="home"></i></div>
+        <div class="mobile-nav-text"><strong>Home</strong><span>Main Landing Portal</span></div>
+      </a>
+      <a href="/dashboard" class="mobile-nav-item">
+        <div class="mobile-nav-icon"><i data-lucide="layout-dashboard"></i></div>
+        <div class="mobile-nav-text"><strong>Student Sanctuary</strong><span>Dashboard Live</span></div>
+      </a>
+      <a href="/assessment" class="mobile-nav-item active">
+        <div class="mobile-nav-icon"><i data-lucide="clipboard-check"></i></div>
+        <div class="mobile-nav-text"><strong>AI Assessment</strong><span>Mental Balance Score</span></div>
+      </a>
+      <a href="/wellness" class="mobile-nav-item">
+        <div class="mobile-nav-icon"><i data-lucide="smile"></i></div>
+        <div class="mobile-nav-text"><strong>Wellness Sanctuary</strong><span>Soundscapes &amp; Breathing</span></div>
+      </a>
+      <a href="/insights" class="mobile-nav-item">
+        <div class="mobile-nav-icon"><i data-lucide="bar-chart-2"></i></div>
+        <div class="mobile-nav-text"><strong>Habit Insights</strong><span>5,000+ Student Patterns</span></div>
+      </a>
+      <a href="/helplines" class="mobile-nav-item helpline-item">
+        <div class="mobile-nav-icon" style="color: var(--coral-dark);"><i data-lucide="phone-call"></i></div>
+        <div class="mobile-nav-text"><strong style="color: var(--coral-dark);">24/7 Helplines</strong><span>Tele-MANAS (14416)</span></div>
+      </a>
+      <a href="/resources" class="mobile-nav-item">
+        <div class="mobile-nav-icon"><i data-lucide="book-open"></i></div>
+        <div class="mobile-nav-text"><strong>Student Guides</strong><span>Coping &amp; Sleep Hygiene</span></div>
+      </a>
+    </nav>
+  </aside>
 
   <!-- SUBPAGE INTRO BANNER -->
   <header class="subpage-header" id="main-content">
